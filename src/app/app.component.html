@@ -1,6 +1,9 @@
-<app-layout-header />
+<div class="flex min-h-screen flex-col">
+  <app-layout-header />
 
-<h1 class="text-3xl font-bold underline">RP0 Bank App Initialization</h1>
-<router-outlet />
+  <main class="flex-grow">
+    <router-outlet />
+  </main>
 
-<app-layout-footer />
+  <app-layout-footer />
+</div>
