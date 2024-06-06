@@ -1,6 +1,18 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      const root = document.documentElement;
+      const theme = localStorage.getItem("themePreference") ?? "auto";
+      const prefersDark =
+        window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (theme === "dark" || (theme === "auto" && prefersDark)) {
+        root.setAttribute("data-theme", "dark");
+      } else {
+        root.setAttribute("data-theme", "light");
+      }
+    </script>
     <meta charset="utf-8" />
     <title>RP0 Banking</title>
     <base href="/" />
