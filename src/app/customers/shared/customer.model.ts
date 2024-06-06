@@ -1,0 +1,1 @@
+// This is where the customer model will go, either a class or interface
