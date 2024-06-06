@@ -1,1 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* For styles I am using Tailwind CSS (https://tailwindcss.com/) and Sass (SCSS) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
