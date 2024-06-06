@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-layout-footer',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
-
+  today: number = Date.now();
 }
