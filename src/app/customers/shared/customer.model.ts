@@ -1,1 +1,7 @@
-// This is where the customer model will go, either a class or interface
+export interface Customer {
+  id: number;
+  firstName: string;
+  lastName: string;
+  address: string;
+  username: string;
+}

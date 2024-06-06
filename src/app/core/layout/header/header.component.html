@@ -1,23 +1,77 @@
-<header class="bg-martinique-950 text-putty-300 flex h-24 items-center justify-between p-4">
+<header
+  class="flex h-24 items-center justify-between border-b-4 border-putty-300 bg-martinique-950 p-4 text-putty-300"
+>
   <div class="flex items-center gap-1">
-    <img
-      src="assets/rp0-banking-favicon.ico"
-      alt="rp0-banking-logo"
-      class=""
-      width="96"
-    />
+    <img src="assets/rp0-banking-favicon.ico" alt="rp0-banking-logo" class="" width="96" />
     <h1 class="font-ibm text-3xl opacity-75">RP0 Bank</h1>
   </div>
-  <nav class="flex">
-    <ul class="flex items-center gap-3">
-      <li><a routerLink="/" routerLinkActive="active">Home</a></li>
-      <li><a routerLink="/" routerLinkActive="active">About</a></li>
-      <li><a routerLink="/" routerLinkActive="active">Login</a></li>
-      <li
-        class="bg-putty-300 text-martinique-950 hover:bg-putty-200 rounded-md px-5 py-2 font-medium"
-      >
-        <a routerLink="/" routerLinkActive="active">Sign Up</a>
-      </li>
-    </ul>
-  </nav>
+  <div class="flex items-center">
+    <button
+      class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md border border-solid border-putty-300 border-opacity-50 hover:bg-martinique-900"
+      type="button"
+      (click)="toggleThemeSelection()"
+    >
+      <i
+        [ngClass]="{
+          pi: true,
+          'pi-moon': theme === 'dark',
+          'pi-sun': theme === 'light',
+          'pi-desktop': theme === 'auto',
+        }"
+      ></i>
+    </button>
+
+    <nav>
+      <ul>
+        <!-- <li class="inline-block"><a routerLink="/" routerLinkActive="active">Home</a></li>
+        <li class="inline-block"><a routerLink="/" routerLinkActive="active">About</a></li> -->
+        <li class="m-4 inline-block"><a routerLink="/" routerLinkActive="active">Login</a></li>
+        <li
+          class="inline-block rounded-md bg-putty-300 px-5 py-2 font-medium text-martinique-950 hover:bg-putty-200"
+        >
+          <a routerLink="/" routerLinkActive="active">Sign Up</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </header>
+
+@if (isThemeSwitching) {
+  <div
+    class="pointer-events-auto absolute left-[calc(100%-270px)] z-50 w-36 cursor-pointer space-y-1 rounded-lg bg-[var(--card-background-color)] p-3 text-[0.8125rem] font-medium leading-6 text-slate-700 shadow-xl shadow-black/5 ring-1 ring-slate-700/10 dark:bg-[var(--card-background-color)] dark:text-slate-100"
+  >
+    <div
+      (click)="changeTheme('light')"
+      class="flex rounded-[10px] p-1 hover:bg-slate-50 dark:hover:bg-zinc-800"
+    >
+      <div
+        class="dark:bg-crimson-600 flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10"
+      >
+        <i class="pi pi-sun"></i>
+      </div>
+      <div class="ml-3">Light</div>
+    </div>
+    <div
+      (click)="changeTheme('dark')"
+      class="flex rounded-[10px] p-1 hover:bg-slate-50 dark:hover:bg-zinc-800"
+    >
+      <div
+        class="dark:bg-crimson-600 flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10"
+      >
+        <i class="pi pi-moon"></i>
+      </div>
+      <div class="ml-3">Dark</div>
+    </div>
+    <div
+      (click)="changeTheme('auto')"
+      class="flex rounded-[10px] p-1 hover:bg-slate-50 dark:hover:bg-zinc-800"
+    >
+      <div
+        class="dark:bg-crimson-600 flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10"
+      >
+        <i class="pi pi-desktop"></i>
+      </div>
+      <div class="ml-3">System</div>
+    </div>
+  </div>
+}
