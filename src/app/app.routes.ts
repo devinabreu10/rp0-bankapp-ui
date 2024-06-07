@@ -1,9 +1,23 @@
 import { Routes } from '@angular/router';
-import { CustomerComponent } from './customers/customer/customer.component';
+import { LoginComponent } from './core/auth/pages/login/login.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
+  // {
+  //   path: '/home',
+  //   component: HomeComponent,
+  // },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
   {
     path: '',
-    component: CustomerComponent,
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];

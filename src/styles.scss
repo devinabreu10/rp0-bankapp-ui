@@ -1,7 +1,17 @@
-/* For styles I am using Tailwind CSS (https://tailwindcss.com/) and Sass (SCSS) */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* For styles I am using Tailwind CSS (https://tailwindcss.com/), Sass (SCSS) and
+Prime NG (https://primeng.org/) */
+
+/* Compatibility between PrimeNG and Tailwind CSS libraries. */
+@layer tailwind-base, primeng, tailwind-utilities;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
 
 /* Prime NG (https://primeng.org/) */
 @import "primeicons/primeicons.css";
@@ -14,3 +24,24 @@
 :root {
   --gold-accent-color: #e8cc93;
 }
+
+/* Global styles */
+html,
+body,
+app-root {
+  height: 100%;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+}
+
+// [data-theme="light"] body {
+//   @apply bg-putty-50;
+// }
+
+// [data-theme="dark"] body {
+//   @apply bg-martinique-950;
+// }
+
