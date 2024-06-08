@@ -1,9 +1,8 @@
 <header
   class="flex h-24 items-center justify-between border-b-4 border-putty-300 bg-martinique-950 p-4 text-putty-300"
 >
-  <div class="flex items-center gap-1">
-    <img src="assets/rp0-banking-favicon.ico" alt="rp0-banking-logo" class="" width="96" />
-    <h1 class="font-ibm text-3xl opacity-75">RP0 Bank</h1>
+  <div class="flex items-center">
+    <img src="assets/rp0-banking-header.png" alt="rp0-banking-header" width="250" />
   </div>
   <div class="flex items-center">
     <button
@@ -14,9 +13,9 @@
       <i
         [ngClass]="{
           pi: true,
-          'pi-moon': theme === 'dark',
-          'pi-sun': theme === 'light',
-          'pi-desktop': theme === 'auto',
+          'pi-moon': themePreference === 'dark',
+          'pi-sun': themePreference === 'light',
+          'pi-desktop': themePreference === 'auto',
         }"
       ></i>
     </button>
@@ -25,7 +24,9 @@
       <ul>
         <!-- <li class="inline-block"><a routerLink="/" routerLinkActive="active">Home</a></li>
         <li class="inline-block"><a routerLink="/" routerLinkActive="active">About</a></li> -->
-        <li class="m-4 inline-block"><a routerLink="/login" routerLinkActive="active">Login</a></li>
+        <li class="m-4 inline-block">
+          <a routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
         <li
           class="inline-block rounded-md bg-putty-300 px-5 py-2 font-medium text-martinique-950 hover:bg-putty-200"
         >
