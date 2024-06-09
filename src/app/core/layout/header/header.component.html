@@ -1,9 +1,10 @@
 <header
   class="flex h-24 items-center justify-between border-b-4 border-putty-300 bg-martinique-950 p-4 text-putty-300"
 >
-  <div class="flex items-center gap-1">
-    <img src="assets/rp0-banking-favicon.ico" alt="rp0-banking-logo" class="" width="96" />
-    <h1 class="font-ibm text-3xl opacity-75">RP0 Bank</h1>
+  <div class="flex items-center">
+    <a routerLink="/home" routerLinkActive="active">
+      <img src="assets/rp0-banking-header.png" alt="rp0-banking-header" width="250" />
+    </a>
   </div>
   <div class="flex items-center">
     <button
@@ -14,9 +15,9 @@
       <i
         [ngClass]="{
           pi: true,
-          'pi-moon': theme === 'dark',
-          'pi-sun': theme === 'light',
-          'pi-desktop': theme === 'auto',
+          'pi-moon': themePreference === 'dark',
+          'pi-sun': themePreference === 'light',
+          'pi-desktop': themePreference === 'auto',
         }"
       ></i>
     </button>
@@ -25,11 +26,16 @@
       <ul>
         <!-- <li class="inline-block"><a routerLink="/" routerLinkActive="active">Home</a></li>
         <li class="inline-block"><a routerLink="/" routerLinkActive="active">About</a></li> -->
-        <li class="m-4 inline-block"><a routerLink="/login" routerLinkActive="active">Login</a></li>
-        <li
-          class="inline-block rounded-md bg-putty-300 px-5 py-2 font-medium text-martinique-950 hover:bg-putty-200"
-        >
-          <a routerLink="/" routerLinkActive="active">Sign Up</a>
+        <li class="m-4 inline-block">
+          <a routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="inline-block">
+          <a
+            class="p-button p-button-accent align-baseline bg-putty-300 px-5 py-2 font-medium text-martinique-950 hover:bg-putty-200"
+            routerLink="/"
+            routerLinkActive="active"
+            >Sign Up</a
+          >
         </li>
       </ul>
     </nav>
@@ -38,38 +44,38 @@
 
 @if (isThemeSwitching) {
   <div
-    class="pointer-events-auto absolute left-[calc(100%-270px)] z-50 w-36 cursor-pointer space-y-1 rounded-lg bg-[var(--card-background-color)] p-3 text-[0.8125rem] font-medium leading-6 text-slate-700 shadow-xl shadow-black/5 ring-1 ring-slate-700/10 dark:bg-[var(--card-background-color)] dark:text-slate-100"
+    class="pointer-events-auto absolute left-[calc(100%-270px)] z-50 w-36 cursor-pointer space-y-1 rounded-lg bg-primaryLight p-3 text-[0.8125rem] font-medium leading-6 text-slate-700 shadow-xl shadow-black/5 ring-1 ring-slate-700/10 dark:bg-primaryDark dark:text-slate-100 dark:ring-secondaryDark/30"
   >
     <div
       (click)="changeTheme('light')"
-      class="flex rounded-[10px] p-1 hover:bg-slate-50 dark:hover:bg-zinc-800"
+      class="flex rounded-[10px] p-1 hover:bg-martinique-100 dark:hover:bg-martinique-950"
     >
       <div
-        class="dark:bg-crimson-600 flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10"
+        class="flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10 dark:bg-primaryDark dark:ring-secondaryDark/40"
       >
-        <i class="pi pi-sun"></i>
+        <i class="pi pi-sun dark:text-secondaryDark"></i>
       </div>
       <div class="ml-3">Light</div>
     </div>
     <div
       (click)="changeTheme('dark')"
-      class="flex rounded-[10px] p-1 hover:bg-slate-50 dark:hover:bg-zinc-800"
+      class="flex rounded-[10px] p-1 hover:bg-martinique-100 dark:hover:bg-martinique-950"
     >
       <div
-        class="dark:bg-crimson-600 flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10"
+        class="flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10 dark:bg-primaryDark dark:ring-secondaryDark/40"
       >
-        <i class="pi pi-moon"></i>
+        <i class="pi pi-moon dark:text-secondaryDark"></i>
       </div>
       <div class="ml-3">Dark</div>
     </div>
     <div
       (click)="changeTheme('auto')"
-      class="flex rounded-[10px] p-1 hover:bg-slate-50 dark:hover:bg-zinc-800"
+      class="flex rounded-[10px] p-1 hover:bg-martinique-100 dark:hover:bg-martinique-950"
     >
       <div
-        class="dark:bg-crimson-600 flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10"
+        class="flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10 dark:bg-primaryDark dark:ring-secondaryDark/40"
       >
-        <i class="pi pi-desktop"></i>
+        <i class="pi pi-desktop dark:text-secondaryDark"></i>
       </div>
       <div class="ml-3">System</div>
     </div>

@@ -1,36 +1,41 @@
 <main class="flex h-full w-full items-center justify-center">
   <section
-    class="flex h-full min-w-[525px] flex-col justify-center rounded-lg bg-white p-20 shadow-lg lg:w-1/2"
+    class="flex h-full min-w-[525px] flex-col justify-center rounded-lg bg-primaryLight p-20 shadow-lg lg:w-1/2 dark:bg-primaryDark"
   >
     <div class="mb-5 flex flex-col items-center">
-      <img
-        src="assets/rp0-banking-favicon.ico"
-        alt="rp0-banking-logo"
-        class="mb-3"
-        width="96"
-      />
-      <div class="mb-3 text-3xl font-medium text-putty-950">Welcome Back</div>
+      <img src="assets/rp0-banking.ico" alt="rp0-banking-logo" class="mb-3" width="80" />
+      <div class="mb-3 text-3xl font-medium text-secondaryLight dark:text-putty-50">
+        Welcome Back
+      </div>
       <!-- <span class="font-medium leading-relaxed text-gray-600">Don't have an account?</span>
       <a class="ml-2 cursor-pointer font-medium text-blue-500 no-underline">Create today!</a> -->
     </div>
 
     <form>
-      <label for="username" class="mb-2 block font-medium text-gray-900">Username</label>
+      <label
+        for="username"
+        class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
+        >Username</label
+      >
       <input
         id="username"
         type="text"
         placeholder="Username"
         pInputText
-        class="mb-3 w-full rounded border border-gray-300 px-3 py-3"
+        class="bg-prim mb-3 w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
       />
 
-      <label for="password1" class="mb-2 block font-medium text-gray-900">Password</label>
+      <label
+        for="password1"
+        class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
+        >Password</label
+      >
       <input
         id="password1"
         type="password"
         placeholder="Password"
         pInputText
-        class="mb-3 w-full rounded border border-gray-300 px-3 py-3"
+        class="mb-3 w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
       />
 
       <div class="mb-6 flex items-center justify-between">
@@ -38,17 +43,20 @@
           <p-checkbox
             id="rememberme1"
             [binary]="true"
-            styleClass="mr-2 ring-1 ring-gray-300 rounded-md"
+            styleClass="mr-2 rounded-md"
           ></p-checkbox>
-          <label for="rememberme1" class="text-gray-900">Remember me</label>
+          <label for="rememberme1" class="text-gray-900 dark:text-secondaryDark"
+            >Remember me</label
+          >
         </div>
-        <a class="ml-2 cursor-pointer text-right font-medium text-blue-500 no-underline"
+        <a
+          class="ml-2 cursor-pointer text-right font-medium text-martinique-600 no-underline hover:text-martinique-800 dark:text-putty-200 dark:hover:text-putty-100"
           >Forgot password?</a
         >
       </div>
 
       <button
-        class="p-button mt-5 w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-white hover:bg-martinique-950"
+        class="p-button p-button-accent mt-5 w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-primaryLight hover:bg-martinique-950 dark:border-putty-400 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200"
       >
         <span
           class="p-button-icon p-button-icon-left pi pi-user sel"
@@ -61,6 +69,11 @@
 
   <section
     class="h-full w-1/2 bg-cover bg-center bg-no-repeat"
-    style="background-image: url(&quot;assets/rp0-ai-image.jpg&quot;)"
+    [ngStyle]="{
+      'background-image':
+        (theme$ | async) === 'dark'
+          ? 'url(assets/rp0-ai-image.jpg)'
+          : 'url(assets/rp0-ai-phone.jpg)',
+    }"
   ></section>
 </main>
