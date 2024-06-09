@@ -15,11 +15,12 @@ Prime NG (https://primeng.org/) */
 
 /* Prime NG (https://primeng.org/) */
 @import "primeicons/primeicons.css";
+@import "lara/custom/theme.scss";
 
 /* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@1,300;1,400;1,500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap");
 
 /* Variables */
 :root {
@@ -50,4 +51,14 @@ app-root {
 [data-theme="dark"] body {
   @apply bg-primaryDark;
   @apply text-secondaryDark;
+  .p-button-primary {
+    &:focus {
+      @include focused-ring-dark(scale-color($buttonBg, $lightness: 50%));
+    }
+  }
+  .p-button-accent {
+    &:focus {
+      @include focused-ring-dark(scale-color($accentColor, $lightness: 50%));
+    }
+  }
 }

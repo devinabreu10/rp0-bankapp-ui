@@ -1,10 +1,10 @@
 <main class="flex h-full w-full items-center justify-center">
   <section
-    class="bg-primaryLight dark:bg-primaryDark flex h-full min-w-[525px] flex-col justify-center rounded-lg p-20 shadow-lg lg:w-1/2"
+    class="flex h-full min-w-[525px] flex-col justify-center rounded-lg bg-primaryLight p-20 shadow-lg lg:w-1/2 dark:bg-primaryDark"
   >
     <div class="mb-5 flex flex-col items-center">
       <img src="assets/rp0-banking.ico" alt="rp0-banking-logo" class="mb-3" width="80" />
-      <div class="text-secondaryLight mb-3 text-3xl font-medium dark:text-putty-50">
+      <div class="mb-3 text-3xl font-medium text-secondaryLight dark:text-putty-50">
         Welcome Back
       </div>
       <!-- <span class="font-medium leading-relaxed text-gray-600">Don't have an account?</span>
@@ -14,7 +14,7 @@
     <form>
       <label
         for="username"
-        class="dark:text-secondaryDark mb-2 block font-medium text-gray-900"
+        class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
         >Username</label
       >
       <input
@@ -22,12 +22,12 @@
         type="text"
         placeholder="Username"
         pInputText
-        class="bg-prim dark:text-secondaryDark mb-3 w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d]"
+        class="bg-prim mb-3 w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
       />
 
       <label
         for="password1"
-        class="dark:text-secondaryDark mb-2 block font-medium text-gray-900"
+        class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
         >Password</label
       >
       <input
@@ -35,7 +35,7 @@
         type="password"
         placeholder="Password"
         pInputText
-        class="dark:text-secondaryDark mb-3 w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d]"
+        class="mb-3 w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
       />
 
       <div class="mb-6 flex items-center justify-between">
@@ -45,7 +45,7 @@
             [binary]="true"
             styleClass="mr-2 rounded-md"
           ></p-checkbox>
-          <label for="rememberme1" class="dark:text-secondaryDark text-gray-900"
+          <label for="rememberme1" class="text-gray-900 dark:text-secondaryDark"
             >Remember me</label
           >
         </div>
@@ -56,7 +56,7 @@
       </div>
 
       <button
-        class="p-button dark:bg-accent text-primaryLight dark:text-primaryDark mt-5 w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium hover:bg-martinique-950 dark:border-putty-400 dark:hover:bg-putty-200"
+        class="p-button p-button-accent mt-5 w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-primaryLight hover:bg-martinique-950 dark:border-putty-400 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200"
       >
         <span
           class="p-button-icon p-button-icon-left pi pi-user sel"

@@ -6,20 +6,29 @@
         style="
           background: radial-gradient(
             50% 109137.91% at 50% 50%,
-            rgba(233, 30, 99, 0.1) 0%,
+            rgba(233, 30, 57, 0.1) 0%,
             rgba(254, 244, 247, 0) 100%
           );
         "
       >
-        <span class="inline-block bg-white px-3 text-2xl font-bold text-pink-500">404</span>
+        <span
+          class="inline-block bg-primaryLight px-3 text-4xl font-bold text-red-600 dark:bg-primaryDark dark:text-red-500"
+          >404</span
+        >
       </div>
-      <div class="my-10 text-center text-6xl font-bold text-gray-900">Page Not Found</div>
-      <p class="my-10 text-center text-3xl text-gray-600">Sorry, we couldn't find the page.</p>
+      <div
+        class="my-10 text-center font-logo text-7xl font-bold text-gray-900 dark:text-gray-100"
+      >
+        Page Not Found
+      </div>
+      <p class="my-10 text-center text-3xl text-gray-600 dark:text-gray-300">
+        Sorry, we couldn't find the page.
+      </p>
       <div class="flex items-center justify-center gap-1">
         <button
           pRipple
           type="button"
-          class="p-button mr-2 border-none bg-transparent px-5 py-3 text-martinique-950"
+          class="p-button mr-2 border-none bg-transparent px-5 py-3 text-martinique-950 dark:text-secondaryDark"
         >
           <span
             class="p-button-icon p-button-icon-left pi pi-arrow-left"
@@ -30,7 +39,7 @@
         <button
           type="button"
           pRipple
-          class="p-button bg-martinique-900 px-5 py-3 text-white hover:bg-martinique-950"
+          class="p-button bg-martinique-900 px-5 py-3 text-white hover:bg-martinique-950 dark:border-putty-400 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200"
           (click)="navigateToHome()"
         >
           <span class="p-button-icon p-button-icon-left pi pi-home" aria-hidden="true"></span
