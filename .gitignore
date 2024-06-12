@@ -1,6 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# RP0 Bank UI
 /RP0 Banking UI Assets
+src/assets/primeng
 
 # Compiled output
 /dist
