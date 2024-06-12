@@ -1,6 +1,6 @@
-<main class="flex h-full w-full items-center justify-center">
+<main class="flex h-full w-full flex-wrap items-center justify-center">
   <section
-    class="flex h-full min-w-[525px] flex-col justify-center rounded-lg bg-primaryLight p-20 shadow-lg lg:w-1/2 dark:bg-primaryDark"
+    class="flex h-full w-full min-w-[500px] max-w-3xl flex-col justify-center rounded-lg bg-primaryLight p-20 shadow-lg md:w-10/12 lg:w-1/2 dark:bg-primaryDark"
   >
     <div class="mb-5 flex flex-col items-center">
       <img src="assets/rp0-banking.ico" alt="rp0-banking-logo" class="mb-3" width="80" />
@@ -43,7 +43,7 @@
           <p-checkbox
             id="rememberme1"
             [binary]="true"
-            styleClass="mr-2 rounded-md"
+            styleClass="mr-2 rounded-md login"
           ></p-checkbox>
           <label for="rememberme1" class="text-gray-900 dark:text-secondaryDark"
             >Remember me</label
@@ -56,7 +56,7 @@
       </div>
 
       <button
-        class="p-button p-button-accent mt-5 w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-primaryLight hover:bg-martinique-950 dark:border-putty-400 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200"
+        class="p-button dark:focus:shadow-lara-dark-accent-btn mt-5 w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-primaryLight hover:bg-martinique-950 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200"
       >
         <span
           class="p-button-icon p-button-icon-left pi pi-user sel"
@@ -68,7 +68,7 @@
   </section>
 
   <section
-    class="h-full w-1/2 bg-cover bg-center bg-no-repeat"
+    class="h-full w-1/2 max-w-3xl bg-cover bg-center bg-no-repeat max-lg:hidden"
     [ngStyle]="{
       'background-image':
         (theme$ | async) === 'dark'

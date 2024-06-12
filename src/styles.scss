@@ -13,9 +13,28 @@ Prime NG (https://primeng.org/) */
   @tailwind utilities;
 }
 
-/* Prime NG (https://primeng.org/) */
-@import "primeicons/primeicons.css";
-@import "lara/custom/theme.scss";
+/* Prime NG Overrides (https://primeng.org/) */
+.p-button.primary {
+  @apply bg-martinique-900 px-5 py-3 text-secondaryDark hover:bg-martinique-950;
+  .p-button-label {
+    font-weight: 600;
+  }
+}
+.p-button.accent {
+  @apply bg-accent px-5 py-3 text-secondaryLight hover:bg-putty-200;
+  .p-button-label {
+    font-weight: 600;
+  }
+}
+.p-checkbox.login .p-checkbox-box {
+  @apply border border-solid border-gray-300 dark:border-[#4a4a66] dark:bg-[#33334d];
+}
+.p-checkbox .p-checkbox-box.p-highlight {
+  @apply border-martinique-900 bg-martinique-900 dark:border-accent dark:bg-accent;
+  .p-checkbox-icon {
+    @apply dark:text-primaryDark;
+  }
+}
 
 /* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@1,300;1,400;1,500&display=swap");
@@ -23,13 +42,13 @@ Prime NG (https://primeng.org/) */
 @import url("https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap");
 
 /* Variables */
-:root {
-  --primary-color-light: #fcfaf6; //background color (light mode)
-  --text-color-light: #0d1b2a; //text color (light mode)
-  --primary-color-dark: #26263d; //background color (dark mode)
-  --text-color-dark: #fcfaf6; //text color (dark mode)
-  --gold-accent-color: #e8cc93;
-}
+// :root {
+//   --primary-color-light: #fcfaf6; //background color (light mode)
+//   --text-color-light: #0d1b2a; //text color (light mode)
+//   --primary-color-dark: #26263d; //background color (dark mode)
+//   --text-color-dark: #fcfaf6; //text color (dark mode)
+//   --gold-accent-color: #e8cc93;
+// }
 
 /* Global styles */
 html,
@@ -43,22 +62,25 @@ app-root {
   flex-direction: column;
 }
 
+/* Theme Overrides */
 [data-theme="light"] body {
   @apply bg-primaryLight;
   @apply text-secondaryLight;
+  .p-button.primary:focus {
+    @apply shadow-lara-light-primary-btn;
+  }
+  .p-button.accent:focus {
+    @apply shadow-lara-light-accent-btn;
+  }
 }
 
 [data-theme="dark"] body {
   @apply bg-primaryDark;
   @apply text-secondaryDark;
-  .p-button-primary {
-    &:focus {
-      @include focused-ring-dark(scale-color($buttonBg, $lightness: 50%));
-    }
+  .p-button.primary:focus {
+    @apply shadow-lara-dark-primary-btn;
   }
-  .p-button-accent {
-    &:focus {
-      @include focused-ring-dark(scale-color($accentColor, $lightness: 50%));
-    }
+  .p-button.accent:focus {
+    @apply shadow-lara-dark-accent-btn;
   }
 }

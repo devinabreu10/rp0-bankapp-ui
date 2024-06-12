@@ -30,12 +30,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/primeng/resources/primeng.min.css"
+              "primeicons/primeicons.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "primeng/resources/themes/lara-light-indigo/theme.css",
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/assets/themes"
+                "src/assets/primeng/themes"
               ]
             },
             "scripts": []

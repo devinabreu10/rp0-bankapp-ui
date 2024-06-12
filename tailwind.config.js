@@ -42,6 +42,12 @@ module.exports = {
         ibm: ["IBM Plex Serif", "sans-serif"],
         logo: ["Marcellus SC", "IBM Plex Serif"],
       },
+      boxShadow: {
+        "lara-light-primary-btn": "0 0 0 2px #ffffff, 0 0 0 4px #727dbf, 0 1px 2px 0 black",
+        "lara-light-accent-btn": "0 0 0 2px #ffffff, 0 0 0 4px #f8f0dc, 0 1px 2px 0 black",
+        "lara-dark-primary-btn": "0 0 0 2px #26263d, 0 0 0 4px #727dbf, 0 1px 2px 0 black",
+        "lara-dark-accent-btn": "0 0 0 2px #26263d, 0 0 0 4px #f8f0dc, 0 1px 2px 0 black",
+      },
     },
   },
   plugins: [],
