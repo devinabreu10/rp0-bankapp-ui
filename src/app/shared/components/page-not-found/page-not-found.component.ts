@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
@@ -8,12 +9,12 @@ import { RippleModule } from 'primeng/ripple';
   standalone: true,
   imports: [RippleModule],
   templateUrl: './page-not-found.component.html',
-  styleUrl: './page-not-found.component.scss',
 })
 export class PageNotFoundComponent {
   constructor(
     private primengConfig: PrimeNGConfig,
     private router: Router,
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -22,5 +23,9 @@ export class PageNotFoundComponent {
 
   navigateToHome() {
     this.router.navigate(['login']);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

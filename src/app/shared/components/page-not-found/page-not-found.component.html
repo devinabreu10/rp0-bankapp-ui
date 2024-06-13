@@ -28,8 +28,9 @@
         <button
           pRipple
           type="button"
-          class="p-button mr-2 border-none bg-transparent px-5 py-3 text-martinique-950 dark:text-secondaryDark"
-        >
+          class="p-button mr-2 border-none bg-transparent px-5 py-3 text-martinique-950 focus:shadow-lara-light-primary-btn dark:text-secondaryDark dark:focus:shadow-lara-dark-accent-btn"
+          (click)="goBack()"
+          >
           <span
             class="p-button-icon p-button-icon-left pi pi-arrow-left"
             aria-hidden="true"
@@ -39,7 +40,7 @@
         <button
           type="button"
           pRipple
-          class="p-button bg-martinique-900 px-5 py-3 text-white hover:bg-martinique-950 dark:border-putty-400 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200"
+          class="p-button bg-martinique-900 px-5 py-3 text-secondaryDark hover:bg-martinique-950 focus:shadow-lara-light-primary-btn dark:border-putty-400 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200 dark:focus:shadow-lara-dark-accent-btn"
           (click)="navigateToHome()"
         >
           <span class="p-button-icon p-button-icon-left pi pi-home" aria-hidden="true"></span
