@@ -8,7 +8,7 @@ export class ThemeService {
   dataTheme: string = document.documentElement.getAttribute('data-theme') ?? 'light';
   prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  private themeSubject = new BehaviorSubject<string>(this.dataTheme ?? 'light');
+  private themeSubject = new BehaviorSubject<string>(this.dataTheme);
   theme$ = this.themeSubject.asObservable();
 
   /**

@@ -11,7 +11,7 @@
       <a class="ml-2 cursor-pointer font-medium text-blue-500 no-underline">Create today!</a> -->
     </div>
 
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <label
         for="username"
         class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
@@ -19,33 +19,43 @@
       >
       <input
         id="username"
+        formControlName="username"
         type="text"
         placeholder="Username"
         pInputText
-        class="bg-prim mb-3 w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
+        class="w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
       />
+      @if (isError("username", "required")) {
+        <span class="p-0 text-sm text-red-500 dark:text-red-400">Username is required</span>
+      }
 
       <label
         for="password1"
-        class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
+        class="mb-2 mt-4 block font-medium text-gray-900 dark:text-secondaryDark"
         >Password</label
       >
       <input
-        id="password1"
+        id="password"
+        formControlName="password"
         type="password"
         placeholder="Password"
         pInputText
-        class="mb-3 w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
+        class="w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
       />
+      @if (isError("password", "required")) {
+        <span class="p-0 text-sm text-red-500 dark:text-red-400">Password is required</span>
+      }
 
-      <div class="mb-6 flex items-center justify-between">
+      <div class="mb-6 mt-4 flex items-center justify-between">
         <div class="flex items-center">
           <p-checkbox
-            id="rememberme1"
+            id="rememberme"
+            formControlName="checked"
             [binary]="true"
+            inputId="rememberme"
             styleClass="mr-2 rounded-md login"
           ></p-checkbox>
-          <label for="rememberme1" class="text-gray-900 dark:text-secondaryDark"
+          <label for="rememberme" class="text-gray-900 dark:text-secondaryDark"
             >Remember me</label
           >
         </div>
@@ -56,7 +66,8 @@
       </div>
 
       <button
-        class="p-button dark:focus:shadow-lara-dark-accent-btn mt-5 w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-primaryLight hover:bg-martinique-950 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200"
+        [disabled]="loginForm.invalid"
+        class="p-button mt-5 w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-primaryLight hover:bg-martinique-950 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200 dark:focus:shadow-lara-dark-accent-btn"
       >
         <span
           class="p-button-icon p-button-icon-left pi pi-user sel"

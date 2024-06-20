@@ -7,21 +7,7 @@
     </a>
   </div>
   <div class="flex items-center">
-    <button
-      class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md border border-solid border-putty-300 border-opacity-50 hover:bg-martinique-900"
-      type="button"
-      (click)="toggleThemeSelection()"
-    >
-      <i
-        [ngClass]="{
-          pi: true,
-          'pi-moon': themePreference === 'dark',
-          'pi-sun': themePreference === 'light',
-          'pi-desktop': themePreference === 'auto',
-        }"
-      ></i>
-    </button>
-
+    <theme-toggle-button></theme-toggle-button>
     <nav>
       <ul>
         <!-- <li class="inline-block"><a routerLink="/" routerLinkActive="active">Home</a></li>
@@ -43,43 +29,3 @@
     </nav>
   </div>
 </header>
-
-@if (isThemeSwitching) {
-  <div
-    class="pointer-events-auto absolute left-[calc(100%-270px)] z-50 w-36 cursor-pointer space-y-1 rounded-lg bg-primaryLight p-3 text-[0.8125rem] font-medium leading-6 text-slate-700 shadow-xl shadow-black/5 ring-1 ring-slate-700/10 dark:bg-primaryDark dark:text-slate-100 dark:ring-secondaryDark/30"
-  >
-    <div
-      (click)="changeTheme('light')"
-      class="flex rounded-[10px] p-1 hover:bg-martinique-100 dark:hover:bg-martinique-950"
-    >
-      <div
-        class="flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10 dark:bg-primaryDark dark:ring-secondaryDark/40"
-      >
-        <i class="pi pi-sun dark:text-secondaryDark"></i>
-      </div>
-      <div class="ml-3">Light</div>
-    </div>
-    <div
-      (click)="changeTheme('dark')"
-      class="flex rounded-[10px] p-1 hover:bg-martinique-100 dark:hover:bg-martinique-950"
-    >
-      <div
-        class="flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10 dark:bg-primaryDark dark:ring-secondaryDark/40"
-      >
-        <i class="pi pi-moon dark:text-secondaryDark"></i>
-      </div>
-      <div class="ml-3">Dark</div>
-    </div>
-    <div
-      (click)="changeTheme('auto')"
-      class="flex rounded-[10px] p-1 hover:bg-martinique-100 dark:hover:bg-martinique-950"
-    >
-      <div
-        class="flex h-6 w-6 flex-none items-center justify-center rounded-md bg-white shadow ring-1 ring-slate-900/10 dark:bg-primaryDark dark:ring-secondaryDark/40"
-      >
-        <i class="pi pi-desktop dark:text-secondaryDark"></i>
-      </div>
-      <div class="ml-3">System</div>
-    </div>
-  </div>
-}

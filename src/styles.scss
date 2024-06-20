@@ -42,13 +42,11 @@ Prime NG (https://primeng.org/) */
 @import url("https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap");
 
 /* Variables */
-// :root {
-//   --primary-color-light: #fcfaf6; //background color (light mode)
-//   --text-color-light: #0d1b2a; //text color (light mode)
-//   --primary-color-dark: #26263d; //background color (dark mode)
-//   --text-color-dark: #fcfaf6; //text color (dark mode)
-//   --gold-accent-color: #e8cc93;
-// }
+
+/* Angular Form Validation Styles*/
+input.ng-invalid.ng-touched {
+  @apply border border-red-500 dark:border-red-400;
+}
 
 /* Global styles */
 html,
