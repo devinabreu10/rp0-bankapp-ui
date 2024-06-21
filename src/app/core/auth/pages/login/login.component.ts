@@ -1,13 +1,28 @@
 import { AsyncPipe, NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ThemeService } from '../../../../shared/services/theme.service';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
-interface RememberMe {
+export interface RememberMe {
   isRemember: boolean;
   username: string;
+}
+
+interface ILogin {
+  username: string;
+  password: string;
+  checked: boolean;
+}
+
+interface LoginForm {
+  username: FormControl<string>;
+  password: FormControl<string>;
+  checked: FormControl<boolean>;
 }
 
 @Component({
@@ -18,30 +33,61 @@ interface RememberMe {
 })
 export class LoginComponent {
   theme$: Observable<string>;
-  rememberme: RememberMe = JSON.parse(localStorage.getItem('rememberme') ?? 'false');
-  loginForm = new FormGroup({
-    username: new FormControl(this.rememberme.username, Validators.required),
-    password: new FormControl('', Validators.required),
-    checked: new FormControl(this.rememberme.isRemember),
-  });
+  loginForm: FormGroup<LoginForm>;
+  destroyRef = inject(DestroyRef);
 
-  constructor(private themeService: ThemeService) {
+  constructor(
+    private themeService: ThemeService,
+    private authService: AuthService,
+    private router: Router,
+  ) {
     this.theme$ = this.themeService.theme$;
-    console.log(this.rememberme);
+
+    this.loginForm = new FormGroup<LoginForm>({
+      username: new FormControl(this.getRememberMe().username, {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      password: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      checked: new FormControl(this.getRememberMe().isRemember, {
+        nonNullable: true,
+      }),
+    });
   }
 
-  ngOnInit() {}
+  private getRememberMe(): RememberMe {
+    const storedRememberMe = localStorage.getItem('rememberme');
+    return storedRememberMe
+      ? JSON.parse(storedRememberMe)
+      : { isRemember: false, username: '' };
+  }
 
-  onSubmit() {
+  onSubmit(): void {
     console.warn(this.loginForm.value);
+
+    const { checked, username, password } = this.loginForm.value as ILogin;
     const rememberme: RememberMe = {
-      isRemember: this.loginForm.value.checked ?? false,
-      username: this.loginForm.value.checked ? this.loginForm.value.username ?? '' : '',
+      isRemember: checked,
+      username: checked ? username : '',
     };
     localStorage.setItem('rememberme', JSON.stringify(rememberme));
+
+    this.authService
+      .login({ username, password })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => void this.router.navigate(['/home']),
+        error: (err) => {
+          console.error('Login error:', err);
+          this.loginForm.get('password')?.setErrors({ invalid: true });
+        },
+      });
   }
 
-  isError(field: string, error: string) {
+  isError(field: string, error: string): boolean | undefined {
     return this.loginForm.get(field)?.hasError(error) && this.loginForm.get(field)?.touched;
   }
 }
