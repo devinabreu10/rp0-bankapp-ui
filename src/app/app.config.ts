@@ -7,16 +7,15 @@ import { tokenInterceptor } from './core/auth/interceptors/token.interceptor';
 import { JwtService } from './core/auth/services/jwt.service';
 import { AuthService } from './core/auth/services/auth.service';
 import { EMPTY } from 'rxjs';
-import { jwtInterceptor } from './core/auth/interceptors/jwt.interceptor';
 
 export function initAuth(jwtService: JwtService, authService: AuthService) {
-  return () => (jwtService.getToken() ? authService.currentUser : EMPTY);
+  return () => (jwtService.getToken() ? authService.getCurrentUser() : EMPTY);
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withInterceptors([tokenInterceptor, jwtInterceptor])),
+    provideHttpClient(withInterceptors([tokenInterceptor])),
     {
       provide: APP_INITIALIZER,
       useFactory: initAuth,
@@ -25,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useFactory: jwtInterceptor,
+      useFactory: tokenInterceptor,
       multi: true,
     },
   ],

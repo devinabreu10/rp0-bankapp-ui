@@ -8,6 +8,7 @@ import {
   distinctUntilChanged,
   map,
   Observable,
+  shareReplay,
   tap,
   throwError,
 } from 'rxjs';
@@ -42,13 +43,23 @@ export class AuthService {
     );
   }
 
+  getCurrentUser(): Observable<UserAuth> {
+    return this.http.get<UserAuth>(`${this.authUrl}/user`).pipe(
+      tap({
+        next: (user) => this.setAuthUser(user),
+        error: () => this.purgeAuthUser(),
+      }),
+      shareReplay(1),
+    );
+  }
+
   logout(): void {
     this.purgeAuthUser();
     this.router.navigate(['/home']);
   }
 
   setAuthUser(user: UserAuth): void {
-    // this.jwtService.saveToken(user.token);
+    this.jwtService.saveToken(user.token);
     this.currentUserSubject.next(user);
   }
 
