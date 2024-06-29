@@ -7,6 +7,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 export interface RememberMe {
   isRemember: boolean;
@@ -28,7 +30,8 @@ interface LoginForm {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CheckboxModule, NgStyle, AsyncPipe, ReactiveFormsModule],
+  imports: [CheckboxModule, NgStyle, AsyncPipe, ReactiveFormsModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
@@ -40,6 +43,7 @@ export class LoginComponent {
     private themeService: ThemeService,
     private authService: AuthService,
     private router: Router,
+    private messageService: MessageService,
   ) {
     this.theme$ = this.themeService.theme$;
 
@@ -66,8 +70,6 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    console.warn(this.loginForm.value);
-
     const { checked, username, password } = this.loginForm.value as ILogin;
     const rememberme: RememberMe = {
       isRemember: checked,
@@ -82,7 +84,12 @@ export class LoginComponent {
         next: () => void this.router.navigate(['/home']),
         error: (err) => {
           console.error('Login error:', err);
-          this.loginForm.get('password')?.setErrors({ invalid: true });
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Login Failed',
+            detail: 'Invalid username or password',
+          });
+          // this.loginForm.get('password')?.setErrors({ invalid: true });
         },
       });
   }
