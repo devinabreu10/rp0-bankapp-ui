@@ -2,11 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThemeToggleButtonComponent } from './theme-toggle-button.component';
 import { NgClass, NgStyle } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
-import { ElementRef } from '@angular/core';
-
-class MockElementRef implements ElementRef {
-  nativeElement = {};
-}
 
 describe('ThemeToggleButtonComponent', () => {
   let component: ThemeToggleButtonComponent;
@@ -18,10 +13,7 @@ describe('ThemeToggleButtonComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [ThemeToggleButtonComponent, NgClass, NgStyle],
-      providers: [
-        { provide: ThemeService, useValue: themeServiceSpy },
-        { provide: ElementRef, useValue: MockElementRef },
-      ],
+      providers: [{ provide: ThemeService, useValue: themeServiceSpy }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ThemeToggleButtonComponent);
@@ -47,7 +39,14 @@ describe('ThemeToggleButtonComponent', () => {
   it('should toggle theme selection and set divStyles when isThemeSwitching is true', () => {
     const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
     spyOn(button, 'getBoundingClientRect').and.returnValue({
-      bottom: 100, left: 200, height: 0, width: 0, x: 0, y: 0, right: 0, top: 0,
+      bottom: 100,
+      left: 200,
+      height: 0,
+      width: 0,
+      x: 0,
+      y: 0,
+      right: 0,
+      top: 0,
       toJSON: function () {},
     });
 
@@ -67,5 +66,19 @@ describe('ThemeToggleButtonComponent', () => {
     expect(component.isThemeSwitching).toBe(false);
     expect(component.themePreference).toBe('light');
     expect(themeService.toggleTheme).toHaveBeenCalledWith('light');
+  });
+
+  it('should set isThemeSwitching to false if click is outside', () => {
+    const nativeElement = fixture.nativeElement;
+    spyOn(nativeElement, 'contains').and.returnValue(false);
+    const event = new MouseEvent('click', {
+      relatedTarget: document.createElement('div'),
+    });
+
+    component.isThemeSwitching = true;
+    component.onClickOutside(event);
+
+    expect(component.isThemeSwitching).toBeFalse();
+    expect(nativeElement.contains).toHaveBeenCalledWith(event.target);
   });
 });
