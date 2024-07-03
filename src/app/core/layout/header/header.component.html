@@ -2,30 +2,76 @@
   class="flex h-24 items-center justify-between border-b-4 border-putty-300 bg-martinique-950 p-4 text-putty-300"
 >
   <div class="flex items-center">
-    <a routerLink="/home" routerLinkActive="active">
+    <a pRipple routerLink="/home" routerLinkActive="active">
       <img src="assets/rp0-banking-header.png" alt="rp0-banking-header" width="250" />
     </a>
   </div>
-  <div class="flex items-center">
-    <theme-toggle-button></theme-toggle-button>
-    <nav>
-      <ul>
-        <!-- <li class="inline-block"><a routerLink="/" routerLinkActive="active">Home</a></li>
-        <li class="inline-block"><a routerLink="/" routerLinkActive="active">About</a></li> -->
-        <li class="m-4 inline-block">
-          <a class="hover:text-putty-200" routerLink="/login" routerLinkActive="active"
-            >Login</a
-          >
-        </li>
-        <li class="inline-block">
-          <a
-            class="p-button accent !py-2 align-baseline font-medium text-martinique-950"
-            routerLink="/"
-            routerLinkActive="active"
-            >Sign Up</a
-          >
-        </li>
-      </ul>
-    </nav>
-  </div>
+
+  @if (isAuthenticated$ | async) {
+    <div class="gap flex items-center">
+      <theme-toggle-button></theme-toggle-button>
+      <nav aria-label="nav menu">
+        <ul class="flex items-center">
+          <div class="inline-block">
+            <div
+              class="ml-5 h-8 w-[200px] cursor-pointer rounded-sm"
+              (click)="menu.toggle($event)"
+            >
+              <div
+                pRipple
+                class="flex items-center justify-between transition-colors duration-150 hover:border-b-2 hover:border-b-putty-200"
+              >
+                <div
+                  class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-putty-200"
+                >
+                  <i class="pi pi-user text-2xl text-putty-200"></i>
+                </div>
+                @if (currentUser$ | async; as user) {
+                  <span class="font-logo text-2xl font-medium text-putty-200"
+                    >{{ user.firstName }} {{ user.lastName }}</span
+                  >
+                }
+                <i class="pi pi-angle-down text-putty-200"></i>
+              </div>
+            </div>
+            <p-tieredMenu
+              styleClass="ring-1 bg-primaryLight dark:bg-primaryDark dark:ring-secondaryDark/30 ring-slate-700/10"
+              #menu
+              [model]="items"
+              [popup]="true"
+            />
+          </div>
+        </ul>
+      </nav>
+    </div>
+  } @else {
+    <!-- This div changes based on if the user is logged in -->
+    <div class="flex items-center">
+      <theme-toggle-button></theme-toggle-button>
+      <nav aria-label="nav menu">
+        <ul>
+          <!-- <li class="inline-block"><a routerLink="/" routerLinkActive="active">Home</a></li> -->
+          <li class="ml-4 inline-block">
+            <a class="hover:text-putty-200" routerLink="/" routerLinkActive="active"
+              >About Us</a
+            >
+          </li>
+          <li class="m-4 inline-block">
+            <a class="hover:text-putty-200" routerLink="/login" routerLinkActive="active"
+              >Login</a
+            >
+          </li>
+          <li class="inline-block">
+            <a
+              pRipple
+              class="p-button accent !py-2 align-baseline font-medium text-martinique-950"
+              routerLink="/sign-up"
+              routerLinkActive="active"
+              >Sign Up</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  }
 </header>

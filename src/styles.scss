@@ -14,27 +14,7 @@ Prime NG (https://primeng.org/) */
 }
 
 /* Prime NG Overrides (https://primeng.org/) */
-.p-button.primary {
-  @apply bg-martinique-900 px-5 py-3 text-secondaryDark hover:bg-martinique-950;
-  .p-button-label {
-    font-weight: 600;
-  }
-}
-.p-button.accent {
-  @apply bg-accent px-5 py-3 text-secondaryLight hover:bg-putty-200;
-  .p-button-label {
-    font-weight: 600;
-  }
-}
-.p-checkbox.login .p-checkbox-box {
-  @apply border border-solid border-gray-300 dark:border-[#4a4a66] dark:bg-[#33334d];
-}
-.p-checkbox .p-checkbox-box.p-highlight {
-  @apply border-martinique-900 bg-martinique-900 dark:border-accent dark:bg-accent;
-  .p-checkbox-icon {
-    @apply dark:text-primaryDark;
-  }
-}
+@import "assets/primeng-overrides.scss";
 
 /* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@1,300;1,400;1,500&display=swap");
@@ -60,7 +40,7 @@ app-root {
   flex-direction: column;
 }
 
-/* Theme Overrides */
+/* Theme Background Overrides */
 [data-theme="light"] body {
   @apply bg-primaryLight;
   @apply text-secondaryLight;

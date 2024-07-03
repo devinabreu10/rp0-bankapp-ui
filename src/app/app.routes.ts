@@ -3,6 +3,8 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { HomeComponent } from './shared/components/home/home.component';
 import { CustomerComponent } from './customers/customer/customer.component';
+import { authGuard } from './core/auth/auth.guard';
+import { SignUpComponent } from './core/auth/pages/sign-up/sign-up.component';
 
 export const routes: Routes = [
   {
@@ -12,6 +14,12 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'customer',
@@ -19,7 +27,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
   {

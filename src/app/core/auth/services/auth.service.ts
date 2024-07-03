@@ -55,7 +55,7 @@ export class AuthService {
 
   logout(): void {
     this.purgeAuthUser();
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
   }
 
   setAuthUser(user: UserAuth): void {
