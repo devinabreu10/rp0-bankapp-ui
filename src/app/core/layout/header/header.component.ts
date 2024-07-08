@@ -6,6 +6,7 @@ import { AsyncPipe } from '@angular/common';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
+import { UserAuth } from '../../auth/user-auth.model';
 
 @Component({
   selector: 'app-layout-header',
@@ -75,6 +76,12 @@ export class HeaderComponent {
         command: () => this.logout(),
       },
     ];
+  }
+
+  setUserFullName(user: UserAuth): string {
+    const { firstName, lastName } = user;
+    const fullName = `${firstName} ${lastName}`;
+    return fullName.length > 11 ? `${firstName} ${lastName.substring(0, 1)}.` : fullName;
   }
 
   logout() {
