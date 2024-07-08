@@ -1,0 +1,34 @@
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Transaction } from './transaction.model';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class TransactionService {
+  private readonly transactionUrl = `${environment.apiUrl}/transaction`;
+
+  constructor(private http: HttpClient) {}
+
+  getTransactionById(id: number): Observable<Transaction> {
+    return this.http.get<Transaction>(`${this.transactionUrl}/get/${id}`);
+  }
+
+  getTransactionsByAcctNo(acctNo: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.transactionUrl}/get/list/${acctNo}`);
+  }
+
+  saveTransaction(transaction: Transaction): Observable<Transaction> {
+    return this.http.post<Transaction>(`${this.transactionUrl}/save`, transaction);
+  }
+
+  updateTransaction(id: number, transaction: Transaction): Observable<Transaction> {
+    return this.http.put<Transaction>(`${this.transactionUrl}/update/${id}`, transaction);
+  }
+
+  deleteTransaction(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.transactionUrl}/delete/${id}`);
+  }
+}
