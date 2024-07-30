@@ -27,9 +27,9 @@
                   <i class="pi pi-user text-2xl text-putty-200"></i>
                 </div>
                 @if (currentUser$ | async; as user) {
-                  <span class="font-logo text-2xl font-medium text-putty-200"
-                    >{{ user.firstName }} {{ user.lastName }}</span
-                  >
+                  <span class="font-logo text-2xl font-medium text-putty-200">{{
+                    setUserFullName(user)
+                  }}</span>
                 }
                 <i class="pi pi-angle-down text-putty-200"></i>
               </div>
