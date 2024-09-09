@@ -10,9 +10,9 @@ export const authGuard: CanActivateFn = () => {
   return authService.isAuthenticated.pipe(
     map((isAuth) => !isAuth),
     tap((canActivate) => {
-      // redirect to home page if user is already authenticated
+      // redirect to accounts page if user is already authenticated
       if (!canActivate) {
-        router.navigate(['/home']);
+        router.navigate(['/accounts']);
       }
     }),
   );
