@@ -3,7 +3,7 @@ services:
     build: .
     image: rp0-bankapp-ui:0.0.0
     ports:
-      - 80:80
+      - "80:80"
     expose:
       - 80
     networks:
@@ -12,5 +12,6 @@ services:
 networks:
   internalnet:
     driver: bridge
-    
-# docker compose up --build (if image needs to be built first)
+
+# docker-compose up --build (if image needs to be built first)
+# docker-compose down (stops and removes the containers, networks, and volumes)
