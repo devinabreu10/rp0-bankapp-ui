@@ -1,4 +1,4 @@
-# Multi-stage Build: 
+# Multi-stage Build:
 # Efficiently creates a smaller final image by separating the build and runtime environments.
 
 # build stage
@@ -10,8 +10,8 @@ COPY package*.json ./
 
 RUN npm install
 
-# Angular compatibility compiler command
-RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
+# Angular compatibility compiler command (not needed as of Angular 16+)
+#RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
 
 COPY . .
 
