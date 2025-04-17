@@ -58,7 +58,7 @@ describe('authGuard', () => {
     });
   })
 
-  it('should redirect user to home page if user is already authenticated', () => {
+  it('should redirect user to accounts page if user is already authenticated', () => {
     authServiceMock.isAuthenticated = of(true);
     const activatedRouteMock = TestBed.inject(ActivatedRoute);
 
@@ -72,7 +72,7 @@ describe('authGuard', () => {
 
     result.subscribe((canActivate) => {
       expect(canActivate).toBeFalse();
-      expect(routerMock.navigate).toHaveBeenCalledWith(['/home']);
+      expect(routerMock.navigate).toHaveBeenCalledWith(['/accounts']);
     });
   });
 });
