@@ -34,7 +34,8 @@ jobs:
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.typescript.lcov.reportPaths=coverage/report/lcov.info
-            -Dsonar.exclusions=**/node_modules/**
+            -Dsonar.exclusions=**/*.spec.ts,**/node_modules/**
+            -Dsonar.test.inclusions=**/*.spec.ts
 
       - name: Build Angular app
         run: npm run build
