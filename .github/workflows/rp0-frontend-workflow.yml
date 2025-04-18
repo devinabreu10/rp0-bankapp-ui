@@ -25,17 +25,27 @@ jobs:
       - name: Test and generate code coverage
         run: npm run coverage
 
-      - name: Install SonarQube scanner
-        run: npm install --save-dev sonar-scanner
+#      - name: Install SonarQube scanner
+#        run: npm install sonar-scanner
 
-      - name: Run SonarQube scan
-        run: |
-          sonar-scanner
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-          -Dsonar.typescript.lcov.reportPaths=coverage/report/lcov.info
-          -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-          -Dsonar.exclusions=**/node_modules/**
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.typescript.lcov.reportPaths=coverage/report/lcov.info
+            -Dsonar.exclusions=**/node_modules/**
+
+      #      - name: Run SonarQube scan
+#        run: |
+#          sonar-scanner
+#          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+#          -Dsonar.typescript.lcov.reportPaths=coverage/report/lcov.info
+#          -Dsonar.host.url=https://sonarcloud.io
+#          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+#          -Dsonar.exclusions=**/node_modules/**
 
       - name: Build Angular app
         run: npm run build
