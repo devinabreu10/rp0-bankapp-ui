@@ -8,17 +8,19 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --ignore-scripts
 
 # Angular compatibility compiler command (not needed as of Angular 16+)
 #RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
 
-COPY . .
+# Copy only necessary files
+COPY *config*.js* angular.json ./
+COPY src/ ./src/
 
 RUN npm run build
 
 # runtime stage (setting up nginx)
-FROM nginx:stable
+FROM nginx:stable-alpine
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
