@@ -9,6 +9,7 @@ on:
 
 jobs:
   build-rp0-bankapp-frontend:
+    name: Build RP0 Bank Frontend
     runs-on: ubuntu-latest # Specifies that this job runs on the latest Ubuntu runner
     steps:
       - name: Checkout code
@@ -31,18 +32,6 @@ jobs:
           name: coverage-reports
           path: coverage/
           retention-days: 1
-
-      #      - name: SonarQube Scan
-#        uses: SonarSource/sonarqube-scan-action@v5
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        with:
-#          args: >
-#            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-#            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-#            -Dsonar.typescript.lcov.reportPaths=coverage/report/lcov.info
-#            -Dsonar.exclusions=**/*.spec.ts,**/node_modules/**,*conf*.js
-#            -Dsonar.test.inclusions=**/*.spec.ts
 
       - name: Build Angular app
         run: npm run build
@@ -104,7 +93,7 @@ jobs:
   snyk-vulnerability-scan:
     name: Snyk Vulnerability Scan
     runs-on: ubuntu-latest
-    needs: sonar-qube-scan
+    needs: build-rp0-bankapp-frontend
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
