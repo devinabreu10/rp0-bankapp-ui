@@ -14,7 +14,7 @@ RUN npm install --ignore-scripts
 #RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
 
 # Copy only necessary files
-COPY *config*.js* angular.json ./
+COPY tsconfig*.json tailwind.config.js angular.json ./
 COPY src/ ./src/
 
 RUN npm run build
