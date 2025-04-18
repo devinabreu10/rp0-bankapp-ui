@@ -106,7 +106,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "codeCoverage": true,
+            "karmaConfig": "./karma.conf.js"
           }
         }
       }

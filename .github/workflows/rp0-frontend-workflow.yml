@@ -22,8 +22,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Test
-        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadless
+      - name: Test and generate code coverage
+        run: npm run coverage
+
+      - name: Install SonarQube scanner
+        run: npm install --save-dev sonar-scanner
+
+      - name: Run SonarQube scan
+        run: |
+          sonar-scanner
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+          -Dsonar.typescript.lcov.reportPaths=coverage/report/lcov.info
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.exclusions=**/node_modules/**
 
       - name: Build Angular app
         run: npm run build
