@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:8088',
+    apiUrl: 'https://rp0-bankapp-api-v1.onrender.com',
 };
