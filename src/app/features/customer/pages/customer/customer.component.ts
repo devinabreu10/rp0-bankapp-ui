@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerService } from '../shared/customer.service';
-import { Customer } from '../shared/customer.model';
+import { CustomerService } from '../../services/customer.service';
+import { Customer } from '../../models/customer.model';
 import { JsonPipe } from '@angular/common';
 import { catchError, Observable, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
