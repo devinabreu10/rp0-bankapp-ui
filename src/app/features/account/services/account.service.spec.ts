@@ -3,9 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { AccountService } from './account.service';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { Account } from './account.model';
-import { AccountType } from './account-type.enum';
-import { environment } from '../../../environments/environment';
+import { Account } from '../models/account.model';
+import { AccountType } from '../models/account-type.enum';
+import { environment } from '../../../../environments/environment';
 
 describe('AccountService', () => {
   let service: AccountService;

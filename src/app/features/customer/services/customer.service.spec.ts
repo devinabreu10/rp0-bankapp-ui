@@ -3,8 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import { CustomerService } from './customer.service';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { environment } from '../../../environments/environment';
-import { Customer } from './customer.model';
+import { environment } from '../../../../environments/environment';
+import { Customer } from '../models/customer.model';
 
 describe('CustomerService', () => {
   let service: CustomerService;

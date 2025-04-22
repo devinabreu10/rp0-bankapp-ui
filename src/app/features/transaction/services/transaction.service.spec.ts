@@ -3,9 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { TransactionService } from './transaction.service';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { TransactionType } from './transaction-type.enum';
-import { Transaction } from './transaction.model';
+import { environment } from '../../../../environments/environment';
+import { TransactionType } from '../models/transaction-type.enum';
+import { Transaction } from '../models/transaction.model';
 
 describe('TransactionService', () => {
   let service: TransactionService;
