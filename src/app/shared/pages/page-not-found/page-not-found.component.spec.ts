@@ -47,7 +47,7 @@ describe('PageNotFoundComponent', () => {
 
   it('should navigate user back to the home page', () => {
     component.navigateToHome();
-    expect(router.navigate).toHaveBeenCalledWith(['login']);
+    expect(router.navigate).toHaveBeenCalledWith(['home']);
   });
 
   it('should go back to previous page', () => {

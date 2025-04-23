@@ -22,7 +22,7 @@ export class PageNotFoundComponent {
   }
 
   navigateToHome() {
-    this.router.navigate(['login']);
+    this.router.navigate(['home']);
   }
 
   goBack() {

@@ -9,6 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
 
 export interface RememberMe {
   isRemember: boolean;
@@ -30,7 +31,14 @@ interface LoginForm {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CheckboxModule, NgStyle, AsyncPipe, ReactiveFormsModule, ToastModule],
+  imports: [
+    CheckboxModule,
+    NgStyle,
+    AsyncPipe,
+    ReactiveFormsModule,
+    ToastModule,
+    InputTextModule,
+  ],
   providers: [MessageService],
   templateUrl: './login.component.html',
 })
