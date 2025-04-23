@@ -1,8 +1,192 @@
-<p class="text-center text-5xl font-bold">Home Works!</p>
-<p class="text-center">
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam asperiores odio fugit
-  perspiciatis tenetur tempora cum autem delectus est ipsa sit dignissimos ipsum culpa aperiam,
-  ipsam libero? Laborum, adipisci beatae. Lorem ipsum, dolor sit amet consectetur adipisicing
-  elit. Neque aut ducimus quasi voluptatem debitis facere excepturi ipsam, iste eligendi
-  placeat possimus illum in dolore eaque, architecto dolorem rerum atque veritatis!
-</p>
+<!-- Hero Section -->
+<div
+  class="relative overflow-hidden bg-gradient-to-r from-martinique-800 to-martinique-900 dark:from-martinique-950 dark:to-martinique-900"
+>
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img
+      ngSrc="assets/rp0-ai-image.jpg"
+      alt="Banking Background"
+      class="h-full w-full object-cover opacity-20"
+      fill
+      priority
+    />
+  </div>
+
+  <div class="container relative z-10 mx-auto px-4 py-20">
+    <div class="flex flex-col items-center md:flex-row">
+      <!-- Hero Content -->
+      <div class="mb-10 text-white md:mb-0 md:w-1/2">
+        <h1 class="mb-4 font-logo text-5xl md:text-6xl">Banking Reimagined</h1>
+        <h2 class="mb-6 text-2xl font-semibold md:text-3xl">
+          Secure. Simple. Tailored for You.
+        </h2>
+        <p class="mb-8 text-lg">
+          At RP0 Bank, we combine cutting-edge technology with personalized service to deliver
+          a banking experience that puts you first. Your financial journey starts here.
+        </p>
+        <div class="flex flex-col gap-4 sm:flex-row">
+          <button
+            (click)="navigateGetStarted()"
+            class="rounded-lg bg-primaryLight px-8 py-3 font-bold text-martinique-900 transition-all hover:bg-martinique-100 dark:bg-martinique-700 dark:text-secondaryDark dark:hover:bg-martinique-800"
+          >
+            Get Started
+          </button>
+          <button
+            (click)="navigateLearnMore()"
+            class="rounded-lg border-2 border-primaryLight px-8 py-3 font-bold text-white transition-all hover:bg-primaryLight hover:text-martinique-900 dark:border-martinique-700 dark:hover:bg-martinique-700 dark:hover:text-secondaryDark"
+          >
+            Learn More
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Image -->
+      <div class="flex justify-center md:w-1/2">
+        <img
+          ngSrc="assets/rp0-ai-phone.jpg"
+          alt="Mobile Banking"
+          class="h-auto max-w-full rounded-xl shadow-2xl"
+          height="1024"
+          width="1024"
+          priority
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="bg-white py-16 dark:bg-primaryDark">
+  <div class="container mx-auto px-4">
+    <h2
+      class="mb-12 text-center font-logo text-[2.5rem] text-martinique-950 dark:text-secondaryDark"
+    >
+      Why Choose RP0 Banking?
+    </h2>
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+      <!-- Feature 1 -->
+      <div class="rounded-lg bg-primaryLight p-6 shadow-md dark:bg-martinique-800">
+        <div class="mb-4 text-martinique-700 dark:text-putty-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+            />
+          </svg>
+        </div>
+        <h3 class="mb-2 text-xl font-bold text-primaryDark dark:text-secondaryDark">
+          Secure Banking
+        </h3>
+        <p class="dark:text-gray-200">
+          With robust security measures and state-of-the-art encryption, your finances are
+          always protected—whether you're at home or on the go.
+        </p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="rounded-lg bg-primaryLight p-6 shadow-md dark:bg-martinique-800">
+        <div class="mb-4 text-martinique-700 dark:text-putty-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+            />
+          </svg>
+        </div>
+        <h3 class="mb-2 text-xl font-bold text-primaryDark dark:text-secondaryDark">
+          Easy Account Management
+        </h3>
+        <p class="dark:text-gray-200">
+          Our modern digital tools make it easier than ever to manage your accounts from
+          anywhere, giving you full control over your banking experience.
+        </p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="rounded-lg bg-primaryLight p-6 shadow-md dark:bg-martinique-800">
+        <div class="mb-4 text-martinique-700 dark:text-putty-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </div>
+        <h3 class="mb-2 text-xl font-bold text-primaryDark dark:text-secondaryDark">
+          Smart Financial Solutions
+        </h3>
+        <p class="dark:text-gray-200">
+          From checking accounts for daily transactions to savings accounts that help your
+          money grow, we have the right financial solutions for your needs.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-12 text-center">
+      <button
+        (click)="navigateOpenAccount()"
+        class="rounded-lg bg-martinique-700 px-8 py-3 font-bold text-white transition-all hover:bg-martinique-800 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200"
+      >
+        Open an Account Today
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonial Section -->
+<div class="bg-primaryLight py-16 dark:bg-martinique-900">
+  <div class="container mx-auto px-4">
+    <h2
+      class="mb-12 text-center font-logo text-[2.5rem] text-martinique-950 dark:text-secondaryDark"
+    >
+      What Our Customers Say
+    </h2>
+
+    <div class="mx-auto max-w-3xl rounded-lg bg-white p-8 shadow-lg dark:bg-martinique-800">
+      <p class="mb-6 text-lg italic dark:text-gray-200">
+        "RP0 Bank has transformed how I manage my finances. Their user interface is intuitive,
+        and their customer service is exceptional. I've never felt more secure with my
+        banking."
+      </p>
+      <div class="flex items-center">
+        <div class="mr-4">
+          <div
+            class="flex h-12 w-12 items-center justify-center rounded-full bg-martinique-700 font-bold text-primaryLight dark:bg-accent dark:text-martinique-900"
+          >
+            AJ
+          </div>
+        </div>
+        <div>
+          <p class="font-bold text-primaryDark dark:text-secondaryDark">Alice Johnson</p>
+          <p class="text-sm text-gray-600 dark:text-gray-300">Customer since 2023</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
