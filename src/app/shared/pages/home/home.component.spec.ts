@@ -53,7 +53,7 @@ describe('HomeComponent', () => {
 
       component.navigateGetStarted();
 
-      expect(routerSpy.navigate).toHaveBeenCalledWith(['/accounts']);
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['accounts']);
     });
 
     it('should navigate to /login when user is not authenticated', () => {
@@ -61,7 +61,7 @@ describe('HomeComponent', () => {
 
       component.navigateGetStarted();
 
-      expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['login']);
     });
 
     it('should handle subscription completion', () => {
@@ -97,7 +97,7 @@ describe('HomeComponent', () => {
     it('should navigate to /about-us', () => {
       component.navigateLearnMore();
 
-      expect(routerSpy.navigate).toHaveBeenCalledWith(['/about-us']);
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['about-us']);
     });
 
     it('should be called when Learn More button is clicked', () => {
@@ -124,7 +124,7 @@ describe('HomeComponent', () => {
 
       component.navigateOpenAccount();
 
-      expect(routerSpy.navigate).toHaveBeenCalledWith(['/accounts']);
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['accounts']);
     });
 
     it('should navigate to /sign-up when user is not authenticated', () => {
@@ -132,7 +132,7 @@ describe('HomeComponent', () => {
 
       component.navigateOpenAccount();
 
-      expect(routerSpy.navigate).toHaveBeenCalledWith(['/sign-up']);
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['sign-up']);
     });
 
     it('should handle subscription completion', () => {

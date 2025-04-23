@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
-import { HomeComponent } from './shared/components/home/home.component';
+import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
+import { HomeComponent } from './shared/pages/home/home.component';
 import { authGuard } from './core/auth/auth.guard';
 import { AuthService } from './core/auth/services/auth.service';
 import { inject } from '@angular/core';
@@ -21,8 +21,21 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [authGuard],
   },
+  {
+    path: 'about-us',
+    loadComponent: () =>
+      import('./shared/pages/about-us/about-us.component').then(
+        (m) => m.AboutUsComponent
+      ),
+  },
+  // {
+  //   path: 'contact-us',
+  //   loadComponent: () =>
+  //     import('./shared/pages/contact-us/contact-us.component').then(
+  //       (m) => m.ContactUsComponent
+  //     ),
+  // },
   {
     path: 'login',
     loadComponent: () =>

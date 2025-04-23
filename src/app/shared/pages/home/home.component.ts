@@ -19,23 +19,23 @@ export class HomeComponent {
   navigateGetStarted(): void {
     this.authService.isAuthenticated.subscribe((isAuthenticated: boolean): void => {
       if (isAuthenticated) {
-        this.router.navigate(['/accounts']);
+        this.router.navigate(['accounts']);
       } else {
-        this.router.navigate(['/login']);
+        this.router.navigate(['login']);
       }
     });
   }
 
   navigateLearnMore(): void {
-    this.router.navigate(['/about-us']);
+    this.router.navigate(['about-us']);
   }
 
   navigateOpenAccount(): void {
     this.authService.isAuthenticated.subscribe((isAuthenticated: boolean): void => {
       if (isAuthenticated) {
-        this.router.navigate(['/accounts']); // Replace it with the actual route to open an account
+        this.router.navigate(['accounts']); // Replace it with the actual route to open an account
       } else {
-        this.router.navigate(['/sign-up']);
+        this.router.navigate(['sign-up']);
       }
     });
   };
