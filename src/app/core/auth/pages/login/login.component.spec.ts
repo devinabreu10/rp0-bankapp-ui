@@ -46,7 +46,7 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should intialize login form with rememberme values', () => {
+  it('should initialize login form with rememberme values', () => {
     const loginForm = component.loginForm;
     const rememberme: RememberMe = { isRemember: false, username: '' };
     spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(rememberme));

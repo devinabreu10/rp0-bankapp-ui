@@ -73,12 +73,12 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
 
     const userIcon = fixture.debugElement.query(By.css('.pi-user'));
-    const tieredMenu = fixture.debugElement.query(By.css('p-tieredMenu'));
+    const menu = fixture.debugElement.query(By.css('p-menu'));
 
     expect(userIcon)
       .withContext('User icon should be present when authenticated')
       .toBeTruthy();
-    expect(tieredMenu)
+    expect(menu)
       .withContext('Tiered menu should be present when authenticated')
       .toBeTruthy();
   });
@@ -120,12 +120,5 @@ describe('HeaderComponent', () => {
     expect(topLevelItems[1].label).toBe('Transactions');
     expect(topLevelItems[2].label).toBe('My Profile');
     expect(topLevelItems[3].label).toBe('Logout');
-
-    // Check submenu items
-    const accountSubmenu = topLevelItems[0].items || [];
-    expect(accountSubmenu.length).toBe(3);
-    expect(accountSubmenu[0].label).toBe('Manage Accounts');
-    expect(accountSubmenu[1].label).toBe('Open Account');
-    expect(accountSubmenu[2].label).toBe('Remove Account');
   });
 });

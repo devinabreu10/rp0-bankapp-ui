@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
@@ -32,7 +32,6 @@ interface SignUpForm {
     InputTextModule,
     PasswordModule,
     ReactiveFormsModule,
-    RouterLink,
     ToastModule,
     NgOptimizedImage,
   ],
@@ -79,7 +78,7 @@ export class SignUpComponent {
       .register({ firstName, lastName, address, username, password })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => void this.router.navigate(['/home']),
+        next: () => void this.router.navigate(['home']),
         error: (err) => {
           console.error('Register error:', err);
           this.messageService.add({
@@ -93,5 +92,9 @@ export class SignUpComponent {
 
   isError(field: string, error: string): boolean | undefined {
     return this.signUpForm.get(field)?.hasError(error) && this.signUpForm.get(field)?.touched;
+  }
+
+  navigateLogIn(): void {
+    this.router.navigate(['login']);
   }
 }
