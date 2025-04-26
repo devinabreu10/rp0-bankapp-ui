@@ -29,13 +29,13 @@ export const routes: Routes = [
         (m) => m.AboutUsComponent
       ),
   },
-  // {
-  //   path: 'contact-us',
-  //   loadComponent: () =>
-  //     import('./shared/pages/contact-us/contact-us.component').then(
-  //       (m) => m.ContactUsComponent
-  //     ),
-  // },
+  {
+    path: 'contact-us',
+    loadComponent: () =>
+      import('./shared/pages/contact-us/contact-us.component').then(
+        (m) => m.ContactUsComponent
+      ),
+  },
   {
     path: 'login',
     loadComponent: () =>
