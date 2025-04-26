@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeToggleButtonComponent } from '../../../shared/components/theme-toggle-button/theme-toggle-button.component';
+import { MobileMenuComponent } from '../../../shared/components/mobile-menu/mobile-menu.component';
 import { AuthService } from '../../auth/services/auth.service';
 import { AsyncPipe } from '@angular/common';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenuModule } from 'primeng/menu';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { UserAuth } from '../../auth/user-auth.model';
@@ -15,8 +16,9 @@ import { UserAuth } from '../../auth/user-auth.model';
     RouterLink,
     RouterLinkActive,
     ThemeToggleButtonComponent,
+    MobileMenuComponent,
     AsyncPipe,
-    TieredMenuModule,
+    MenuModule,
     RippleModule,
   ],
   templateUrl: './header.component.html',
@@ -25,6 +27,7 @@ export class HeaderComponent {
   isAuthenticated$ = this.authService.isAuthenticated;
   currentUser$ = this.authService.currentUser;
   items: MenuItem[] | undefined;
+  showMobileMenu: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -42,25 +45,11 @@ export class HeaderComponent {
 
     this.primengConfig.ripple = true;
 
-    // this.items for TieredMenu
+    // this.items for Menu
     this.items = [
       {
         label: 'Accounts',
         icon: 'pi menu pi-building-columns',
-        items: [
-          {
-            label: 'Manage Accounts',
-            icon: 'pi menu pi-list',
-          },
-          {
-            label: 'Open Account',
-            icon: 'pi menu pi-plus',
-          },
-          {
-            label: 'Remove Account',
-            icon: 'pi menu pi-times',
-          },
-        ],
       },
       {
         label: 'Transactions',
@@ -84,7 +73,11 @@ export class HeaderComponent {
     return fullName.length > 11 ? `${firstName} ${lastName.substring(0, 1)}.` : fullName;
   }
 
-  logout() {
+  logout(): void {
     this.authService.logout();
+  }
+
+  toggleMobileMenu(): void {
+    this.showMobileMenu = !this.showMobileMenu;
   }
 }

@@ -1,11 +1,11 @@
 <main class="flex h-full w-full flex-wrap items-center justify-center">
   <p-toast position="top-center" />
   <section
-    class="flex h-full w-full min-w-[500px] max-w-3xl flex-col justify-center rounded-lg bg-primaryLight p-20 shadow-lg md:w-10/12 lg:w-1/2 dark:bg-primaryDark"
+    class="flex h-full w-full max-w-3xl flex-col justify-center rounded-lg bg-primaryLight p-10 md:p-12 lg:p-20 shadow-lg md:w-10/12 lg:w-1/2 dark:bg-primaryDark"
   >
     <div class="mb-5 flex flex-col items-center">
-      <img src="assets/rp0-banking.ico" alt="rp0-banking-logo" class="mb-3" width="80" />
-      <div class="mb-3 text-4xl font-medium font-logo text-secondaryLight dark:text-putty-50">
+      <img src="assets/rp0-banking.ico" alt="rp0-banking-logo" class="mb-3 w-16 sm:w-20" width="80" height="80" />
+      <div class="mb-3 text-2xl sm:text-3xl font-medium font-logo text-secondaryLight dark:text-putty-50">
         Welcome Back
       </div>
       <!-- <span class="font-medium leading-relaxed text-gray-600">Don't have an account?</span>
@@ -47,7 +47,7 @@
         <span class="p-0 text-sm text-red-500 dark:text-red-400">Password is required</span>
       }
 
-      <div class="mb-6 mt-4 flex items-center justify-between">
+      <div class="mb-6 mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
         <div class="flex items-center">
           <p-checkbox
             id="rememberme"
@@ -56,12 +56,12 @@
             inputId="rememberme"
             styleClass="mr-2 rounded-md login"
           ></p-checkbox>
-          <label for="rememberme" class="text-gray-900 dark:text-secondaryDark"
+          <label for="rememberme" class="text-sm sm:text-base text-gray-900 dark:text-secondaryDark"
             >Remember me</label
           >
         </div>
         <a
-          class="ml-2 cursor-pointer text-right font-medium text-martinique-600 no-underline hover:text-martinique-800 dark:text-putty-200 dark:hover:text-putty-100"
+          class="cursor-pointer text-sm sm:text-base text-right font-medium text-martinique-600 no-underline hover:text-martinique-800 dark:text-putty-200 dark:hover:text-putty-100"
           >Forgot password?</a
         >
       </div>
@@ -80,7 +80,7 @@
   </section>
 
   <section
-    class="h-full w-1/2 max-w-3xl bg-cover bg-center bg-no-repeat max-lg:hidden"
+    class="h-full w-full lg:w-1/2 max-w-3xl bg-cover bg-center bg-no-repeat hidden lg:block"
     [ngStyle]="{
       'background-image':
         (theme$ | async) === 'dark'

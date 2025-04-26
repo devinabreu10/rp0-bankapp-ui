@@ -5,6 +5,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { NgOptimizedImage } from '@angular/common';
 
 interface ISignUp {
   firstName: string;
@@ -25,16 +28,24 @@ interface SignUpForm {
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [InputTextModule, PasswordModule, ReactiveFormsModule],
-  templateUrl: './sign-up.component.html'
+  imports: [
+    InputTextModule,
+    PasswordModule,
+    ReactiveFormsModule,
+    ToastModule,
+    NgOptimizedImage,
+  ],
+  providers: [MessageService],
+  templateUrl: './sign-up.component.html',
 })
 export class SignUpComponent {
   signUpForm: FormGroup<SignUpForm>;
-  destroyRef = inject(DestroyRef);
+  destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
     private authService: AuthService,
     private router: Router,
+    private messageService: MessageService,
   ) {
     this.signUpForm = new FormGroup<SignUpForm>({
       firstName: new FormControl('', {
@@ -67,10 +78,23 @@ export class SignUpComponent {
       .register({ firstName, lastName, address, username, password })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => void this.router.navigate(['/home']),
+        next: () => void this.router.navigate(['home']),
         error: (err) => {
           console.error('Register error:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Registration Failed',
+            detail: 'There was an error creating your account',
+          });
         },
       });
+  }
+
+  isError(field: string, error: string): boolean | undefined {
+    return this.signUpForm.get(field)?.hasError(error) && this.signUpForm.get(field)?.touched;
+  }
+
+  navigateLogIn(): void {
+    this.router.navigate(['login']);
   }
 }

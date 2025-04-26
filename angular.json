@@ -108,7 +108,10 @@
             ],
             "scripts": [],
             "codeCoverage": true,
-            "karmaConfig": "./karma.conf.js"
+            "karmaConfig": "./karma.conf.js",
+            "codeCoverageExclude": [
+              "src/app/*.routes.ts"
+            ]
           }
         }
       }

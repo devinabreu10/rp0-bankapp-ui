@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SignUpComponent } from './sign-up.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
-import { InputTextModule } from 'primeng/inputtext';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { SignUpComponent } from "./sign-up.component";
+import { ReactiveFormsModule } from "@angular/forms";
+import { PasswordModule } from "primeng/password";
+import { InputTextModule } from "primeng/inputtext";
+import { AuthService } from "../../services/auth.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { of, throwError } from "rxjs";
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
@@ -23,6 +23,7 @@ describe('SignUpComponent', () => {
       providers: [
         { provide: AuthService, useValue: authServiceSpy },
         { provide: Router, useValue: routerSpy },
+        { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} } } },
       ],
     }).compileComponents();
 
@@ -81,7 +82,7 @@ describe('SignUpComponent', () => {
     component.onSubmit();
 
     expect(authService.register).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['/home']);
+    expect(router.navigate).toHaveBeenCalledWith(['home']);
   });
 
   it('should log an error when form is not successfully submitted', () => {
@@ -93,5 +94,10 @@ describe('SignUpComponent', () => {
     expect(authService.register).toHaveBeenCalled();
     expect(router.navigate).not.toHaveBeenCalled();
     expect(console.error).toHaveBeenCalledWith('Register error:', jasmine.any(Error));
+  });
+
+  it("should navigate to login when navigateLogIn is called", () => {
+    component.navigateLogIn();
+    expect(router.navigate).toHaveBeenCalledWith(["login"]);
   });
 });
