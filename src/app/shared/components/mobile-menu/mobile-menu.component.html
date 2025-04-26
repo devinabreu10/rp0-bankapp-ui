@@ -1,37 +1,42 @@
+<!-- Mobile menu button -->
+<button class="ml-2 block sm:hidden md:hidden" (click)="toggleMenu()" aria-label="Toggle menu">
+  <i class="pi pi-bars text-2xl text-putty-200"></i>
+</button>
+
 @if (showMenu()) {
-  <div class="w-full p-4 border-t-4 border-putty-300 sm:hidden">
+  <div class="w-full p-4 border-t-4 border-putty-300 sm:hidden absolute top-[4rem] left-0 bg-martinique-950 z-50">
     <nav aria-label="mobile nav menu">
       @if (isAuthenticated()) {
-        <ul class="flex flex-col space-y-4">
+        <ul class="flex flex-col space-y-4" (mouseleave)="toggleMenu()"> <!-- Note sure if I will keep mouse leave -->
           <li>
-            <a class="block hover:text-putty-200" routerLink="/accounts" (click)="closeMenu()">
+            <a class="block hover:text-putty-200" routerLink="/accounts" (click)="toggleMenu()">
               <i class="pi menu pi-building-columns mr-2"></i>Accounts
             </a>
           </li>
           <li>
-            <a class="block hover:text-putty-200" href="javascript:void(0)" (click)="closeMenu()">
+            <a class="block hover:text-putty-200" href="javascript:void(0)" (click)="toggleMenu()">
               <i class="pi menu pi-book mr-2"></i>Transactions
             </a>
           </li>
           <li>
-            <a class="block hover:text-putty-200" href="javascript:void(0)" (click)="closeMenu()">
+            <a class="block hover:text-putty-200" href="javascript:void(0)" (click)="toggleMenu()">
               <i class="pi menu pi-user mr-2"></i>My Profile
             </a>
           </li>
           <li>
-            <a class="block hover:text-putty-200" (click)="onLogoutClick()">
+            <a class="block hover:text-putty-200 cursor-pointer" (click)="onLogoutClick()">
               <i class="pi menu pi-sign-out mr-2"></i>Logout
             </a>
           </li>
         </ul>
       } @else {
-        <ul class="flex flex-col space-y-4">
+        <ul class="flex flex-col space-y-4" (mouseleave)="toggleMenu()">
           <li>
             <a
               class="block hover:text-putty-200"
               routerLink="/about-us"
               routerLinkActive="active"
-              (click)="closeMenu()"
+              (click)="toggleMenu()"
               >About Us</a
             >
           </li>
@@ -40,7 +45,7 @@
               class="block hover:text-putty-200"
               routerLink="/login"
               routerLinkActive="active"
-              (click)="closeMenu()"
+              (click)="toggleMenu()"
             >Login</a
             >
           </li>
@@ -50,7 +55,7 @@
               class="p-button accent block !py-2 text-center font-medium text-martinique-950"
               routerLink="/sign-up"
               routerLinkActive="active"
-              (click)="closeMenu()"
+              (click)="toggleMenu()"
               >Sign Up</a
             >
           </li>

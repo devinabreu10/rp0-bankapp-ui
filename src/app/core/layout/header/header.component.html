@@ -11,18 +11,17 @@
     </a>
   </div>
 
-  @if (isAuthenticated$ | async) {
+  @if (isAuthenticated$ | async; as isAuthenticated) {
     <div class="flex items-center">
       <theme-toggle-button></theme-toggle-button>
 
-      <!-- Mobile menu button for authenticated users -->
-      <button
-        class="ml-2 block sm:hidden md:hidden"
-        (click)="toggleMobileMenu()"
-        aria-label="Toggle menu"
-      >
-        <i class="pi pi-bars text-2xl text-putty-200"></i>
-      </button>
+      <!-- Mobile menu for authenticated users -->
+      <app-mobile-menu
+        [isAuthenticated]="isAuthenticated"
+        [showMenu]="showMobileMenu"
+        (menuToggle)="toggleMobileMenu()"
+        (logout)="logout()"
+      ></app-mobile-menu>
 
       <!-- Desktop navigation for authenticated users -->
       <nav aria-label="nav menu" class="hidden sm:block">
@@ -60,30 +59,17 @@
         </ul>
       </nav>
     </div>
-
-    <!-- Mobile navigation menu -->
-    <app-mobile-menu
-      [isAuthenticated]="true"
-      [showMenu]="showMobileMenu"
-      [menuItems]="items"
-      [currentUser]="(currentUser$ | async)"
-      (menuClose)="toggleMobileMenu()"
-      (logout)="logout()"
-      class="absolute top-[4rem] left-0 w-full bg-martinique-950 z-50"
-    ></app-mobile-menu>
   } @else {
     <!-- This div changes based on if the user is logged in -->
     <div class="flex flex-wrap items-center justify-end">
       <theme-toggle-button></theme-toggle-button>
 
-      <!-- Mobile menu button -->
-      <button
-        class="ml-2 block sm:hidden md:hidden"
-        (click)="toggleMobileMenu()"
-        aria-label="Toggle menu"
-      >
-        <i class="pi pi-bars text-2xl text-putty-200"></i>
-      </button>
+      <!-- Mobile menu -->
+      <app-mobile-menu
+        [showMenu]="showMobileMenu"
+        (menuToggle)="toggleMobileMenu()"
+        (logout)="logout()"
+      ></app-mobile-menu>
 
       <!-- Desktop navigation -->
       <nav aria-label="nav menu" class="hidden sm:block">
@@ -115,14 +101,5 @@
         </ul>
       </nav>
     </div>
-
-    <!-- Mobile navigation menu -->
-    <app-mobile-menu
-      [isAuthenticated]="false"
-      [showMenu]="showMobileMenu"
-      (menuClose)="toggleMobileMenu()"
-      (logout)="logout()"
-      class="absolute top-[4rem] left-0 w-full bg-martinique-950 z-50"
-    ></app-mobile-menu>
   }
 </header>

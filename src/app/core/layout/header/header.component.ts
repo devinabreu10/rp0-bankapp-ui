@@ -27,7 +27,7 @@ export class HeaderComponent {
   isAuthenticated$ = this.authService.isAuthenticated;
   currentUser$ = this.authService.currentUser;
   items: MenuItem[] | undefined;
-  showMobileMenu = false;
+  showMobileMenu: boolean = false;
 
   constructor(
     private authService: AuthService,
