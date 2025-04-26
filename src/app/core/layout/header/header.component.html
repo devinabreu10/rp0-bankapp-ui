@@ -1,20 +1,35 @@
 <header
-  class="flex h-24 items-center justify-between border-b-4 border-putty-300 bg-martinique-950 p-4 text-putty-300"
+  class="relative flex min-h-[4rem] flex-wrap items-center justify-between gap-4 border-b-4 border-putty-300 bg-martinique-950 p-4 text-putty-300 md:h-24"
 >
   <div class="flex items-center">
     <a pRipple routerLink="/home" routerLinkActive="active">
-      <img src="assets/rp0-banking-header.png" alt="rp0-banking-header" width="250" />
+      <img
+        src="assets/rp0-banking-header.png"
+        alt="rp0-banking-header"
+        class="w-[200px] sm:w-[250px]"
+      />
     </a>
   </div>
 
   @if (isAuthenticated$ | async) {
-    <div class="gap flex items-center">
+    <div class="flex items-center">
       <theme-toggle-button></theme-toggle-button>
-      <nav aria-label="nav menu">
+
+      <!-- Mobile menu button for authenticated users -->
+      <button
+        class="ml-2 block sm:hidden md:hidden"
+        (click)="toggleMobileMenu()"
+        aria-label="Toggle menu"
+      >
+        <i class="pi pi-bars text-2xl text-putty-200"></i>
+      </button>
+
+      <!-- Desktop navigation for authenticated users -->
+      <nav aria-label="nav menu" class="hidden sm:block">
         <ul class="flex items-center">
           <div class="inline-block">
             <div
-              class="ml-5 h-8 w-[200px] cursor-pointer rounded-sm"
+              class="ml-2 h-8 w-[150px] cursor-pointer rounded-sm md:ml-5 md:w-[200px]"
               (click)="menu.toggle($event)"
             >
               <div
@@ -24,43 +39,65 @@
                 <div
                   class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-putty-200"
                 >
-                  <i class="pi pi-user text-2xl text-putty-200"></i>
+                  <i class="pi pi-user text-xl text-putty-200 md:text-2xl"></i>
                 </div>
                 @if (currentUser$ | async; as user) {
-                  <span class="font-logo text-2xl font-medium text-putty-200">{{
+                  <span class="font-logo text-lg font-medium text-putty-200 md:text-2xl">{{
                     setUserFullName(user)
                   }}</span>
                 }
                 <i class="pi pi-angle-down text-putty-200"></i>
               </div>
             </div>
-            <p-tieredMenu
+            <p-menu
               styleClass="ring-1 bg-primaryLight dark:bg-primaryDark dark:ring-secondaryDark/30 ring-slate-700/10"
               #menu
               [model]="items"
               [popup]="true"
+              [appendTo]="'body'"
             />
           </div>
         </ul>
       </nav>
     </div>
+
+    <!-- Mobile navigation menu -->
+    <app-mobile-menu
+      [isAuthenticated]="true"
+      [showMenu]="showMobileMenu"
+      [menuItems]="items"
+      [currentUser]="(currentUser$ | async)"
+      (menuClose)="toggleMobileMenu()"
+      (logout)="logout()"
+      class="absolute top-[4rem] left-0 w-full bg-martinique-950 z-50"
+    ></app-mobile-menu>
   } @else {
     <!-- This div changes based on if the user is logged in -->
-    <div class="flex items-center">
+    <div class="flex flex-wrap items-center justify-end">
       <theme-toggle-button></theme-toggle-button>
-      <nav aria-label="nav menu">
-        <ul>
-          <!-- <li class="inline-block"><a routerLink="/" routerLinkActive="active">Home</a></li> -->
+
+      <!-- Mobile menu button -->
+      <button
+        class="ml-2 block sm:hidden md:hidden"
+        (click)="toggleMobileMenu()"
+        aria-label="Toggle menu"
+      >
+        <i class="pi pi-bars text-2xl text-putty-200"></i>
+      </button>
+
+      <!-- Desktop navigation -->
+      <nav aria-label="nav menu" class="hidden sm:block">
+        <ul class="flex items-center">
           <li class="ml-4 inline-block">
             <a class="hover:text-putty-200" routerLink="/about-us" routerLinkActive="active"
               >About Us</a
             >
           </li>
-<!--          <li class="ml-4 inline-block">-->
-<!--            <a class="hover:text-putty-200" routerLink="/contact-us" routerLinkActive="active"-->
-<!--              >Contact Us</a-->
-<!--            >-->
-<!--          </li>-->
+          <!--          <li class="ml-4 inline-block">-->
+          <!--            <a class="hover:text-putty-200" routerLink="/contact-us" routerLinkActive="active"-->
+          <!--              >Contact Us</a-->
+          <!--            >-->
+          <!--          </li>-->
           <li class="m-4 inline-block">
             <a class="hover:text-putty-200" routerLink="/login" routerLinkActive="active"
               >Login</a
@@ -78,5 +115,14 @@
         </ul>
       </nav>
     </div>
+
+    <!-- Mobile navigation menu -->
+    <app-mobile-menu
+      [isAuthenticated]="false"
+      [showMenu]="showMobileMenu"
+      (menuClose)="toggleMobileMenu()"
+      (logout)="logout()"
+      class="absolute top-[4rem] left-0 w-full bg-martinique-950 z-50"
+    ></app-mobile-menu>
   }
 </header>

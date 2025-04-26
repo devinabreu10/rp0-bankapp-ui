@@ -1,0 +1,61 @@
+@if (showMenu()) {
+  <div class="w-full p-4 border-t-4 border-putty-300 sm:hidden">
+    <nav aria-label="mobile nav menu">
+      @if (isAuthenticated()) {
+        <ul class="flex flex-col space-y-4">
+          <li>
+            <a class="block hover:text-putty-200" routerLink="/accounts" (click)="closeMenu()">
+              <i class="pi menu pi-building-columns mr-2"></i>Accounts
+            </a>
+          </li>
+          <li>
+            <a class="block hover:text-putty-200" href="javascript:void(0)" (click)="closeMenu()">
+              <i class="pi menu pi-book mr-2"></i>Transactions
+            </a>
+          </li>
+          <li>
+            <a class="block hover:text-putty-200" href="javascript:void(0)" (click)="closeMenu()">
+              <i class="pi menu pi-user mr-2"></i>My Profile
+            </a>
+          </li>
+          <li>
+            <a class="block hover:text-putty-200" (click)="onLogoutClick()">
+              <i class="pi menu pi-sign-out mr-2"></i>Logout
+            </a>
+          </li>
+        </ul>
+      } @else {
+        <ul class="flex flex-col space-y-4">
+          <li>
+            <a
+              class="block hover:text-putty-200"
+              routerLink="/about-us"
+              routerLinkActive="active"
+              (click)="closeMenu()"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a
+              class="block hover:text-putty-200"
+              routerLink="/login"
+              routerLinkActive="active"
+              (click)="closeMenu()"
+            >Login</a
+            >
+          </li>
+          <li>
+            <a
+              pRipple
+              class="p-button accent block !py-2 text-center font-medium text-martinique-950"
+              routerLink="/sign-up"
+              routerLinkActive="active"
+              (click)="closeMenu()"
+              >Sign Up</a
+            >
+          </li>
+        </ul>
+      }
+    </nav>
+  </div>
+}

@@ -1,8 +1,15 @@
 <footer
-  class="flex h-44 flex-col items-center justify-center border-t-4 border-putty-300 bg-martinique-950 text-putty-200"
+  class="flex min-h-[8rem] flex-col items-center justify-center border-t-4 border-putty-300 bg-martinique-950 p-4 text-putty-200 md:h-44"
 >
-  <img src="assets/rp0-banking-footer.png" alt="rp0-banking-footer" width="175" height="auto" />
-  <span class="my-3 font-ibm font-thin"
+  <img
+    ngSrc="assets/rp0-banking-footer.png"
+    alt="rp0-banking-footer"
+    width="175"
+    height="105"
+    class="w-[145px] sm:w-[175px] md:w-[175px]"
+    priority
+  />
+  <span class="my-3 text-center text-sm font-ibm font-thin md:text-base"
     >&copy; {{ today | date: "yyyy" }}. An interactive banking project by
     <a class="hover:text-martinique-400" href="https://github.com/devinabreu10" target="_blank"
       >Devin Abreu</a
