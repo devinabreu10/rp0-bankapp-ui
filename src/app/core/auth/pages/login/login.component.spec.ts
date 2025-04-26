@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { LoginComponent, RememberMe } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgStyle } from '@angular/common';
@@ -8,6 +8,7 @@ import { ThemeService } from '../../../../shared/services/theme.service';
 import { of, throwError } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -21,19 +22,18 @@ describe('LoginComponent', () => {
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      imports: [
-        LoginComponent,
+    imports: [LoginComponent,
         CheckboxModule,
         NgStyle,
-        ReactiveFormsModule,
-        HttpClientTestingModule,
-      ],
-      providers: [
+        ReactiveFormsModule],
+    providers: [
         { provide: ThemeService, useValue: themeServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
         { provide: Router, useValue: routerSpy },
-      ],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;

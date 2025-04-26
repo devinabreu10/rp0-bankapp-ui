@@ -1,10 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClient,
-  HttpInterceptorFn,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
+import { HttpClient, HttpInterceptorFn, provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { tokenInterceptor } from './token.interceptor';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
