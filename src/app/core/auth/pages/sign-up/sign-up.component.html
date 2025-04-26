@@ -1,106 +1,158 @@
-<main class="flex h-full w-full items-center justify-center">
-  <div
-    class="w-4/5 min-w-fit max-w-xl space-y-6 rounded-lg bg-putty-100 px-14 py-12 text-center shadow-lg dark:bg-martinique-950"
+<main
+  class="flex h-full w-full flex-wrap items-center justify-center bg-gray-100 dark:bg-martinique-950"
+>
+  <p-toast position="top-center" />
+  <section
+    class="m-5 flex h-auto w-full max-w-3xl flex-col justify-center rounded-lg bg-primaryLight p-10 shadow-lg md:w-10/12 md:p-12 lg:w-1/2 lg:p-20 dark:bg-primaryDark"
   >
-    <h2
-      class="h-14 border-b-4 border-b-martinique-900 text-center font-logo text-3xl font-medium text-primaryDark dark:border-b-accent dark:text-secondaryDark"
-    >
-      Create RP0 Bank Account
-    </h2>
-    <div class="relative !mt-3 h-1">
+    <div class="mb-5 flex flex-col items-center">
+      <img
+        ngSrc="assets/rp0-banking.ico"
+        alt="rp0-banking-logo"
+        class="mb-3 w-16 sm:w-20"
+        width="80"
+        height="80"
+      />
+      <div
+        class="mb-3 font-logo text-2xl font-medium text-secondaryLight sm:text-3xl dark:text-putty-50"
+      >
+        Create Your Account
+      </div>
+      <p class="text-center text-gray-600 dark:text-gray-400">
+        Join RP0 Bank and start your financial journey today
+      </p>
+    </div>
+
+    <div class="relative mb-4 h-1">
       @if (signUpForm.invalid && signUpForm.touched) {
         <span class="absolute -inset-2 text-sm text-red-500 dark:text-red-400"
           >*There are empty required fields</span
         >
       }
     </div>
-    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-      <div class="space-y-4">
+
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
           <label
             for="firstName"
-            class="block text-left text-sm font-medium text-gray-700 dark:text-secondaryDark"
-            >First Name<i class="ml-[2px] text-red-500 dark:text-red-400">*</i></label
+            class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
+            >First Name<span class="ml-1 text-red-500 dark:text-red-400">*</span></label
           >
           <input
             id="firstName"
             type="text"
             pInputText
             formControlName="firstName"
-            class="mt-1 block w-full rounded-md border border-gray-300 bg-primaryLight px-3 py-3 shadow-sm focus:border-martinique-700 focus:outline-none focus:ring-martinique-700 sm:text-sm dark:border-[#4a4a66] dark:bg-primaryDark dark:text-secondaryDark dark:focus:border-accent dark:focus:ring-accent"
+            placeholder="John"
+            class="w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
           />
+          @if (isError("firstName", "required")) {
+            <span class="p-0 text-sm text-red-500 dark:text-red-400"
+              >First name is required</span
+            >
+          }
         </div>
 
         <div>
           <label
             for="lastName"
-            class="block text-left text-sm font-medium text-gray-700 dark:text-secondaryDark"
-            >Last Name<i class="ml-[2px] text-red-500 dark:text-red-400">*</i></label
+            class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
+            >Last Name<span class="ml-1 text-red-500 dark:text-red-400">*</span></label
           >
           <input
             id="lastName"
             type="text"
             pInputText
             formControlName="lastName"
-            class="mt-1 block w-full rounded-md border border-gray-300 bg-primaryLight px-3 py-3 shadow-sm focus:border-martinique-700 focus:outline-none focus:ring-martinique-700 sm:text-sm dark:border-[#4a4a66] dark:bg-primaryDark dark:text-secondaryDark dark:focus:border-accent dark:focus:ring-accent"
+            placeholder="Doe"
+            class="w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
           />
-        </div>
-
-        <div>
-          <label
-            for="address"
-            class="block text-left text-sm font-medium text-gray-700 dark:text-secondaryDark"
-            >Address</label
-          >
-          <input
-            id="address"
-            type="text"
-            pInputText
-            formControlName="address"
-            class="mt-1 block w-full rounded-md border border-gray-300 bg-primaryLight px-3 py-3 shadow-sm focus:border-martinique-700 focus:outline-none focus:ring-martinique-700 sm:text-sm dark:border-[#4a4a66] dark:bg-primaryDark dark:text-secondaryDark dark:focus:border-accent dark:focus:ring-accent"
-          />
-        </div>
-
-        <div>
-          <label
-            for="username"
-            class="block text-left text-sm font-medium text-gray-700 dark:text-secondaryDark"
-            >Username<i class="ml-[2px] text-red-500 dark:text-red-400">*</i></label
-          >
-          <input
-            id="username"
-            type="text"
-            pInputText
-            formControlName="username"
-            class="mt-1 block w-full rounded-md border border-gray-300 bg-primaryLight px-3 py-3 shadow-sm focus:border-martinique-700 focus:outline-none focus:ring-martinique-700 sm:text-sm dark:border-[#4a4a66] dark:bg-primaryDark dark:text-secondaryDark dark:focus:border-accent dark:focus:ring-accent"
-          />
-        </div>
-
-        <div>
-          <label
-            for="password"
-            class="block text-left text-sm font-medium text-gray-700 dark:text-secondaryDark"
-            >Password<i class="ml-[2px] text-red-500 dark:text-red-400">*</i></label
-          >
-          <p-password
-            id="password"
-            type="password"
-            formControlName="password"
-            [toggleMask]="true"
-            styleClass="sign-up w-full"
-          />
-        </div>
-
-        <div>
-          <button
-            class="p-button mt-5 w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-primaryLight hover:bg-martinique-950 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200 dark:focus:shadow-lara-dark-accent-btn"
-            [disabled]="signUpForm.invalid"
-          >
-            <i class="pi pi-book mr-2" aria-hidden="true"></i>
-            Sign Up
-          </button>
+          @if (isError("lastName", "required")) {
+            <span class="p-0 text-sm text-red-500 dark:text-red-400"
+              >Last name is required</span
+            >
+          }
         </div>
       </div>
+
+      <div>
+        <label
+          for="address"
+          class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
+          >Address</label
+        >
+        <input
+          id="address"
+          type="text"
+          pInputText
+          formControlName="address"
+          placeholder="123 Main St, City, State"
+          class="w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
+        />
+      </div>
+
+      <div>
+        <label
+          for="username"
+          class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
+          >Username<span class="ml-1 text-red-500 dark:text-red-400">*</span></label
+        >
+        <input
+          id="username"
+          type="text"
+          pInputText
+          formControlName="username"
+          placeholder="johndoe"
+          class="w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
+        />
+        @if (isError("username", "required")) {
+          <span class="p-0 text-sm text-red-500 dark:text-red-400">Username is required</span>
+        }
+      </div>
+
+      <div>
+        <label
+          for="password"
+          class="mb-2 block font-medium text-gray-900 dark:text-secondaryDark"
+          >Password<span class="ml-1 text-red-500 dark:text-red-400">*</span></label
+        >
+        <p-password
+          id="password"
+          type="password"
+          formControlName="password"
+          [toggleMask]="true"
+          placeholder="Create a secure password"
+          styleClass="sign-up w-full"
+        />
+        @if (isError("password", "required")) {
+          <span class="p-0 text-sm text-red-500 dark:text-red-400">Password is required</span>
+        } @else if (isError("password", "minlength")) {
+          <span class="p-0 text-sm text-red-500 dark:text-red-400"
+            >Password must be at least 8 characters</span
+          >
+        }
+      </div>
+
+      <div class="pt-2">
+        <button
+          class="p-button w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-primaryLight hover:bg-martinique-950 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200 dark:focus:shadow-lara-dark-accent-btn"
+          [disabled]="signUpForm.invalid"
+        >
+          <i class="pi pi-user-plus mr-2" aria-hidden="true"></i>
+          Create Account
+        </button>
+      </div>
+
+      <div class="pt-2 text-center">
+        <span class="text-gray-600 dark:text-gray-400">Already have an account?</span>
+        <a
+          routerLink="/login"
+          class="ml-2 cursor-pointer font-medium text-martinique-600 no-underline hover:text-martinique-800 dark:text-putty-200 dark:hover:text-putty-100"
+        >
+          Sign In
+        </a>
+      </div>
     </form>
-  </div>
+  </section>
 </main>
