@@ -12,16 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './customer.component.html',
 })
 export class CustomerComponent implements OnInit {
-  // customer!: Customer;
   customers!: Customer[];
-
-  customerUpdateBody: Customer = {
-    id: 485,
-    firstName: 'Bobby',
-    lastName: 'Abreu',
-    username: 'bobby123',
-    address: '123456 mlb dr.',
-  };
 
   constructor(private customerService: CustomerService) {}
 
