@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeToggleButtonComponent } from '../../../shared/components/theme-toggle-button/theme-toggle-button.component';
 import { MobileMenuComponent } from '../../../shared/components/mobile-menu/mobile-menu.component';
 import { AuthService } from '../../auth/services/auth.service';
@@ -32,6 +32,7 @@ export class HeaderComponent {
   constructor(
     private authService: AuthService,
     private primengConfig: PrimeNGConfig,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -50,19 +51,22 @@ export class HeaderComponent {
       {
         label: 'Accounts',
         icon: 'pi menu pi-building-columns',
+        command: (): Promise<boolean> => this.router.navigate(['accounts']),
       },
       {
         label: 'Transactions',
         icon: 'pi menu pi-book',
+        command: (): Promise<boolean> => this.router.navigate(['transactions']),
       },
       {
         label: 'My Profile',
         icon: 'pi menu pi-user',
+        command: (): Promise<boolean> => this.router.navigate([`profile/${this.authService.getUsername()}`]),
       },
       {
         label: 'Logout',
         icon: 'pi menu pi-sign-out',
-        command: () => this.logout(),
+        command: (): void => this.logout(),
       },
     ];
   }

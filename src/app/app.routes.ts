@@ -61,6 +61,11 @@ export const routes: Routes = [
     canActivate: [() => inject(AuthService).isAuthenticated],
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./features/customer/customer.routes'),
+    canActivate: [() => inject(AuthService).isAuthenticated],
+  },
+  {
     path: 'accounts',
     loadComponent: () =>
       import('./features/account/pages/account/account.component').then(
