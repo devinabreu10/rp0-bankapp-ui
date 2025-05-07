@@ -19,8 +19,9 @@ import { inject } from '@angular/core';
  */
 export const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
+    pathMatch: 'full'
   },
   {
     path: 'about-us',
@@ -80,11 +81,6 @@ export const routes: Routes = [
         (m) => m.TransactionComponent,
       ),
     canActivate: [() => inject(AuthService).isAuthenticated],
-  },
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full',
   },
   {
     path: '**',

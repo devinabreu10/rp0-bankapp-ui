@@ -55,7 +55,6 @@ describe('AuthService', () => {
         firstName: 'test',
         lastName: 'test',
         address: 'test',
-        id: 1,
       };
       const credentials = { username: 'test', password: 'test' };
 
@@ -93,7 +92,6 @@ describe('AuthService', () => {
         firstName: 'test',
         lastName: 'test',
         address: 'test',
-        id: 1,
       };
       const registerAuth: RegisterAuth = {
         firstName: 'test',
@@ -102,7 +100,7 @@ describe('AuthService', () => {
         username: 'test',
         password: 'test',
       };
-      
+
       service.register(registerAuth).subscribe((user) => {
         expect(user).toEqual(mockResponse);
         expect(service.setAuthUser).toHaveBeenCalledWith(mockResponse);
@@ -143,7 +141,6 @@ describe('AuthService', () => {
         firstName: 'test',
         lastName: 'test',
         address: 'test',
-        id: 1,
       };
 
       service.getCurrentUser().subscribe(user => {
@@ -189,7 +186,6 @@ describe('AuthService', () => {
         firstName: 'test',
         lastName: 'test',
         address: 'test',
-        id: 1,
       };
 
       service.setAuthUser(mockUser);
@@ -215,11 +211,11 @@ describe('AuthService', () => {
           message: 'Network error',
         }),
       });
-  
+
       const spy = spyOn<any>(service, 'handleError').and.callThrough();
-  
+
       const result = service['handleError'](error);
-  
+
       expect(spy).toHaveBeenCalled();
       expect(result).toBeTruthy();
     });

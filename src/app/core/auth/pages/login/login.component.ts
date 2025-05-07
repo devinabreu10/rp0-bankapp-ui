@@ -89,7 +89,7 @@ export class LoginComponent {
       .login({ username, password })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => void this.router.navigate(['/home']),
+        next: () => void this.router.navigate(['']),
         error: (err) => {
           console.error('Login error:', err);
           this.messageService.add({
