@@ -62,9 +62,11 @@ describe('HeaderComponent', () => {
 
     const loginLink = fixture.debugElement.query(By.css('a[routerLink="/login"]'));
     const signUpLink = fixture.debugElement.query(By.css('a[routerLink="/sign-up"]'));
+    const aboutUsLink = fixture.debugElement.query(By.css('a[routerLink="/about-us"]'));
 
     expect(loginLink).withContext('Login link should be displayed').toBeTruthy();
     expect(signUpLink).withContext('Sign Up link should be displayed').toBeTruthy();
+    expect(aboutUsLink).withContext('About Us link should be displayed').toBeTruthy();
   });
 
   it('should display user menu when user is authenticated', () => {
@@ -78,9 +80,7 @@ describe('HeaderComponent', () => {
     expect(userIcon)
       .withContext('User icon should be present when authenticated')
       .toBeTruthy();
-    expect(menu)
-      .withContext('Tiered menu should be present when authenticated')
-      .toBeTruthy();
+    expect(menu).withContext('Menu should be present when authenticated').toBeTruthy();
   });
 
   it('should call logout method when logout is triggered', () => {
@@ -115,10 +115,21 @@ describe('HeaderComponent', () => {
     expect(component.items?.length).toBe(4);
 
     // Check top-level menu items
-    const topLevelItems = component.items || [];
+    const topLevelItems = component.items ?? [];
     expect(topLevelItems[0].label).toBe('Accounts');
     expect(topLevelItems[1].label).toBe('Transactions');
     expect(topLevelItems[2].label).toBe('My Profile');
     expect(topLevelItems[3].label).toBe('Logout');
+  });
+
+  it('should toggle mobile menu when icon is clicked', () => {
+    const mobileMenu = fixture.debugElement.query(By.css('app-mobile-menu'));
+
+    expect(mobileMenu).toBeTruthy();
+    expect(component.showMobileMenu).toBeFalsy(); // should be false by default
+
+    component.toggleMobileMenu();
+
+    expect(component.showMobileMenu).toBeTruthy();
   });
 });

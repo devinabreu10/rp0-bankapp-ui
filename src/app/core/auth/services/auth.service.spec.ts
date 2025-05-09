@@ -143,10 +143,10 @@ describe('AuthService', () => {
         address: 'test',
       };
 
-      service.getCurrentUser().subscribe(user => {
+      service.getCurrentUser().subscribe((user) => {
         expect(user).toEqual(mockResponse);
         expect(service.setAuthUser).toHaveBeenCalledWith(mockResponse);
-      })
+      });
 
       const req = httpTestingController.expectOne(`${environment.apiUrl}/auth/user`);
       expect(req.request.method).toBe('GET');
@@ -158,7 +158,7 @@ describe('AuthService', () => {
 
       service.getCurrentUser().subscribe({
         next: () => fail('expected an error, not UserAuth'),
-        error: () => expect(service.purgeAuthUser).toHaveBeenCalled()
+        error: () => expect(service.purgeAuthUser).toHaveBeenCalled(),
       });
 
       const req = httpTestingController.expectOne(`${environment.apiUrl}/auth/user`);
@@ -225,6 +225,20 @@ describe('AuthService', () => {
   it('should return default value for isAuthenticated', () => {
     service.isAuthenticated.subscribe((isAuthenticated) => {
       expect(isAuthenticated).toBeFalsy();
-    })
+    });
+  });
+
+  it('should fetch and return username from currentUserSubject', () => {
+    const emptyUser: string = service.getUsername();
+    expect(emptyUser).toBeFalsy();
+
+    service.setAuthUser({
+      firstName: '',
+      lastName: '',
+      username: 'testUser',
+      token: '',
+    });
+    const validUser: string = service.getUsername();
+    expect(validUser).toEqual('testUser');
   });
 });
