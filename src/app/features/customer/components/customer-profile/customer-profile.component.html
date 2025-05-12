@@ -1,0 +1,69 @@
+<main class="mx-0 my-auto max-w-3xl p-8">
+  <p-toast position="top-center" />
+  <h1 class="mb-8 text-3xl font-semibold">My Profile</h1>
+
+  <form [formGroup]="customerProfileForm" (ngSubmit)="onSubmit(customerProfileForm.value)">
+    <div class="form-grid">
+      <!-- First Name -->
+      <div class="mb-6">
+        <label for="firstName" class="mb-2 block font-medium">First Name</label>
+        <input
+          pInputText
+          id="firstName"
+          formControlName="firstName"
+          [ngClass]="{
+            'ng-invalid ng-dirty': isInvalidAndTouched('firstName'),
+          }"
+          class="w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
+        />
+        @if (isInvalidAndTouched("firstName")) {
+          <span class="p-0 text-sm text-red-500 dark:text-red-400"
+            >First name is required</span
+          >
+        }
+      </div>
+      <!-- Last Name -->
+      <div class="mb-6">
+        <label for="lastName" class="mb-2 block font-medium">Last Name</label>
+        <input
+          pInputText
+          id="lastName"
+          formControlName="lastName"
+          [ngClass]="{
+            'ng-invalid ng-dirty': isInvalidAndTouched('lastName'),
+          }"
+          class="w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
+        />
+        @if (isInvalidAndTouched("lastName")) {
+          <span class="p-0 text-sm text-red-500 dark:text-red-400">Last name is required</span>
+        }
+      </div>
+      <!-- Username (read-only) -->
+      <div class="mb-6">
+        <label for="username" class="mb-2 block font-medium">Username</label>
+        {{ currentCustomer.username }}
+      </div>
+      <!-- Address -->
+      <div class="mb-6">
+        <label for="address" class="mb-2 block font-medium">Address</label>
+        <textarea
+          pInputTextarea
+          id="address"
+          formControlName="address"
+          rows="3"
+          class="w-full rounded border border-gray-300 px-3 py-3 dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
+        ></textarea>
+      </div>
+    </div>
+    <!-- Buttons -->
+    <div class="mt-8 flex gap-4">
+      <button
+        class="p-button w-full justify-center rounded-lg bg-martinique-900 px-4 py-3 font-medium text-primaryLight hover:bg-martinique-950 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200 dark:focus:shadow-lara-dark-accent-btn"
+        [disabled]="customerProfileForm.invalid"
+      >
+        <i class="pi pi-save mr-2" aria-hidden="true"></i>
+        Update Profile
+      </button>
+    </div>
+  </form>
+</main>

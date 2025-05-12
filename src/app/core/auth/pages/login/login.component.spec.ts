@@ -74,7 +74,7 @@ describe('LoginComponent', () => {
     component.onSubmit();
 
     expect(authService.login).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['/home']);
+    expect(router.navigate).toHaveBeenCalledWith(['']);
   });
 
   it('should log error and add error toast when form is not successfully submitted', () => {

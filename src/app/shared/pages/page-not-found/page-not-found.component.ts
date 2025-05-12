@@ -17,15 +17,15 @@ export class PageNotFoundComponent {
     private location: Location,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.primengConfig.ripple = true;
   }
 
-  navigateToHome() {
-    this.router.navigate(['home']);
+  navigateToHome(): void {
+    this.router.navigate(['']);
   }
 
-  goBack() {
+  goBack(): void {
     this.location.back();
   }
 }
