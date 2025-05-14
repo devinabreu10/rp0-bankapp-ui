@@ -41,7 +41,12 @@
       <!-- Username (read-only) -->
       <div class="mb-6">
         <label for="username" class="mb-2 block font-medium">Username</label>
-        {{ currentCustomer.username }}
+        <input
+          id="username"
+          formControlName="username"
+          class="w-full rounded border border-gray-300 px-3 py-3 focus:outline-none dark:border-[#4a4a66] dark:bg-[#33334d] dark:text-secondaryDark"
+          readonly
+        />
       </div>
       <!-- Address -->
       <div class="mb-6">

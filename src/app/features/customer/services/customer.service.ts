@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Customer } from '../models/customer.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
+  private cachedCustomer!: Customer;
   private readonly customerUrl: string = `${environment.apiUrl}/customer`;
 
   constructor(private http: HttpClient) {}
@@ -17,7 +19,13 @@ export class CustomerService {
   }
 
   getCustomerByUsername(username: string): Observable<Customer> {
-    return this.http.get<Customer>(`${this.customerUrl}/get/user/${username}`);
+    if (!this.cachedCustomer) {
+      return this.http
+        .get<Customer>(`${this.customerUrl}/get/user/${username}`)
+        .pipe(tap((data: Customer) => (this.cachedCustomer = data)));
+    }
+
+    return of(this.cachedCustomer);
   }
 
   getCustomerById(id: number): Observable<Customer> {
@@ -25,7 +33,9 @@ export class CustomerService {
   }
 
   updateCustomer(id: number, customer: Customer): Observable<Customer> {
-    return this.http.put<Customer>(`${this.customerUrl}/update/${id}`, customer);
+    return this.http
+      .put<Customer>(`${this.customerUrl}/update/${id}`, customer)
+      .pipe(tap((data: Customer) => (this.cachedCustomer = data)));
   }
 
   deleteCustomerByUsername(username: string): Observable<string> {
