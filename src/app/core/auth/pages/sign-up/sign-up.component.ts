@@ -78,7 +78,7 @@ export class SignUpComponent {
       .register({ firstName, lastName, address, username, password })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => void this.router.navigate(['home']),
+        next: () => void this.router.navigate(['']),
         error: (err) => {
           console.error('Register error:', err);
           this.messageService.add({

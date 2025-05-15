@@ -82,7 +82,7 @@ describe('SignUpComponent', () => {
     component.onSubmit();
 
     expect(authService.register).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['home']);
+    expect(router.navigate).toHaveBeenCalledWith(['']);
   });
 
   it('should log an error when form is not successfully submitted', () => {
