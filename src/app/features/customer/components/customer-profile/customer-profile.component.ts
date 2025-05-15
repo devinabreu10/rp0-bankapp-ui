@@ -8,6 +8,7 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgClass } from '@angular/common';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RippleModule } from 'primeng/ripple';
 
 export interface CustomerProfileForm {
   firstName: FormControl<string>;
@@ -19,7 +20,14 @@ export interface CustomerProfileForm {
 @Component({
   selector: 'app-customer-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, ToastModule, InputTextModule, NgClass, InputTextareaModule],
+  imports: [
+    ReactiveFormsModule,
+    ToastModule,
+    InputTextModule,
+    NgClass,
+    InputTextareaModule,
+    RippleModule,
+  ],
   providers: [MessageService],
   templateUrl: './customer-profile.component.html',
   styleUrl: './customer-profile.component.scss',

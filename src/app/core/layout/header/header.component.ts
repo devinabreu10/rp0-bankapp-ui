@@ -51,7 +51,7 @@ export class HeaderComponent {
       {
         label: 'Accounts',
         icon: 'pi menu pi-building-columns',
-        command: (): Promise<boolean> => this.router.navigate(['accounts']),
+        command: (): Promise<boolean> => this.router.navigate(['accounts/dashboard']),
       },
       {
         label: 'Transactions',
@@ -61,7 +61,7 @@ export class HeaderComponent {
       {
         label: 'My Profile',
         icon: 'pi menu pi-user',
-        command: (): Promise<boolean> => this.router.navigate([`profile/${this.authService.getUsername()}`]),
+        command: (): Promise<boolean> => this.router.navigate([`profile`]),
       },
       {
         label: 'Logout',
