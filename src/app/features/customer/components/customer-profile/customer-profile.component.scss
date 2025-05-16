@@ -3,34 +3,3 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
 }
-
-/* Fix for input icons */
-.p-input-icon-left {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-
-  > i {
-    position: absolute;
-    top: 65%;
-    left: 0.75rem;
-    transform: translateY(-50%);
-    z-index: 1;
-  }
-
-  > input, > textarea {
-    padding-left: 2.5rem !important;
-  }
-}
-
-/* Special handling for textarea with icons */
-.textarea-container {
-  > i {
-    top: 1.50rem !important;
-    transform: none !important;
-  }
-
-  > textarea {
-    padding-top: 0.75rem !important;
-  }
-}
