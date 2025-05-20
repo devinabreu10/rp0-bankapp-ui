@@ -72,6 +72,10 @@ export class AuthService {
     return this.currentUserSubject.value ? this.currentUserSubject.value.username : '';
   }
 
+  getUserId(): number {
+    return this.currentUserSubject.value ? this.currentUserSubject.value.id : -1;
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     const errorMessage =
       error.error instanceof ErrorEvent
