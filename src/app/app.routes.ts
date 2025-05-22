@@ -63,7 +63,6 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
-    // loadChildren: () => import('./features/customer/customer.routes'),
     loadComponent: () =>
       import('./features/customer/components/customer-profile/customer-profile.component').then(
         (m) => m.CustomerProfileComponent,
@@ -72,11 +71,7 @@ export const routes: Routes = [
   },
   {
     path: 'accounts',
-    loadComponent: () =>
-      import('./features/account/pages/account/account.component').then(
-        (m) => m.AccountComponent,
-      ),
-    // loadChildren: () => import('./features/account/account.routes'),
+    loadChildren: () => import('./features/account/account.routes'),
     canActivate: [() => inject(AuthService).isAuthenticated],
   },
   {
