@@ -63,6 +63,7 @@ describe('LoginComponent', () => {
   it('should call login and navigate to home when form is successfully submitted', () => {
     authService.login.and.returnValue(
       of({
+        id: 1,
         firstName: 'John',
         lastName: 'Doe',
         username: 'johndoe',
@@ -95,6 +96,7 @@ describe('LoginComponent', () => {
 
     authService.login.and.returnValue(
       of({
+        id: 1,
         firstName: 'John',
         lastName: 'Doe',
         username: 'johndoe',

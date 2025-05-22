@@ -18,6 +18,7 @@ describe('HeaderComponent', () => {
   let currentUserSubject: BehaviorSubject<UserAuth | null>;
 
   const mockUser: UserAuth = {
+    id: 1,
     firstName: 'John',
     lastName: 'Doe',
     address: '123 Main St',
