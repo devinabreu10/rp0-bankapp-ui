@@ -124,7 +124,7 @@ describe('HomeComponent', () => {
 
       component.navigateOpenAccount();
 
-      expect(routerSpy.navigate).toHaveBeenCalledWith(['accounts']);
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['accounts/open-account']);
     });
 
     it('should navigate to /sign-up when user is not authenticated', () => {

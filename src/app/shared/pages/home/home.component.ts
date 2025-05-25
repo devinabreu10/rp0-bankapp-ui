@@ -33,7 +33,7 @@ export class HomeComponent {
   navigateOpenAccount(): void {
     this.authService.isAuthenticated.subscribe((isAuthenticated: boolean): void => {
       if (isAuthenticated) {
-        this.router.navigate(['accounts']); // Replace it with the actual route to open an account
+        this.router.navigate(['accounts/open-account']);
       } else {
         this.router.navigate(['sign-up']);
       }
