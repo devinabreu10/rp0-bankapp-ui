@@ -3,14 +3,14 @@ import { Account } from '../../models/account.model';
 import { AccountService } from '../../services/account.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import { ConfirmCloseAccountDialogComponent } from '../../../../shared/components/confirm-close-account-dialog.component';
+import { CloseAccountDialogComponent } from '../../../../shared/components/close-account-dialog.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-account-details',
   standalone: true,
-  imports: [CurrencyPipe, RouterLink, ConfirmCloseAccountDialogComponent, ToastModule],
+  imports: [CurrencyPipe, RouterLink, CloseAccountDialogComponent, ToastModule],
   providers: [MessageService],
   templateUrl: './account-details.component.html'
 })

@@ -66,10 +66,10 @@
     </div>
   </div>
   @if (showCloseDialog) {
-    <app-confirm-close-account-dialog
+    <app-close-account-dialog
       [accountName]="account.accountType + ' Account'"
       (confirm)="closeAccount()"
       (cancel)="showCloseDialog = false"
-    ></app-confirm-close-account-dialog>
+    ></app-close-account-dialog>
   }
 </div>
