@@ -1,0 +1,103 @@
+<main class="mx-auto my-8 max-w-4xl p-6">
+  <p-toast position="top-center" />
+
+  <div class="mb-8 flex items-center">
+    <div
+      class="flex h-12 w-12 items-center justify-center rounded-full border-[3px] border-martinique-900 dark:border-putty-200"
+    >
+      <i
+        class="pi pi-building-columns text-[1.75rem] text-martinique-900 dark:text-putty-200"
+      ></i>
+    </div>
+
+    <h1 class="ml-4 text-3xl font-semibold text-martinique-900 dark:text-putty-200">
+      Open New Account
+    </h1>
+  </div>
+
+  <div
+    class="rounded-xl bg-white p-8 shadow-md ring-1 ring-slate-700/10 dark:bg-primaryDark dark:ring-secondaryDark/30"
+  >
+    <form [formGroup]="openAccountForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <!-- Account Type -->
+        <div class="mb-6">
+          <label
+            for="accountType"
+            class="mb-2 block font-medium text-martinique-800 dark:text-putty-200"
+            >Account Type</label
+          >
+          <p-dropdown
+            id="accountType"
+            formControlName="accountType"
+            [options]="accountTypes"
+            placeholder="Select Account Type"
+            [ngClass]="{
+              'ng-invalid ng-dirty': isInvalidAndTouched('accountType'),
+            }"
+            styleClass="w-full rounded-lg border border-martinique-200 dark:border-martinique-800 dark:bg-martinique-950"
+          ></p-dropdown>
+          @if (isInvalidAndTouched("accountType")) {
+            <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+              >Account type is required</span
+            >
+          }
+        </div>
+
+        <!-- Initial Balance -->
+        <div class="mb-6">
+          <label
+            for="accountBalance"
+            class="mb-2 block font-medium text-martinique-800 dark:text-putty-200"
+            >Initial Balance</label
+          >
+          <div class="relative">
+            <span class="p-input-icon-left w-full">
+              <p-inputNumber
+                id="accountBalance"
+                formControlName="accountBalance"
+                [ngClass]="{
+                  'ng-invalid ng-dirty': isInvalidAndTouched('accountBalance'),
+                }"
+                mode="currency"
+                currency="USD"
+                [min]="0.01"
+                [showButtons]="false"
+                class="w-full"
+                styleClass="w-full txn-form rounded-lg border border-martinique-200 transition-colors focus:border-martinique-500 focus:ring-2 focus:ring-martinique-300 dark:border-martinique-800 dark:bg-martinique-950 dark:text-secondaryDark dark:focus:border-putty-300 dark:focus:ring-putty-400/30"
+              ></p-inputNumber>
+            </span>
+          </div>
+          @if (isInvalidAndTouched("accountBalance")) {
+            <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+              >Initial balance is required and must be $0.01 or greater</span
+            >
+          }
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="mt-4 flex gap-4">
+        <button
+          type="button"
+          class="flex w-full items-center justify-center rounded-lg border border-martinique-300 bg-white px-6 py-3 font-medium text-martinique-700 shadow-sm transition-all hover:bg-martinique-50 focus:outline-none focus:ring-2 focus:ring-martinique-500 focus:ring-offset-2 dark:border-martinique-700 dark:bg-martinique-900 dark:text-putty-200 dark:hover:bg-martinique-800 dark:focus:ring-putty-300 dark:focus:ring-offset-primaryDark"
+          routerLink="/accounts/dashboard"
+        >
+          <i class="pi pi-times mr-2" aria-hidden="true"></i>
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="p-button flex w-full items-center justify-center rounded-lg bg-martinique-700 px-6 py-3 font-medium text-primaryLight shadow-sm transition-all hover:bg-martinique-800 focus:outline-none focus:ring-2 focus:ring-martinique-500 focus:ring-offset-2 disabled:opacity-70 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200 dark:focus:shadow-lara-dark-accent-btn dark:focus:ring-putty-300 dark:focus:ring-offset-primaryDark"
+          [disabled]="openAccountForm.invalid || submitting"
+        >
+          <i class="pi pi-check mr-2" aria-hidden="true"></i>
+          Create Account
+          @if (submitting) {
+            <i class="pi pi-spin pi-spinner ml-2" aria-hidden="true"></i>
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</main>
