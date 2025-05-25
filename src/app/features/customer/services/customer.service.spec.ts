@@ -51,10 +51,10 @@ describe('CustomerService', () => {
 
     const req = httpTestingController.expectOne(`${environment.apiUrl}/customer`);
     expect(req.request.method).toEqual('GET');
-    req.flush(mockCustomers); // Responde with mock data
+    req.flush(mockCustomers); // Respond with mock data
   });
 
-  it('should get customer by username', () => {
+  it('should fetch customer from server when cache is empty', () => {
     const mockCustomer: Customer = {
       id: 1,
       username: 'johndoe1',
@@ -70,8 +70,26 @@ describe('CustomerService', () => {
     const req = httpTestingController.expectOne(
       `${environment.apiUrl}/customer/get/user/${mockCustomer.username}`,
     );
-    expect(req.request.method).toEqual('GET');
+    expect(req.request.method).toBe('GET');
     req.flush(mockCustomer);
+  });
+
+  it('should return customer from cache if available', () => {
+    const mockCustomer: Customer = {
+      id: 1,
+      username: 'johndoe1',
+      firstName: 'John',
+      lastName: 'Doe',
+      address: '12345 Rand Dr.',
+    };
+
+    service['cachedCustomer'] = mockCustomer;
+
+    service.getCustomerByUsername(mockCustomer.username).subscribe((customer) => {
+      expect(customer).toBe(mockCustomer);
+    });
+
+    httpTestingController.verify();
   });
 
   it('should get customer by id', () => {
@@ -83,7 +101,7 @@ describe('CustomerService', () => {
       address: '12345 Rand Dr.',
     };
 
-    service.getCustomerById(mockCustomer.id).subscribe(customer => {
+    service.getCustomerById(mockCustomer.id).subscribe((customer) => {
       expect(customer).toEqual(mockCustomer);
     });
 
@@ -118,7 +136,7 @@ describe('CustomerService', () => {
   it('should delete customer by username', () => {
     const username = 'testUser';
 
-    service.deleteCustomerByUsername(username).subscribe(response => {
+    service.deleteCustomerByUsername(username).subscribe((response) => {
       expect(response).toBe('Customer deleted successfully');
     });
 
@@ -132,7 +150,7 @@ describe('CustomerService', () => {
   it('should delete customer by id', () => {
     const id = 1;
 
-    service.deleteCustomerById(id).subscribe(response => {
+    service.deleteCustomerById(id).subscribe((response) => {
       expect(response).toBe('Customer deleted successfully');
     });
 

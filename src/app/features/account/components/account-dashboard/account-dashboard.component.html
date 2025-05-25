@@ -1,0 +1,51 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="mb-8 text-center text-3xl font-semibold dark:text-secondaryDark">
+    Account Dashboard
+  </h1>
+
+  <div class="mx-auto max-w-4xl">
+    <div class="overflow-hidden rounded-lg bg-white shadow-md dark:bg-[#33334d]">
+      <div
+        class="flex justify-between border-b border-gray-200 bg-gray-100 px-6 py-4 dark:border-[#4a4a66] dark:bg-[#4a4a66]"
+      >
+        <h2 class="self-center text-xl font-semibold text-gray-800 dark:text-secondaryDark">
+          Your Accounts
+        </h2>
+        <button
+          class="p-button flex items-center justify-center rounded bg-martinique-900 px-4 py-2 font-semibold text-primaryLight shadow-sm transition-all hover:bg-martinique-800 focus:outline-none focus:ring-2 focus:ring-martinique-500 focus:ring-offset-2 disabled:opacity-70 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200 dark:focus:shadow-lara-dark-accent-btn dark:focus:ring-putty-300 dark:focus:ring-offset-primaryDark"
+          routerLink="/accounts/open-account"
+        >
+          <i class="pi pi-plus-circle mr-2" aria-hidden="true"></i>
+          Open Account
+        </button>
+      </div>
+
+      @for (acct of accounts; track acct.accountNumber) {
+        <section
+          class="cursor-pointer px-6 py-4 transition-colors duration-150 hover:bg-gray-50 dark:hover:bg-[#4a4a66]"
+          routerLink="/accounts/{{ acct.accountNumber }}"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-lg font-medium text-gray-800 dark:text-secondaryDark">
+                {{ acct.accountType }} Account
+              </p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Account #: {{ acct.accountNumber }}
+              </p>
+            </div>
+            <div>
+              <p class="text-xl font-semibold text-gray-900 dark:text-secondaryDark">
+                {{ acct.accountBalance | currency }}
+              </p>
+            </div>
+          </div>
+        </section>
+      } @empty {
+        <section class="px-6 py-8 text-center">
+          <p class="text-gray-600 dark:text-gray-400">No accounts found.</p>
+        </section>
+      }
+    </div>
+  </div>
+</div>

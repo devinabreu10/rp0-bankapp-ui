@@ -50,6 +50,7 @@ describe('AuthService', () => {
     it('should make a POST request to the login endpoint and set auth user on success', () => {
       spyOn(service, 'setAuthUser').and.callThrough();
       const mockResponse: UserAuth = {
+        id: 1,
         token: 'token',
         username: 'test',
         firstName: 'test',
@@ -87,6 +88,7 @@ describe('AuthService', () => {
     it('should make a POST request to the register endpoint and set auth user on success', () => {
       spyOn(service, 'setAuthUser').and.callThrough();
       const mockResponse: UserAuth = {
+        id: 1,
         token: 'token',
         username: 'test',
         firstName: 'test',
@@ -136,6 +138,7 @@ describe('AuthService', () => {
     it('should make a GET request to the user endpoint and set auth user on success', () => {
       spyOn(service, 'setAuthUser').and.callThrough();
       const mockResponse: UserAuth = {
+        id: 1,
         token: 'token',
         username: 'test',
         firstName: 'test',
@@ -181,6 +184,7 @@ describe('AuthService', () => {
   describe('setAuthUser', () => {
     it('should save token and update currentUserSubject', () => {
       const mockUser: UserAuth = {
+        id: 1,
         token: 'token',
         username: 'test',
         firstName: 'test',
@@ -233,6 +237,7 @@ describe('AuthService', () => {
     expect(emptyUser).toBeFalsy();
 
     service.setAuthUser({
+      id: 1,
       firstName: '',
       lastName: '',
       username: 'testUser',
