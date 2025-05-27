@@ -43,7 +43,7 @@ export class AccountDetailsComponent implements OnInit {
           detail: 'Account successfully closed',
         });
         setTimeout(() => {
-          this.router.navigate(['/accounts/dashboard']);
+          this.router.navigate(['accounts']);
         }, 1500);
       },
       error: (err) => {

@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'dashboard',
+        path: '',
         component: AccountDashboardComponent,
       },
       {

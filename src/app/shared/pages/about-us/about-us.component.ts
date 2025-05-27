@@ -23,7 +23,7 @@ export class AboutUsComponent {
   navigateOpenAccount(): void {
     this.authService.isAuthenticated.subscribe((isAuthenticated: boolean): void => {
       if (isAuthenticated) {
-        this.router.navigate(['accounts']);
+        this.router.navigate(['accounts/open-account']);
       } else {
         this.router.navigate(['login']);
       }

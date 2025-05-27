@@ -81,7 +81,7 @@
         <button
           type="button"
           class="flex w-full items-center justify-center rounded-lg border border-martinique-300 bg-white px-6 py-3 font-medium text-martinique-700 shadow-sm transition-all hover:bg-martinique-50 focus:outline-none focus:ring-2 focus:ring-martinique-500 focus:ring-offset-2 dark:border-martinique-700 dark:bg-martinique-900 dark:text-putty-200 dark:hover:bg-martinique-800 dark:focus:ring-putty-300 dark:focus:ring-offset-primaryDark"
-          routerLink="/accounts/dashboard"
+          routerLink="/accounts"
         >
           <i class="pi pi-times mr-2" aria-hidden="true"></i>
           Cancel
@@ -92,7 +92,7 @@
           [disabled]="openAccountForm.invalid || submitting"
         >
           <i class="pi pi-check mr-2" aria-hidden="true"></i>
-          Create Account
+          Open Account
           @if (submitting) {
             <i class="pi pi-spin pi-spinner ml-2" aria-hidden="true"></i>
           }

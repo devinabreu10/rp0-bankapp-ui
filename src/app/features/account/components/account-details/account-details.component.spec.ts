@@ -85,13 +85,13 @@ describe('AccountDetailsComponent', () => {
     fixture.detectChanges();
 
     const backButton = fixture.debugElement.query(
-      By.css('button[routerLink="/accounts/dashboard"]'),
+      By.css('button[routerLink="/accounts"]'),
     );
     expect(backButton.nativeElement.textContent).toContain('Back to Dashboard');
 
     backButton.nativeElement.click();
 
     // Since we're using routerLink, we need to check if the link is correct
-    expect(backButton.attributes['routerLink']).toBe('/accounts/dashboard');
+    expect(backButton.attributes['routerLink']).toBe('/accounts');
   });
 });

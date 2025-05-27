@@ -51,7 +51,7 @@ export class HeaderComponent {
       {
         label: 'Accounts',
         icon: 'pi menu pi-building-columns',
-        command: (): Promise<boolean> => this.router.navigate(['accounts/dashboard']),
+        command: (): Promise<boolean> => this.router.navigate(['accounts']),
       },
       {
         label: 'Transactions',

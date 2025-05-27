@@ -90,7 +90,7 @@ export class OpenAccountComponent {
           detail: `Account created with account #: ${account.accountNumber}`,
         });
         setTimeout(() => {
-          this.router.navigate(['/accounts/dashboard']);
+          this.router.navigate(['accounts']);
         }, 1500);
       },
       error: () => {

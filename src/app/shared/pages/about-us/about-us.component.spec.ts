@@ -47,7 +47,7 @@ describe('AboutUsComponent', () => {
     isAuthenticatedSubject.next(true);
 
     component.navigateOpenAccount();
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['accounts']);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['accounts/open-account']);
   });
 
   it('should navigate to login if not authenticated when navigateOpenAccount is called', () => {

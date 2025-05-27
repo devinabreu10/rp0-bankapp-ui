@@ -9,7 +9,7 @@
       @if (isAuthenticated()) {
         <ul class="flex flex-col space-y-4" (mouseleave)="toggleMenu()"> <!-- Note sure if I will keep mouse leave -->
           <li>
-            <a class="block hover:text-putty-200" routerLink="/accounts/dashboard" (click)="toggleMenu()">
+            <a class="block hover:text-putty-200" routerLink="/accounts" (click)="toggleMenu()">
               <i class="pi menu pi-building-columns mr-2"></i>Accounts
             </a>
           </li>
