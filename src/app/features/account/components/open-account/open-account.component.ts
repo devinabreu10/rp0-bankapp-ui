@@ -68,10 +68,6 @@ export class OpenAccountComponent {
   }
 
   onSubmit(): void {
-    if (this.openAccountForm.invalid) {
-      return;
-    }
-
     this.submitting = true;
     const formValue = this.openAccountForm.value;
 

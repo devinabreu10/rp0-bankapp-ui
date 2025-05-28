@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { EMPTY, of, throwError } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { AuthService } from '../../../../core/auth/services/auth.service';
 import { Account } from '../../models/account.model';
 import { AccountType } from '../../models/account-type.enum';
 import routes from '../../account.routes';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('AccountDashboardComponent', () => {
   let component: AccountDashboardComponent;
@@ -50,7 +51,7 @@ describe('AccountDashboardComponent', () => {
 
   it('should create', () => {
     authServiceSpy.getUsername.and.returnValue('testuser');
-    accountServiceSpy.getAccountsByUsername.and.returnValue(of([]));
+    accountServiceSpy.getAccountsByUsername.and.returnValue(EMPTY);
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
@@ -91,12 +92,29 @@ describe('AccountDashboardComponent', () => {
 
   it('should display "No accounts found" when no accounts are available', () => {
     authServiceSpy.getUsername.and.returnValue('testuser');
-    accountServiceSpy.getAccountsByUsername.and.returnValue(of([]));
+    accountServiceSpy.getAccountsByUsername.and.returnValue(EMPTY);
 
     fixture.detectChanges();
 
     const noAccountsElement = fixture.debugElement.query(By.css('.px-6.py-8.text-center'));
     expect(noAccountsElement).toBeTruthy();
     expect(noAccountsElement.nativeElement.textContent).toContain('No accounts found');
+  });
+
+  it('should handle account error', () => {
+    const error = new HttpErrorResponse({
+      error: new ErrorEvent('Network error', {
+        message: 'Network error',
+      }),
+    });
+
+    const spy = spyOn<any>(component, 'handleAccountError').and.callThrough();
+
+    authServiceSpy.getUsername.and.returnValue('testuser');
+    accountServiceSpy.getAccountsByUsername.and.returnValue(throwError(() => error));
+
+    component.ngOnInit();
+
+    expect(spy).toHaveBeenCalled();
   });
 });

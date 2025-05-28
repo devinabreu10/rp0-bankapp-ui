@@ -3,7 +3,7 @@ import { Account } from '../../models/account.model';
 import { AccountService } from '../../services/account.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import { CloseAccountDialogComponent } from '../../../../shared/components/close-account-dialog.component';
+import { CloseAccountDialogComponent } from '../../../../shared/components/close-account-dialog/close-account-dialog.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 

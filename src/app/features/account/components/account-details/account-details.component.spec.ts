@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
 import { AccountDetailsComponent } from './account-details.component';
@@ -22,7 +22,10 @@ describe('AccountDetailsComponent', () => {
   };
 
   beforeEach(async () => {
-    accountServiceSpy = jasmine.createSpyObj('AccountService', ['getAccountByAcctNo']);
+    accountServiceSpy = jasmine.createSpyObj('AccountService', [
+      'getAccountByAcctNo',
+      'deleteAccount',
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [AccountDetailsComponent],
@@ -84,14 +87,42 @@ describe('AccountDetailsComponent', () => {
     accountServiceSpy.getAccountByAcctNo.and.returnValue(of(mockAccount));
     fixture.detectChanges();
 
-    const backButton = fixture.debugElement.query(
-      By.css('button[routerLink="/accounts"]'),
-    );
+    const backButton = fixture.debugElement.query(By.css('button[routerLink="/accounts"]'));
     expect(backButton.nativeElement.textContent).toContain('Back to Dashboard');
 
     backButton.nativeElement.click();
 
     // Since we're using routerLink, we need to check if the link is correct
     expect(backButton.attributes['routerLink']).toBe('/accounts');
+  });
+
+  describe('closeAccount', () => {
+    beforeEach(() => {
+      component.account = mockAccount;
+      component.showCloseDialog = true;
+    });
+
+    it('should call deleteAccount with correct account number', () => {
+      // Arrange
+      accountServiceSpy.deleteAccount.and.returnValue(of('success'));
+
+      // Act
+      component.closeAccount();
+
+      // Assert
+      expect(accountServiceSpy.deleteAccount).toHaveBeenCalledWith(mockAccount.accountNumber);
+    });
+
+    it('should handle error and show error message', () => {
+      // Arrange
+      const error = new Error('Failed to close account');
+      accountServiceSpy.deleteAccount.and.returnValue(throwError(() => error));
+
+      // Act
+      component.closeAccount();
+
+      // Assert
+      expect(component.showCloseDialog).toBeFalse();
+    });
   });
 });
