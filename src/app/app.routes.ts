@@ -54,14 +54,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'customer',
-    loadComponent: () =>
-      import('./features/customer/pages/customer/customer.component').then(
-        (m) => m.CustomerComponent,
-      ),
-    canActivate: [() => inject(AuthService).isAuthenticated],
-  },
-  {
     path: 'profile',
     loadComponent: () =>
       import('./features/customer/components/customer-profile/customer-profile.component').then(
