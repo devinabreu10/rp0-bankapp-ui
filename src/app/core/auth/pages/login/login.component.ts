@@ -48,10 +48,10 @@ export class LoginComponent {
   destroyRef = inject(DestroyRef);
 
   constructor(
-    private themeService: ThemeService,
-    private authService: AuthService,
-    private router: Router,
-    private messageService: MessageService,
+    private readonly themeService: ThemeService,
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly messageService: MessageService,
   ) {
     this.theme$ = this.themeService.theme$;
 
@@ -97,7 +97,6 @@ export class LoginComponent {
             summary: 'Login Failed',
             detail: 'Invalid username or password',
           });
-          // this.loginForm.get('password')?.setErrors({ invalid: true });
         },
       });
   }

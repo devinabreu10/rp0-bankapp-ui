@@ -43,9 +43,9 @@ export class SignUpComponent {
   destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private messageService: MessageService,
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly messageService: MessageService,
   ) {
     this.signUpForm = new FormGroup<SignUpForm>({
       firstName: new FormControl('', {
