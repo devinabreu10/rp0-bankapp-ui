@@ -30,9 +30,9 @@ export class HeaderComponent {
   showMobileMenu: boolean = false;
 
   constructor(
-    private authService: AuthService,
-    private primengConfig: PrimeNGConfig,
-    private router: Router,
+    private readonly authService: AuthService,
+    private readonly primengConfig: PrimeNGConfig,
+    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
