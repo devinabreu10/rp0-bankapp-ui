@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   /**
    * It subscribes to the router events and resets the scroll position to the

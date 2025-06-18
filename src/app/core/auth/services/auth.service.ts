@@ -19,14 +19,14 @@ import { RegisterAuth } from '../register-auth.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly authUrl = `${environment.apiUrl}/auth`;
-  private currentUserSubject = new BehaviorSubject<UserAuth | null>(null);
+  private readonly currentUserSubject = new BehaviorSubject<UserAuth | null>(null);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
   public isAuthenticated = this.currentUser.pipe(map((user) => !!user));
 
   constructor(
-    private http: HttpClient,
-    private jwtService: JwtService,
-    private router: Router,
+    private readonly http: HttpClient,
+    private readonly jwtService: JwtService,
+    private readonly router: Router,
   ) {}
 
   login(credentials: { username: string; password: string }): Observable<UserAuth> {
