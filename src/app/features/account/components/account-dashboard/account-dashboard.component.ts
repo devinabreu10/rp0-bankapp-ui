@@ -17,9 +17,9 @@ export class AccountDashboardComponent implements OnInit {
   accounts!: Account[];
 
   constructor(
-    private accountService: AccountService,
-    private authService: AuthService,
-    private messageService: MessageService,
+    private readonly accountService: AccountService,
+    private readonly authService: AuthService,
+    private readonly messageService: MessageService,
   ) {}
 
   ngOnInit(): void {

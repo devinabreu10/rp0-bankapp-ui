@@ -19,10 +19,10 @@ export class AccountDetailsComponent implements OnInit {
   showCloseDialog: boolean = false;
 
   constructor(
-    private accountService: AccountService,
-    private activatedRoute: ActivatedRoute,
-    private messageService: MessageService,
-    private router: Router,
+    private readonly accountService: AccountService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly messageService: MessageService,
+    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
