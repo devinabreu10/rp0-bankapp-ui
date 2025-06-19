@@ -12,7 +12,7 @@ export class CustomerService {
   private cachedCustomer!: Customer;
   private readonly customerUrl: string = `${environment.apiUrl}/customer`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getCustomers(): Observable<Customer[]> {
     return this.http.get<Customer[]>(this.customerUrl);
