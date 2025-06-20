@@ -37,9 +37,9 @@ export class CustomerProfileComponent implements OnInit {
   customerProfileForm: FormGroup<CustomerProfileForm>;
 
   constructor(
-    private customerService: CustomerService,
-    private authService: AuthService,
-    private messageService: MessageService,
+    private readonly customerService: CustomerService,
+    private readonly authService: AuthService,
+    private readonly messageService: MessageService,
   ) {
     this.customerProfileForm = new FormGroup<CustomerProfileForm>({
       firstName: new FormControl('', { validators: [Validators.required], nonNullable: true }),

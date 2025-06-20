@@ -42,9 +42,9 @@ export class OpenAccountComponent {
   submitting: boolean = false;
 
   constructor(
-    private accountService: AccountService,
-    private messageService: MessageService,
-    private router: Router,
+    private readonly accountService: AccountService,
+    private readonly messageService: MessageService,
+    private readonly router: Router,
   ) {
     this.openAccountForm = new FormGroup<OpenAccountForm>({
       accountType: new FormControl(AccountType.CHECKING, {
