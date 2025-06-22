@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class TransactionService {
   private readonly transactionUrl = `${environment.apiUrl}/transaction`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getTransactionById(id: number): Observable<Transaction> {
     return this.http.get<Transaction>(`${this.transactionUrl}/get/${id}`);

@@ -14,8 +14,8 @@ export class ThemeToggleButtonComponent {
   divStyles = {};
 
   constructor(
-    private themeService: ThemeService,
-    private elRef: ElementRef,
+    private readonly themeService: ThemeService,
+    private readonly elRef: ElementRef,
   ) {}
 
   toggleThemeSelection(): void {
