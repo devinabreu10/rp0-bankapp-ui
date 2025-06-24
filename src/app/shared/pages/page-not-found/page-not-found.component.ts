@@ -12,9 +12,9 @@ import { RippleModule } from 'primeng/ripple';
 })
 export class PageNotFoundComponent {
   constructor(
-    private primengConfig: PrimeNGConfig,
-    private router: Router,
-    private location: Location,
+    private readonly primengConfig: PrimeNGConfig,
+    private readonly router: Router,
+    private readonly location: Location,
   ) {}
 
   ngOnInit(): void {
