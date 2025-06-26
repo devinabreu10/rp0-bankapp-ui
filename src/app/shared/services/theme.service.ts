@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 type Theme = 'light' | 'dark';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   dataTheme: string = document.documentElement.getAttribute('data-theme') ?? 'light';
-  prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  prefersDark: boolean = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  private themeSubject = new BehaviorSubject<string>(this.dataTheme);
-  theme$ = this.themeSubject.asObservable();
+  private readonly themeSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.dataTheme);
+  theme$: Observable<string> = this.themeSubject.asObservable();
 
   /**
    * Toggles the theme based on user theme preference.
