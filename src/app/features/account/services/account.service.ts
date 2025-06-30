@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Account } from '../models/account.model';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
+import { AccountTxn } from '../models/account-txn.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 export class AccountService {
   private readonly accountUrl = `${environment.apiUrl}/account`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getAccountByAcctNo(acctNo: number): Observable<Account> {
     return this.http.get<Account>(`${this.accountUrl}/get/${acctNo}`);
@@ -32,11 +33,15 @@ export class AccountService {
     return this.http.delete<string>(`${this.accountUrl}/delete/${acctNo}`);
   }
 
-  depositFunds(acctNo: number, amount: number): Observable<string> {
-    return this.http.put<string>(`${this.accountUrl}/${acctNo}/deposit/${amount}`, {});
+  transferFunds(transferRequest: AccountTxn): Observable<string> {
+    return this.http.post<string>(`${this.accountUrl}/transferFunds`, transferRequest);
   }
 
-  withdrawFunds(acctNo: number, amount: number): Observable<string> {
-    return this.http.put<string>(`${this.accountUrl}/${acctNo}/withdraw/${amount}`, {});
+  depositFunds(depositRequest: AccountTxn): Observable<string> {
+    return this.http.put<string>(`${this.accountUrl}/deposit`, depositRequest);
+  }
+
+  withdrawFunds(withdrawRequest: AccountTxn): Observable<string> {
+    return this.http.put<string>(`${this.accountUrl}/withdraw`, withdrawRequest);
   }
 }
