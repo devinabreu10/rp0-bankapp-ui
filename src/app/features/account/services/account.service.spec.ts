@@ -123,37 +123,49 @@ describe('AccountService', () => {
     req.flush('Account successfully deleted!');
   });
 
-  it('should deposit funds into account', () => {
+  it('should transfer funds between accounts', () => {
     const payload = {
-      accountNumber: 1,
+      sourceAccountNumber: 1,
+      destinationAccountNumber: 2,
       amount: 10.0,
     };
 
-    service.depositFunds(payload.accountNumber, payload.amount).subscribe((response) => {
+    service.transferFunds(payload).subscribe((response) => {
+      expect(response).toBe('Successfully transferred funds between accounts...');
+    });
+
+    const req = httpTestingController.expectOne(`${environment.apiUrl}/account/transferFunds`);
+    expect(req.request.method).toBe('POST');
+    req.flush('Successfully transferred funds between accounts...');
+  });
+
+  it('should deposit funds into account', () => {
+    const payload = {
+      sourceAccountNumber: 1,
+      amount: 10.0,
+    };
+
+    service.depositFunds(payload).subscribe((response) => {
       expect(response).toBe('Successfully deposited funds into account...');
     });
 
-    const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/account/${payload.accountNumber}/deposit/${payload.amount}`,
-    );
+    const req = httpTestingController.expectOne(`${environment.apiUrl}/account/deposit`);
     expect(req.request.method).toBe('PUT');
     req.flush('Successfully deposited funds into account...');
   });
 
   it('should withdraw funds from account', () => {
     const payload = {
-      accountNumber: 1,
+      sourceAccountNumber: 1,
       amount: 10.0,
     };
 
-    service.withdrawFunds(payload.accountNumber, payload.amount).subscribe((response) => {
-      expect(response).toBe('Successfully withdrawed funds from account...');
+    service.withdrawFunds(payload).subscribe((response) => {
+      expect(response).toBe('Successfully withdrew funds from account...');
     });
 
-    const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/account/${payload.accountNumber}/withdraw/${payload.amount}`,
-    );
+    const req = httpTestingController.expectOne(`${environment.apiUrl}/account/withdraw`);
     expect(req.request.method).toBe('PUT');
-    req.flush('Successfully withdrawed funds from account...');
+    req.flush('Successfully withdrew funds from account...');
   });
 });
