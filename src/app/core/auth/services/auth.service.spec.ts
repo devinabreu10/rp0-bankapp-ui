@@ -246,4 +246,19 @@ describe('AuthService', () => {
     const validUser: string = service.getUsername();
     expect(validUser).toEqual('testUser');
   });
+
+  it('should fetch and return userId from currentUserSubject', () => {
+    const emptyUser: number = service.getUserId();
+    expect(emptyUser).toEqual(-1);
+
+    service.setAuthUser({
+      id: 1,
+      firstName: '',
+      lastName: '',
+      username: 'testUser',
+      token: '',
+    });
+    const validUser: number = service.getUserId();
+    expect(validUser).toEqual(1);
+  });
 });

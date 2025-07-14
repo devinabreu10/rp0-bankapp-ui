@@ -1,1 +1,182 @@
-<p>transaction works!</p>
+<main class="mx-auto my-8 max-w-4xl p-6">
+  <p-toast position="top-center" />
+
+  <div class="mb-8 flex items-center">
+    <div
+      class="flex h-12 w-12 items-center justify-center rounded-full border-[3px] border-martinique-900 dark:border-putty-200"
+    >
+      <i class="pi pi-money-bill text-[1.75rem] text-martinique-900 dark:text-putty-200"></i>
+    </div>
+
+    <h1 class="ml-4 text-3xl font-semibold text-martinique-900 dark:text-putty-200">
+      New Transaction
+    </h1>
+  </div>
+
+  <div
+    class="rounded-xl bg-white p-8 shadow-md ring-1 ring-slate-700/10 dark:bg-primaryDark dark:ring-secondaryDark/30"
+  >
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+      <!-- Transaction Type -->
+      <div class="mb-6">
+        <label
+          for="type"
+          class="mb-2 block font-medium text-martinique-800 dark:text-putty-200"
+          >Transaction Type</label
+        >
+        <p-dropdown
+          id="type"
+          formControlName="type"
+          [options]="transactionTypes"
+          optionLabel="label"
+          optionValue="value"
+          [ngClass]="{
+            'ng-invalid ng-dirty': isInvalidAndTouched('type'),
+          }"
+          styleClass="w-full rounded-lg border border-martinique-200 dark:border-martinique-800 dark:bg-martinique-950"
+        ></p-dropdown>
+        @if (isInvalidAndTouched("type")) {
+          <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+            >Transaction type is required</span
+          >
+        }
+      </div>
+
+      <div class="form-grid grid grid-cols-1 gap-6 md:grid-cols-2">
+        <!-- From Account Number -->
+        <div class="mb-6">
+          <label
+            for="accountNumber"
+            class="mb-2 block font-medium text-martinique-800 dark:text-putty-200"
+            >From Account Number</label
+          >
+          <div class="relative">
+            <span class="p-input-icon-left w-full">
+              <p-inputNumber
+                id="accountNumber"
+                formControlName="accountNumber"
+                [ngClass]="{
+                  'ng-invalid ng-dirty': isInvalidAndTouched('accountNumber'),
+                }"
+                [useGrouping]="false"
+                [showButtons]="false"
+                [min]="1"
+                class="w-full"
+                styleClass="w-full txn-form rounded-lg border border-martinique-200 transition-colors focus:border-martinique-500 focus:ring-2 focus:ring-martinique-300 dark:border-martinique-800 dark:bg-martinique-950 dark:text-secondaryDark dark:focus:border-putty-300 dark:focus:ring-putty-400/30"
+              ></p-inputNumber>
+            </span>
+          </div>
+          @if (isInvalidAndTouched("accountNumber")) {
+            <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+              >Account number is required</span
+            >
+          }
+        </div>
+
+        <!-- To Account Number (only for transfers) -->
+        @if (transactionForm.get("type")?.value === transactionType.ACCOUNT_TRANSFER) {
+          <div class="mb-6">
+            <label
+              for="toAccountNumber"
+              class="mb-2 block font-medium text-martinique-800 dark:text-putty-200"
+              >To Account Number</label
+            >
+            <div class="relative">
+              <span class="p-input-icon-left w-full">
+                <p-inputNumber
+                  id="toAccountNumber"
+                  formControlName="toAccountNumber"
+                  [ngClass]="{
+                    'ng-invalid ng-dirty': isInvalidAndTouched('toAccountNumber'),
+                  }"
+                  [useGrouping]="false"
+                  [showButtons]="false"
+                  [min]="1"
+                  class="w-full"
+                  styleClass="w-full txn-form rounded-lg border border-martinique-200 transition-colors focus:border-martinique-500 focus:ring-2 focus:ring-martinique-300 dark:border-martinique-800 dark:bg-martinique-950 dark:text-secondaryDark dark:focus:border-putty-300 dark:focus:ring-putty-400/30"
+                ></p-inputNumber>
+              </span>
+            </div>
+            @if (isInvalidAndTouched("toAccountNumber")) {
+              <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+                >To account number is required</span
+              >
+            }
+          </div>
+        }
+
+        <!-- Amount -->
+        <div class="mb-6">
+          <label
+            for="amount"
+            class="mb-2 block font-medium text-martinique-800 dark:text-putty-200"
+            >Amount</label
+          >
+          <div class="relative">
+            <span class="p-input-icon-left w-full">
+              <p-inputNumber
+                id="amount"
+                formControlName="amount"
+                [ngClass]="{
+                  'ng-invalid ng-dirty': isInvalidAndTouched('amount'),
+                }"
+                mode="currency"
+                currency="USD"
+                [min]="0.01"
+                [showButtons]="false"
+                class="w-full"
+                styleClass="w-full txn-form rounded-lg border border-martinique-200 transition-colors focus:border-martinique-500 focus:ring-2 focus:ring-martinique-300 dark:border-martinique-800 dark:bg-martinique-950 dark:text-secondaryDark dark:focus:border-putty-300 dark:focus:ring-putty-400/30"
+              ></p-inputNumber>
+            </span>
+          </div>
+          @if (isMinLengthError()) {
+            <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+              >Amount must be at least $0.01</span
+            >
+          } @else if (isMaxLengthError()) {
+            <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+              >Amount must be less than $1,000,000,000,000.00</span
+            >
+          } @else if (isInvalidAndTouched("amount")) {
+            <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+              >Amount is required</span
+            >
+          }
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="mb-6">
+        <label
+          for="notes"
+          class="mb-2 block font-medium text-martinique-800 dark:text-putty-200"
+          >Notes (Optional)</label
+        >
+        <div class="relative">
+          <span class="p-input-icon-left textarea-container w-full">
+            <i class="pi pi-comment text-martinique-600 dark:text-putty-300"></i>
+            <textarea
+              pInputTextarea
+              id="notes"
+              formControlName="notes"
+              rows="3"
+              class="w-full rounded-lg border border-martinique-200 px-3 py-3 transition-colors focus:border-martinique-500 focus:ring-2 focus:ring-martinique-300 dark:border-martinique-800 dark:bg-martinique-950 dark:text-secondaryDark dark:focus:border-putty-300 dark:focus:ring-putty-400/30"
+            ></textarea>
+          </span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-8 flex gap-4">
+        <button
+          type="submit"
+          class="p-button flex w-full items-center justify-center rounded-lg bg-martinique-700 px-6 py-3 font-medium text-primaryLight shadow-sm transition-all hover:bg-martinique-800 focus:outline-none focus:ring-2 focus:ring-martinique-500 focus:ring-offset-2 disabled:opacity-70 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200 dark:focus:shadow-lara-dark-accent-btn dark:focus:ring-putty-300 dark:focus:ring-offset-primaryDark"
+          [disabled]="transactionForm.invalid"
+        >
+          <i class="pi pi-check-circle mr-2" aria-hidden="true"></i>
+          Submit Transaction
+        </button>
+      </div>
+    </form>
+  </div>
+</main>
