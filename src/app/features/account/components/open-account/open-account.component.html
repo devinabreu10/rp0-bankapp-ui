@@ -74,10 +74,36 @@
             >
           }
         </div>
+        <!-- Account Nickname -->
+        <div class="mb-6">
+          <label
+            for="accountNickname"
+            class="mb-2 block font-medium text-martinique-800 dark:text-putty-200"
+          >Account Nickname</label
+          >
+          <div class="relative">
+            <span class="w-full">
+              <input
+                pInputText
+                id="accountNickname"
+                formControlName="accountNickname"
+                [ngClass]="{
+                  'ng-invalid ng-dirty': isInvalidAndTouched('accountNickname'),
+                }"
+                class="w-full rounded-lg border border-martinique-200 px-3 py-3 transition-colors focus:border-martinique-500 focus:ring-2 focus:ring-martinique-300 dark:border-martinique-800 dark:bg-martinique-950 dark:text-secondaryDark dark:focus:border-putty-300 dark:focus:ring-putty-400/30"
+              >
+            </span>
+          </div>
+          @if (isInvalidAndTouched("accountNickname")) {
+            <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+            >Account nickname must be less than 50 characters</span
+            >
+          }
+        </div>
       </div>
 
       <!-- Buttons -->
-      <div class="mt-4 flex gap-4">
+      <div class="mt-10 flex gap-4">
         <button
           type="button"
           class="flex w-full items-center justify-center rounded-lg border border-martinique-300 bg-white px-6 py-3 font-medium text-martinique-700 shadow-sm transition-all hover:bg-martinique-50 focus:outline-none focus:ring-2 focus:ring-martinique-500 focus:ring-offset-2 dark:border-martinique-700 dark:bg-martinique-900 dark:text-putty-200 dark:hover:bg-martinique-800 dark:focus:ring-putty-300 dark:focus:ring-offset-primaryDark"

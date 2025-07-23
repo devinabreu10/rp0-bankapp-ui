@@ -28,7 +28,7 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-lg font-medium text-gray-800 dark:text-secondaryDark">
-                {{ acct.accountType }} Account
+                {{ resolveAccountNickname(acct) }}
               </p>
               <p class="text-sm text-gray-600 dark:text-gray-400">
                 Account #: {{ acct.accountNumber }}

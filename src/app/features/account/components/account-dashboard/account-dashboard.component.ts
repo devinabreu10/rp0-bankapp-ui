@@ -44,4 +44,8 @@ export class AccountDashboardComponent implements OnInit {
       detail: 'Unable to retrieve your accounts. Please try again later.',
     });
   }
+
+  resolveAccountNickname(account: Account): string {
+    return account.nickname ?? `${account.accountType} Account`;
+  }
 }

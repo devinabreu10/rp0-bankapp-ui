@@ -9,7 +9,7 @@ import { AccountType } from '../../models/account-type.enum';
 import { Account } from '../../models/account.model';
 import { of, throwError } from 'rxjs';
 
-describe('AddAccountComponent', () => {
+describe('OpenAccountComponent', () => {
   let component: OpenAccountComponent;
   let fixture: ComponentFixture<OpenAccountComponent>;
   let accountServiceSpy: jasmine.SpyObj<AccountService>;
@@ -48,6 +48,7 @@ describe('AddAccountComponent', () => {
     // Arrange
     const userId = 1;
     const account: Partial<Account> = {
+      nickname: '',
       accountType: AccountType.CHECKING,
       accountBalance: 1000.0,
       customerId: userId,
@@ -64,6 +65,7 @@ describe('AddAccountComponent', () => {
 
     // Assert
     expect(accountServiceSpy.saveAccount).toHaveBeenCalledWith({
+      nickname:'',
       accountType: AccountType.CHECKING,
       accountBalance: 1000.0,
       customerId: component.customerId,
