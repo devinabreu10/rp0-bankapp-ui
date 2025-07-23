@@ -60,4 +60,8 @@ export class AccountDetailsComponent implements OnInit {
       },
     });
   }
+
+  resolveAccountNickname(): string {
+    return this.account.nickname ?? `${this.account.accountType} Account`;
+  }
 }

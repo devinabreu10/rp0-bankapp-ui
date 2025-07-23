@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TransactionService } from '../../services/transaction.service';
 import { Transaction } from '../../models/transaction.model';
 import { TransactionType } from '../../models/transaction-type.enum';
 import { MessageService } from 'primeng/api';
@@ -48,9 +47,8 @@ export class TransactionComponent implements OnInit {
   ];
 
   constructor(
-    private transactionService: TransactionService,
-    private accountService: AccountService,
-    private messageService: MessageService,
+    private readonly accountService: AccountService,
+    private readonly messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -75,11 +73,7 @@ export class TransactionComponent implements OnInit {
         nonNullable: true,
       }),
       accountNumber: new FormControl(0, {
-        validators: [
-          Validators.required,
-          Validators.min(10000000),
-          Validators.max(99999999)
-        ],
+        validators: [Validators.required, Validators.min(10000000), Validators.max(99999999)],
         nonNullable: true,
       }),
     });
@@ -93,7 +87,7 @@ export class TransactionComponent implements OnInit {
             validators: [
               Validators.required,
               Validators.min(10000000),
-              Validators.max(99999999)
+              Validators.max(99999999),
             ],
             nonNullable: true,
           }),
@@ -250,5 +244,4 @@ export class TransactionComponent implements OnInit {
   isMaxLengthError(): boolean {
     return this.transactionForm.get('amount')?.hasError('max') ?? false;
   }
-
 }

@@ -13,7 +13,7 @@
         <h2
           class="self-center text-xl font-semibold text-gray-800 dark:text-secondaryDark"
         >
-          {{ account.accountType }} Account
+          {{ resolveAccountNickname() }}
         </h2>
         <button
           class="p-button flex items-center justify-center rounded bg-red-600 px-4 py-2 font-semibold text-primaryLight shadow-sm transition-all hover:bg-red-700 focus:outline-none disabled:opacity-70 dark:bg-red-500 dark:hover:bg-red-400"
@@ -67,7 +67,7 @@
   </div>
   @if (showCloseDialog) {
     <app-close-account-dialog
-      [accountName]="account.accountType + ' Account'"
+      [accountName]="resolveAccountNickname()"
       (confirm)="closeAccount()"
       (cancel)="showCloseDialog = false"
     ></app-close-account-dialog>

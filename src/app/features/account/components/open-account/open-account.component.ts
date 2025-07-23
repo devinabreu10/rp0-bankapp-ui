@@ -16,6 +16,7 @@ import { AuthService } from '../../../../core/auth/services/auth.service';
 export interface OpenAccountForm {
   accountType: FormControl<AccountType | null>;
   accountBalance: FormControl<number>;
+  accountNickname?: FormControl<string | null>;
 }
 
 @Component({
@@ -59,6 +60,10 @@ export class OpenAccountComponent {
         ],
         nonNullable: true,
       }),
+      accountNickname: new FormControl('', {
+        validators: [Validators.maxLength(50)],
+        nonNullable: false,
+      }),
     });
   }
 
@@ -73,6 +78,7 @@ export class OpenAccountComponent {
 
     // Create account object
     const newAccount: Partial<Account> = {
+      nickname: formValue.accountNickname as string,
       accountType: formValue.accountType as AccountType,
       accountBalance: formValue.accountBalance as number,
       customerId: this.customerId,
