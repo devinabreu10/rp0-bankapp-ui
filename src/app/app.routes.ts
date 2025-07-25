@@ -68,10 +68,7 @@ export const routes: Routes = [
   },
   {
     path: 'transactions',
-    loadComponent: () =>
-      import('./features/transaction/pages/transaction/transaction.component').then(
-        (m) => m.TransactionComponent,
-      ),
+    loadChildren: () => import('./features/transaction/transaction.routes'),
     canActivate: [() => inject(AuthService).isAuthenticated],
   },
   {

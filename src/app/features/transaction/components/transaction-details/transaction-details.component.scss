@@ -1,0 +1,12 @@
+/* Transaction Details Styles - supports light/dark theme via global classes */
+:host {
+  display: block;
+}
+.card {
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px 0 rgba(60, 60, 60, 0.08);
+}
+.dark .card {
+  background: #33334d;
+}

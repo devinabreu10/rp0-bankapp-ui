@@ -17,7 +17,11 @@ export class TransactionService {
   }
 
   getTransactionsByAcctNo(acctNo: number): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.transactionUrl}/get/list/${acctNo}`);
+    return this.http.get<Transaction[]>(`${this.transactionUrl}/list/account/${acctNo}`);
+  }
+
+  getTransactionsAndTransfersByCustomerId(customerId: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.transactionUrl}/list/customer/${customerId}`);
   }
 
   saveTransaction(transaction: Transaction): Observable<Transaction> {
