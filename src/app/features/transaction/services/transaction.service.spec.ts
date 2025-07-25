@@ -29,20 +29,20 @@ describe('TransactionService', () => {
 
   it('should get transaction by id', () => {
     const mockTransaction: Transaction = {
-      id: 1,
-      type: TransactionType.ACCOUNT_DEPOSIT,
-      amount: 100.0,
-      notes: 'Test Deposit Transaction',
-      date: new Date(),
+      transactionId: 1,
+      transactionType: TransactionType.ACCOUNT_DEPOSIT,
+      transactionAmount: 100.0,
+      transactionNotes: 'Test Deposit Transaction',
+      createdAt: new Date(),
       accountNumber: 123456789,
     };
 
-    service.getTransactionById(mockTransaction.id).subscribe((transaction) => {
+    service.getTransactionById(mockTransaction.transactionId).subscribe((transaction) => {
       expect(transaction).toEqual(mockTransaction);
     });
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/transaction/get/${mockTransaction.id}`,
+      `${environment.apiUrl}/transaction/get/${mockTransaction.transactionId}`,
     );
     expect(req.request.method).toBe('GET');
     req.flush(mockTransaction); // Respond with mock data
@@ -52,19 +52,19 @@ describe('TransactionService', () => {
     const mockAccountNumber = 123456789;
     const mockTransactions: Transaction[] = [
       {
-        id: 1,
-        type: TransactionType.ACCOUNT_DEPOSIT,
-        amount: 100.0,
-        notes: 'Test Deposit Transaction',
-        date: new Date(),
+        transactionId: 1,
+        transactionType: TransactionType.ACCOUNT_DEPOSIT,
+        transactionAmount: 100.0,
+        transactionNotes: 'Test Deposit Transaction',
+        createdAt: new Date(),
         accountNumber: 123456789,
       },
       {
-        id: 2,
-        type: TransactionType.ACCOUNT_WITHDRAW,
-        amount: 50.0,
-        notes: 'Test Withdrawal Transaction',
-        date: new Date(),
+        transactionId: 2,
+        transactionType: TransactionType.ACCOUNT_WITHDRAW,
+        transactionAmount: 50.0,
+        transactionNotes: 'Test Withdrawal Transaction',
+        createdAt: new Date(),
         accountNumber: 123456789,
       },
     ];
@@ -75,7 +75,40 @@ describe('TransactionService', () => {
     });
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/transaction/get/list/${mockAccountNumber}`,
+      `${environment.apiUrl}/transaction/list/account/${mockAccountNumber}`,
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush(mockTransactions); // Respond with mock data
+  });
+
+  it('should get all transactions and transfers by customer id', () => {
+    const mockCustomerId = 1;
+    const mockTransactions: Transaction[] = [
+      {
+        transactionId: 1,
+        transactionType: TransactionType.ACCOUNT_DEPOSIT,
+        transactionAmount: 100.0,
+        transactionNotes: 'Test Deposit Transaction',
+        createdAt: new Date(),
+        accountNumber: 123456789,
+      },
+      {
+        transactionId: 2,
+        transactionType: TransactionType.ACCOUNT_WITHDRAW,
+        transactionAmount: 50.0,
+        transactionNotes: 'Test Withdrawal Transaction',
+        createdAt: new Date(),
+        accountNumber: 123456789,
+      },
+    ];
+
+    service.getTransactionsAndTransfersByCustomerId(mockCustomerId).subscribe((transactions) => {
+      expect(transactions.length).toBe(2);
+      expect(transactions).toEqual(mockTransactions);
+    });
+
+    const req = httpTestingController.expectOne(
+      `${environment.apiUrl}/transaction/list/customer/${mockCustomerId}`,
     );
     expect(req.request.method).toBe('GET');
     req.flush(mockTransactions); // Respond with mock data
@@ -83,11 +116,11 @@ describe('TransactionService', () => {
 
   it('should save transaction', () => {
     const mockTransaction: Transaction = {
-      id: 1,
-      type: TransactionType.ACCOUNT_DEPOSIT,
-      amount: 100.0,
-      notes: 'Test Deposit Transaction',
-      date: new Date(),
+      transactionId: 1,
+      transactionType: TransactionType.ACCOUNT_DEPOSIT,
+      transactionAmount: 100.0,
+      transactionNotes: 'Test Deposit Transaction',
+      createdAt: new Date(),
       accountNumber: 123456789,
     };
 
@@ -102,20 +135,20 @@ describe('TransactionService', () => {
 
   it('should update transaction using transaction id', () => {
     const mockTransaction: Transaction = {
-      id: 1,
-      type: TransactionType.ACCOUNT_DEPOSIT,
-      amount: 100.0,
-      notes: 'Test Deposit Transaction',
-      date: new Date(),
+      transactionId: 1,
+      transactionType: TransactionType.ACCOUNT_DEPOSIT,
+      transactionAmount: 100.0,
+      transactionNotes: 'Test Deposit Transaction',
+      createdAt: new Date(),
       accountNumber: 123456789,
     };
 
-    service.updateTransaction(mockTransaction.id, mockTransaction).subscribe((transaction) => {
+    service.updateTransaction(mockTransaction.transactionId, mockTransaction).subscribe((transaction) => {
       expect(transaction).toEqual(mockTransaction);
     });
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/transaction/update/${mockTransaction.id}`,
+      `${environment.apiUrl}/transaction/update/${mockTransaction.transactionId}`,
     );
     expect(req.request.method).toBe('PUT');
     req.flush(mockTransaction); // Respond with mock data
@@ -123,20 +156,20 @@ describe('TransactionService', () => {
 
   it('should delete transaction using transaction id', () => {
     const mockTransaction: Transaction = {
-      id: 1,
-      type: TransactionType.ACCOUNT_DEPOSIT,
-      amount: 100.0,
-      notes: 'Test Deposit Transaction',
-      date: new Date(),
+      transactionId: 1,
+      transactionType: TransactionType.ACCOUNT_DEPOSIT,
+      transactionAmount: 100.0,
+      transactionNotes: 'Test Deposit Transaction',
+      createdAt: new Date(),
       accountNumber: 123456789,
     };
 
-    service.deleteTransaction(mockTransaction.id).subscribe((response) => {
+    service.deleteTransaction(mockTransaction.transactionId).subscribe((response) => {
       expect(response).toBe('Transaction deleted successfully...');
     });
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/transaction/delete/${mockTransaction.id}`,
+      `${environment.apiUrl}/transaction/delete/${mockTransaction.transactionId}`,
     );
     expect(req.request.method).toBe('DELETE');
     req.flush('Transaction deleted successfully...'); // Respond with mock data

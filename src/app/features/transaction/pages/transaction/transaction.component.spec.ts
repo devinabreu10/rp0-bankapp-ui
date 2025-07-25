@@ -68,9 +68,9 @@ describe('TransactionComponent', () => {
   it('should deposit funds when form is submitted', () => {
     // Arrange
     const transactionDeposit: Partial<Transaction> = {
-      type: TransactionType.ACCOUNT_DEPOSIT,
-      amount: 100.0,
-      notes: 'Test notes',
+      transactionType: TransactionType.ACCOUNT_DEPOSIT,
+      transactionAmount: 100.0,
+      transactionNotes: 'Test notes',
       accountNumber: 1,
     };
     component.transactionForm.patchValue(transactionDeposit);
@@ -85,9 +85,9 @@ describe('TransactionComponent', () => {
     // Arrange
     spyOn(console, 'error');
     const transactionDeposit: Partial<Transaction> = {
-      type: TransactionType.ACCOUNT_DEPOSIT,
-      amount: 100.0,
-      notes: 'Test notes',
+      transactionType: TransactionType.ACCOUNT_DEPOSIT,
+      transactionAmount: 100.0,
+      transactionNotes: 'Test notes',
       accountNumber: 1,
     };
 
@@ -107,13 +107,13 @@ describe('TransactionComponent', () => {
 
   it('should withdraw funds when form is submitted', () => {
     // Arrange
-    const transactionWithdraw: Partial<Transaction> = {
+        component.transactionForm.patchValue({
       type: TransactionType.ACCOUNT_WITHDRAW,
       amount: 100.0,
       notes: 'Test notes',
       accountNumber: 1,
-    };
-    component.transactionForm.patchValue(transactionWithdraw);
+    });
+
     accountServiceSpy.withdrawFunds.and.returnValue(of(''));
     component.onSubmit();
     expect(component.transactionForm).toBeDefined();
@@ -123,14 +123,14 @@ describe('TransactionComponent', () => {
   it('should throw error when trying to withdraw funds', () => {
     // Arrange
     spyOn(console, 'error');
-    const transactionWithdraw: Partial<Transaction> = {
+
+    component.transactionForm.patchValue({
       type: TransactionType.ACCOUNT_WITHDRAW,
       amount: 100.0,
       notes: 'Test notes',
       accountNumber: 1,
-    };
+    });
 
-    component.transactionForm.patchValue(transactionWithdraw);
     accountServiceSpy.withdrawFunds.and.returnValue(
       throwError(() => new Error('Error completing withdrawal')),
     );
@@ -147,14 +147,13 @@ describe('TransactionComponent', () => {
   it('should throw 409 error when trying to withdraw funds', () => {
     // Arrange
     spyOn(console, 'error');
-    const transactionWithdraw: Partial<Transaction> = {
+    component.transactionForm.patchValue({
       type: TransactionType.ACCOUNT_WITHDRAW,
       amount: 100.0,
       notes: 'Test notes',
       accountNumber: 1,
-    };
+    });
 
-    component.transactionForm.patchValue(transactionWithdraw);
     accountServiceSpy.withdrawFunds.and.returnValue(
       throwError(
         () =>
@@ -173,13 +172,13 @@ describe('TransactionComponent', () => {
 
   it('should transfer funds when form is submitted', () => {
     // Arrange
-    const transactionTransfer: Partial<Transaction> = {
+    component.transactionForm.patchValue({
       type: TransactionType.ACCOUNT_TRANSFER,
       amount: 100.0,
       notes: 'Test notes',
       accountNumber: 1,
-    };
-    component.transactionForm.patchValue(transactionTransfer);
+    });
+
     accountServiceSpy.transferFunds.and.returnValue(of(''));
     component.onSubmit();
     expect(component.transactionForm).toBeDefined();
@@ -189,14 +188,13 @@ describe('TransactionComponent', () => {
   it('should throw error when trying to transfer funds', () => {
     // Arrange
     spyOn(console, 'error');
-    const transactionTransfer: Partial<Transaction> = {
+    component.transactionForm.patchValue({
       type: TransactionType.ACCOUNT_TRANSFER,
       amount: 100.0,
       notes: 'Test notes',
       accountNumber: 1,
-    };
+    });
 
-    component.transactionForm.patchValue(transactionTransfer);
     accountServiceSpy.transferFunds.and.returnValue(
       throwError(() => new Error('Error completing transfer')),
     );
@@ -213,14 +211,13 @@ describe('TransactionComponent', () => {
   it('should throw 409 error when trying to transfer funds', () => {
     // Arrange
     spyOn(console, 'error');
-    const transactionTransfer: Partial<Transaction> = {
+    component.transactionForm.patchValue({
       type: TransactionType.ACCOUNT_TRANSFER,
       amount: 100.0,
       notes: 'Test notes',
       accountNumber: 1,
-    };
+    });
 
-    component.transactionForm.patchValue(transactionTransfer);
     accountServiceSpy.transferFunds.and.returnValue(
       throwError(
         () => new HttpErrorResponse({ status: 409, error: 'Insufficient funds for transfer' }),

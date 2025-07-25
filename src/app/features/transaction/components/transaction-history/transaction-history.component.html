@@ -1,0 +1,129 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="mb-8 text-center text-3xl font-semibold dark:text-secondaryDark">
+    Transaction History
+  </h1>
+  <div class="mx-auto max-w-4xl">
+    <div class="overflow-hidden rounded-lg bg-white shadow-md dark:bg-[#33334d]">
+      <div
+        class="flex justify-between border-b border-gray-200 bg-gray-100 px-6 py-4 dark:border-[#4a4a66] dark:bg-[#4a4a66]"
+      >
+        <button
+          type="button"
+          class="p-button flex items-center justify-center rounded bg-martinique-900 px-4 py-2 font-semibold text-primaryLight shadow-sm transition-all hover:bg-martinique-800 focus:outline-none focus:ring-2 focus:ring-martinique-500 focus:ring-offset-2 disabled:opacity-70 dark:bg-accent dark:text-primaryDark dark:hover:bg-putty-200 dark:focus:shadow-lara-dark-accent-btn dark:focus:ring-putty-300 dark:focus:ring-offset-primaryDark"
+          (click)="goToAddTransaction()"
+        >
+          <i class="pi pi-plus-circle mr-2" aria-hidden="true"></i>
+          New Transaction
+        </button>
+        <span class="ml-auto self-center text-sm text-gray-500 dark:text-gray-300"
+          >{{ filteredTransactions().length }} transactions</span
+        >
+      </div>
+      <div class="px-6 py-4">
+        <div class="mb-4 flex flex-wrap items-center gap-4">
+          <label class="flex items-center gap-2">
+            <span class="text-sm font-medium">Type:</span>
+            <select
+              [(ngModel)]="filterType"
+              (ngModelChange)="onFilterChange()"
+              class="rounded border p-1 dark:bg-martinique-800 dark:text-white"
+            >
+              <option value="">All</option>
+              <option value="Account Deposit">Deposit</option>
+              <option value="Account Withdraw">Withdraw</option>
+              <option value="Account Transfer">Transfer</option>
+            </select>
+          </label>
+          <label class="flex items-center gap-2">
+            <span class="text-sm font-medium">Date:</span>
+            <input
+              type="date"
+              [(ngModel)]="filterDate"
+              (ngModelChange)="onFilterChange()"
+              class="rounded border p-1 dark:bg-martinique-800 dark:text-white"
+            />
+          </label>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto text-left text-sm">
+            <thead>
+              <tr>
+                <th
+                  (click)="onSort('createdAt')"
+                  class="cursor-pointer text-left text-primaryDark dark:text-accent"
+                >
+                  Date
+                  <span [ngClass]="{ 'font-semibold': sortField() === 'createdAt' }"
+                    >&#8597;</span
+                  >
+                </th>
+                <th
+                  (click)="onSort('transactionType')"
+                  class="cursor-pointer text-left text-primaryDark dark:text-accent"
+                >
+                  Type
+                  <span [ngClass]="{ 'font-semibold': sortField() === 'transactionType' }"
+                    >&#8597;</span
+                  >
+                </th>
+                <th
+                  (click)="onSort('transactionAmount')"
+                  class="cursor-pointer text-left text-primaryDark dark:text-accent"
+                >
+                  Amount
+                  <span [ngClass]="{ 'font-semibold': sortField() === 'transactionAmount' }"
+                    >&#8597;</span
+                  >
+                </th>
+                <th
+                  (click)="onSort('transactionNotes')"
+                  class="cursor-pointer text-left text-primaryDark dark:text-accent"
+                >
+                  Notes
+                  <span [ngClass]="{ 'font-semibold': sortField() === 'transactionNotes' }"
+                    >&#8597;</span
+                  >
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (txn of pagedTransactions(); track $index) {
+                <tr
+                  class="cursor-pointer hover:bg-gray-50 dark:hover:bg-[#4a4a66]"
+                  (click)="viewDetails(txn)"
+                >
+                  <td class="text-left">{{ txn.createdAt | date: "mediumDate" }}</td>
+                  <td class="text-left">{{ txn.transactionType }}</td>
+                  <td class="text-left">{{ txn.transactionAmount | currency }}</td>
+                  <td class="text-left">{{ txn.transactionNotes }}</td>
+                </tr>
+              }
+              @if (pagedTransactions().length === 0) {
+                <td colspan="4" class="py-4 text-center text-gray-500 dark:text-gray-300">
+                  No transactions found.
+                </td>
+              }
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <button
+            (click)="goToPage(page() - 1)"
+            [disabled]="page() === 1"
+            class="rounded bg-martinique-800 px-3 py-1 font-medium text-primaryLight disabled:opacity-50 dark:bg-accent dark:text-primaryDark"
+          >
+            Prev
+          </button>
+          <span class="text-xs">Page {{ page() }} of {{ totalPages() }}</span>
+          <button
+            (click)="goToPage(page() + 1)"
+            [disabled]="page === totalPages"
+            class="rounded bg-martinique-800 px-3 py-1 font-medium text-primaryLight disabled:opacity-50 dark:bg-accent dark:text-primaryDark"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

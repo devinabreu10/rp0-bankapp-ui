@@ -12,7 +12,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RippleModule } from 'primeng/ripple';
 import { AccountService } from '../../../account/services/account.service';
 import { AccountTxn } from '../../../account/models/account-txn.model';
-
 export interface TransactionForm {
   type: FormControl<TransactionType>;
   amount: FormControl<number>;
@@ -32,7 +31,7 @@ export interface TransactionForm {
     DropdownModule,
     NgClass,
     InputTextareaModule,
-    RippleModule,
+    RippleModule
   ],
   providers: [MessageService],
   templateUrl: './transaction.component.html',
@@ -102,15 +101,15 @@ export class TransactionComponent implements OnInit {
     const formValue = this.transactionForm.value;
 
     const transaction: Partial<Transaction> = {
-      type: formValue.type as TransactionType,
-      amount: formValue.amount as number,
-      notes: formValue.notes as string,
+      transactionType: formValue.type as TransactionType,
+      transactionAmount: formValue.amount as number,
+      transactionNotes: formValue.notes as string,
       accountNumber: formValue.accountNumber!,
     };
 
     console.log('Transaction submitted:', transaction);
 
-    switch (transaction.type) {
+    switch (transaction.transactionType) {
       case TransactionType.ACCOUNT_DEPOSIT:
         this.accountDeposit(transaction);
         break;
@@ -128,8 +127,8 @@ export class TransactionComponent implements OnInit {
   accountDeposit(transaction: Partial<Transaction>): void {
     const depositRequest: AccountTxn = {
       sourceAccountNumber: transaction.accountNumber as number,
-      amount: transaction.amount as number,
-      notes: transaction.notes as string,
+      amount: transaction.transactionAmount as number,
+      notes: transaction.transactionNotes as string,
     };
     this.accountService.depositFunds(depositRequest).subscribe({
       next: (responseMessage: string) => {
@@ -155,8 +154,8 @@ export class TransactionComponent implements OnInit {
   private accountWithdraw(transaction: Partial<Transaction>) {
     const withdrawRequest: AccountTxn = {
       sourceAccountNumber: transaction.accountNumber as number,
-      amount: transaction.amount as number,
-      notes: transaction.notes as string,
+      amount: transaction.transactionAmount as number,
+      notes: transaction.transactionNotes as string,
     };
     this.accountService.withdrawFunds(withdrawRequest).subscribe({
       next: (responseMessage: string) => {
@@ -191,8 +190,8 @@ export class TransactionComponent implements OnInit {
     const transferRequest: AccountTxn = {
       sourceAccountNumber: transaction.accountNumber as number,
       targetAccountNumber: this.transactionForm.get('toAccountNumber')?.value as number,
-      amount: transaction.amount as number,
-      notes: transaction.notes as string,
+      amount: transaction.transactionAmount as number,
+      notes: transaction.transactionNotes as string,
     };
     this.accountService.transferFunds(transferRequest).subscribe({
       next: (responseMessage: string) => {
