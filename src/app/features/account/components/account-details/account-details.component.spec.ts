@@ -88,7 +88,7 @@ describe('AccountDetailsComponent', () => {
     fixture.detectChanges();
 
     const backButton = fixture.debugElement.query(By.css('button[routerLink="/accounts"]'));
-    expect(backButton.nativeElement.textContent).toContain('Back to Dashboard');
+    expect(backButton.nativeElement.textContent).toContain('Dashboard');
 
     backButton.nativeElement.click();
 
