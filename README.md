@@ -1,10 +1,12 @@
-# RP0 Banking Platform - UI
+<p style="text-align: center; margin-bottom: 30px;">
+  <img src="src/assets/rp0-banking-header.png" alt="RP0 Banking Platform Logo" width="400"/>
+</p>
 
-RP0 Banking UI is a modern, feature-rich web interface for a comprehensive digital banking platform. Built with Angular 17.3, this frontend enables users to securely manage their banking needs, including customer profiles, account operations, and transaction history, all through an intuitive and responsive user experience.
+**RP0 Banking UI** is a modern, feature-rich web interface for a comprehensive digital banking platform. Built with Angular 17.3, this frontend enables users to securely manage their banking needs, including customer profiles, account operations, and transaction history, all through an intuitive and responsive user experience.
 
 ## Overview
 
-This application serves as the frontend for the RP0 Banking System, providing:
+This application serves as the frontend for the RP0 Banking Platform, providing:
 - **Secure authentication** to protect user data and restrict access to authorized users only.
 - **Customer management** for viewing and editing customer information.
 - **Account management** supporting multiple account types, account creation, and closure.
