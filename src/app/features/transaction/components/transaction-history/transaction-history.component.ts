@@ -52,7 +52,7 @@ export class TransactionHistoryComponent implements OnInit {
   fetchTransactions(): void {
     this.loading.set(true);
     this.transactionService
-      .getTransactionsAndTransfersByCustomerId(this.customerId as number)
+      .getTransactionsAndTransfersByCustomerId(this.customerId)
       .subscribe({
         next: (txns: Transaction[]): void => {
           this.transactions.set(txns);
