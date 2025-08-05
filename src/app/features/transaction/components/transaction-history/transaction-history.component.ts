@@ -5,13 +5,14 @@ import { TransactionService } from '../../services/transaction.service';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import { AuthService } from '../../../../core/auth/services/auth.service';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-transaction-history',
   templateUrl: './transaction-history.component.html',
   styleUrls: ['./transaction-history.component.scss'],
   standalone: true,
-  imports: [FormsModule, NgClass, CurrencyPipe, DatePipe],
+  imports: [FormsModule, NgClass, CurrencyPipe, DatePipe, DropdownModule],
 })
 export class TransactionHistoryComponent implements OnInit {
   customerId: number = inject(AuthService).getUserId();
@@ -19,12 +20,29 @@ export class TransactionHistoryComponent implements OnInit {
   // Signals for state
   transactions = signal<Transaction[]>([]);
   filterType = signal<string>('');
-  filterDate = signal<string>('');
+  filterDateRange = signal<string>('');
   sortField = signal<string>('createdAt');
   sortDirection = signal<'asc' | 'desc'>('desc');
   page = signal<number>(1);
   pageSize = signal<number>(10);
   loading = signal<boolean>(false);
+
+  // Dropdown options
+  transactionTypeOptions = [
+    { label: 'All Types', value: '' },
+    { label: 'Deposit', value: 'Account Deposit' },
+    { label: 'Withdraw', value: 'Account Withdraw' },
+    { label: 'Transfer', value: 'Account Transfer' },
+  ];
+
+  dateRangeOptions = [
+    { label: 'All Dates', value: '' },
+    { label: 'Today', value: 'today' },
+    { label: 'Last 7 Days', value: 'last7days' },
+    { label: 'Last 30 Days', value: 'last30days' },
+    { label: 'This Month', value: 'thisMonth' },
+    { label: 'Last Month', value: 'lastMonth' },
+  ];
 
   // Computed signals for derived state
   filteredTransactions = computed(() => {
@@ -66,12 +84,55 @@ export class TransactionHistoryComponent implements OnInit {
 
   applyFilters(): Transaction[] {
     let txns = [...this.transactions()];
+    
+    // Filter by transaction type
     if (this.filterType()) {
       txns = txns.filter((t) => t.transactionType === this.filterType());
     }
-    if (this.filterDate()) {
-      txns = txns.filter((t) => t.createdAt.toString().slice(0, 10) === this.filterDate());
+    
+    // Filter by date range
+    if (this.filterDateRange()) {
+      const today = new Date();
+      
+      switch (this.filterDateRange()) {
+        case 'today':
+          txns = txns.filter((t) => {
+            const txnDate = new Date(t.createdAt);
+            return txnDate.toDateString() === today.toDateString();
+          });
+          break;
+        case 'last7days':
+          const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+          txns = txns.filter((t) => {
+            const txnDate = new Date(t.createdAt);
+            return txnDate >= sevenDaysAgo;
+          });
+          break;
+        case 'last30days':
+          const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+          txns = txns.filter((t) => {
+            const txnDate = new Date(t.createdAt);
+            return txnDate >= thirtyDaysAgo;
+          });
+          break;
+        case 'thisMonth':
+          const thisMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+          txns = txns.filter((t) => {
+            const txnDate = new Date(t.createdAt);
+            return txnDate >= thisMonthStart;
+          });
+          break;
+        case 'lastMonth':
+          const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+          const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+          txns = txns.filter((t) => {
+            const txnDate = new Date(t.createdAt);
+            return txnDate >= lastMonthStart && txnDate <= lastMonthEnd;
+          });
+          break;
+      }
     }
+    
     // Sorting
     txns.sort((a, b) => {
       let valA = a[this.sortField() as keyof Transaction];
@@ -87,6 +148,16 @@ export class TransactionHistoryComponent implements OnInit {
   }
 
   onFilterChange(): void {
+    this.page.set(1);
+  }
+
+  onDateRangeChange(): void {
+    this.page.set(1);
+  }
+
+  clearFilters(): void {
+    this.filterType.set('');
+    this.filterDateRange.set('');
     this.page.set(1);
   }
 

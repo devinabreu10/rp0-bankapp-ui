@@ -21,28 +21,38 @@
       </div>
       <div class="px-6 py-4">
         <div class="mb-4 flex flex-wrap items-center gap-4">
-          <label class="flex items-center gap-2">
-            <span class="text-sm font-medium">Type:</span>
-            <select
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-medium text-martinique-800 dark:text-putty-200">Transaction Type:</span>
+            <p-dropdown
               [(ngModel)]="filterType"
-              (ngModelChange)="onFilterChange()"
-              class="rounded border p-1 dark:bg-martinique-800 dark:text-white"
-            >
-              <option value="">All</option>
-              <option value="Account Deposit">Deposit</option>
-              <option value="Account Withdraw">Withdraw</option>
-              <option value="Account Transfer">Transfer</option>
-            </select>
-          </label>
-          <label class="flex items-center gap-2">
-            <span class="text-sm font-medium">Date:</span>
-            <input
-              type="date"
-              [(ngModel)]="filterDate"
-              (ngModelChange)="onFilterChange()"
-              class="rounded border p-1 dark:bg-martinique-800 dark:text-white"
-            />
-          </label>
+              [options]="transactionTypeOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select transaction type"
+              (onChange)="onFilterChange()"
+              styleClass="w-48 rounded-lg border border-martinique-200 dark:border-martinique-800 dark:bg-martinique-950"
+            ></p-dropdown>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-medium text-martinique-800 dark:text-putty-200">Date Range:</span>
+            <p-dropdown
+              [(ngModel)]="filterDateRange"
+              [options]="dateRangeOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select date range"
+              (onChange)="onDateRangeChange()"
+              styleClass="w-48 rounded-lg border border-martinique-200 dark:border-martinique-800 dark:bg-martinique-950"
+            ></p-dropdown>
+          </div>
+          <button
+            type="button"
+            (click)="clearFilters()"
+            class="flex items-center gap-2 rounded-md bg-martinique-200 px-4 py-2 text-sm font-medium text-martinique-800 transition-colors hover:bg-martinique-300 dark:bg-martinique-700 dark:text-putty-200 dark:hover:bg-martinique-600"
+          >
+            <i class="pi pi-times" aria-hidden="true"></i>
+            Clear Filters
+          </button>
         </div>
         <div class="overflow-x-auto">
           <table class="min-w-full table-auto text-left text-sm">

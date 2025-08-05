@@ -51,20 +51,19 @@
             >From Account Number</label
           >
           <div class="relative">
-            <span class="p-input-icon-left w-full">
-              <p-inputNumber
-                id="accountNumber"
-                formControlName="accountNumber"
-                [ngClass]="{
-                  'ng-invalid ng-dirty': isInvalidAndTouched('accountNumber'),
-                }"
-                [useGrouping]="false"
-                [showButtons]="false"
-                [min]="1"
-                class="w-full"
-                styleClass="w-full txn-form rounded-lg border border-martinique-200 transition-colors focus:border-martinique-500 focus:ring-2 focus:ring-martinique-300 dark:border-martinique-800 dark:bg-martinique-950 dark:text-secondaryDark dark:focus:border-putty-300 dark:focus:ring-putty-400/30"
-              ></p-inputNumber>
-            </span>
+            <p-dropdown
+              id="accountNumber"
+              formControlName="accountNumber"
+              [options]="accountOptions"
+              optionLabel="label"
+              optionValue="value"
+              [loading]="isLoadingAccounts"
+              placeholder="Select an account"
+              [ngClass]="{
+                'ng-invalid ng-dirty': isInvalidAndTouched('accountNumber'),
+              }"
+              styleClass="w-full rounded-lg border border-martinique-200 dark:border-martinique-800 dark:bg-martinique-950"
+            ></p-dropdown>
           </div>
           @if (isInvalidAndTouched("accountNumber")) {
             <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
@@ -82,24 +81,27 @@
               >To Account Number</label
             >
             <div class="relative">
-              <span class="p-input-icon-left w-full">
-                <p-inputNumber
-                  id="toAccountNumber"
-                  formControlName="toAccountNumber"
-                  [ngClass]="{
-                    'ng-invalid ng-dirty': isInvalidAndTouched('toAccountNumber'),
-                  }"
-                  [useGrouping]="false"
-                  [showButtons]="false"
-                  [min]="1"
-                  class="w-full"
-                  styleClass="w-full txn-form rounded-lg border border-martinique-200 transition-colors focus:border-martinique-500 focus:ring-2 focus:ring-martinique-300 dark:border-martinique-800 dark:bg-martinique-950 dark:text-secondaryDark dark:focus:border-putty-300 dark:focus:ring-putty-400/30"
-                ></p-inputNumber>
-              </span>
+              <p-dropdown
+                id="toAccountNumber"
+                formControlName="toAccountNumber"
+                [options]="accountOptions"
+                optionLabel="label"
+                optionValue="value"
+                [loading]="isLoadingAccounts"
+                placeholder="Select an account"
+                [ngClass]="{
+                  'ng-invalid ng-dirty': isInvalidAndTouched('toAccountNumber'),
+                }"
+                styleClass="w-full rounded-lg border border-martinique-200 dark:border-martinique-800 dark:bg-martinique-950"
+              ></p-dropdown>
             </div>
             @if (isInvalidAndTouched("toAccountNumber")) {
               <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
                 >To account number is required</span
+              >
+            } @else if (isSameAccountError()) {
+              <span class="mt-1 block p-0 text-sm text-red-500 dark:text-red-400"
+                >Cannot transfer to the same account</span
               >
             }
           </div>

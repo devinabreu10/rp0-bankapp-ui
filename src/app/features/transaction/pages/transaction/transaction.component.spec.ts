@@ -6,6 +6,9 @@ import { TransactionService } from '../../services/transaction.service';
 import { TransactionType } from '../../models/transaction-type.enum';
 import { Transaction } from '../../models/transaction.model';
 import { AccountService } from '../../../account/services/account.service';
+import { AuthService } from '../../../../core/auth/services/auth.service';
+import { Account } from '../../../account/models/account.model';
+import { AccountType } from '../../../account/models/account-type.enum';
 import { of, throwError } from 'rxjs';
 
 describe('TransactionComponent', () => {
@@ -13,6 +16,7 @@ describe('TransactionComponent', () => {
   let fixture: ComponentFixture<TransactionComponent>;
   let transactionServiceSpy: jasmine.SpyObj<TransactionService>;
   let accountServiceSpy: jasmine.SpyObj<AccountService>;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
     transactionServiceSpy = jasmine.createSpyObj('TransactionService', ['saveTransaction']);
@@ -20,7 +24,9 @@ describe('TransactionComponent', () => {
       'transferFunds',
       'depositFunds',
       'withdrawFunds',
+      'getAccountsByUsername',
     ]);
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['getUsername']);
 
     await TestBed.configureTestingModule({
       imports: [TransactionComponent],
@@ -28,6 +34,7 @@ describe('TransactionComponent', () => {
         provideHttpClient(),
         { provide: TransactionService, useValue: transactionServiceSpy },
         { provide: AccountService, useValue: accountServiceSpy },
+        { provide: AuthService, useValue: authServiceSpy },
       ],
     }).compileComponents();
 
@@ -37,19 +44,36 @@ describe('TransactionComponent', () => {
   });
 
   it('should initialize transaction form with default values', () => {
+    // Mock user accounts
+    const mockAccounts: Account[] = [
+      { accountNumber: 12345678, nickname: 'Savings', accountType: AccountType.SAVINGS, accountBalance: 1000, customerId: 1 },
+      { accountNumber: 87654321, nickname: 'Checking', accountType: AccountType.CHECKING, accountBalance: 500, customerId: 1 }
+    ];
+    
+    authServiceSpy.getUsername.and.returnValue('testuser');
+    accountServiceSpy.getAccountsByUsername.and.returnValue(of(mockAccounts));
+    
     component.ngOnInit();
 
     expect(component).toBeTruthy();
     expect(component.transactionForm).toBeDefined();
-    expect(component.transactionForm.value).toEqual({
-      type: TransactionType.ACCOUNT_DEPOSIT,
-      amount: 0.01,
-      notes: '',
-      accountNumber: 0,
-    });
+    expect(component.accountOptions.length).toBe(2);
+    expect(component.accountOptions[0].label).toContain('12345678');
+    expect(component.accountOptions[0].label).toContain('Savings');
+    expect(component.accountOptions[0].label).toContain('$1000.00');
   });
 
   it('should listen for changes in transaction type', () => {
+    // Mock user accounts first
+    const mockAccounts: Account[] = [
+      { accountNumber: 12345678, nickname: 'Savings', accountType: AccountType.SAVINGS, accountBalance: 1000, customerId: 1 },
+      { accountNumber: 87654321, nickname: 'Checking', accountType: AccountType.CHECKING, accountBalance: 500, customerId: 1 }
+    ];
+    
+    authServiceSpy.getUsername.and.returnValue('testuser');
+    accountServiceSpy.getAccountsByUsername.and.returnValue(of(mockAccounts));
+    component.ngOnInit();
+    
     component.transactionForm.get('type')?.setValue(TransactionType.ACCOUNT_TRANSFER);
     fixture.detectChanges(); // Trigger change detection (onInit will be called)
     expect(component.transactionForm.get('toAccountNumber')?.value).toBeDefined();
@@ -63,6 +87,29 @@ describe('TransactionComponent', () => {
     expect(component.transactionForm.get('type')?.value).toBe(
       TransactionType.ACCOUNT_WITHDRAW,
     );
+  });
+
+  it('should validate same account selection for transfers', () => {
+    // Mock user accounts first
+    const mockAccounts: Account[] = [
+      { accountNumber: 12345678, nickname: 'Savings', accountType: AccountType.SAVINGS, accountBalance: 1000, customerId: 1 },
+      { accountNumber: 87654321, nickname: 'Checking', accountType: AccountType.CHECKING, accountBalance: 500, customerId: 1 }
+    ];
+    
+    authServiceSpy.getUsername.and.returnValue('testuser');
+    accountServiceSpy.getAccountsByUsername.and.returnValue(of(mockAccounts));
+    component.ngOnInit();
+    
+    // Set up transfer
+    component.transactionForm.get('type')?.setValue(TransactionType.ACCOUNT_TRANSFER);
+    component.transactionForm.get('accountNumber')?.setValue(12345678);
+    component.transactionForm.get('toAccountNumber')?.setValue(12345678);
+    
+    expect(component.transactionForm.get('toAccountNumber')?.hasError('sameAccount')).toBe(true);
+    
+    // Change to different account
+    component.transactionForm.get('toAccountNumber')?.setValue(87654321);
+    expect(component.transactionForm.get('toAccountNumber')?.hasError('sameAccount')).toBe(false);
   });
 
   it('should deposit funds when form is submitted', () => {
