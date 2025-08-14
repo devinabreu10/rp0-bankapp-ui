@@ -292,4 +292,26 @@ describe('TransactionComponent', () => {
     expect(component.transactionForm.get(controlName)?.touched).toBeUndefined();
     expect(result).toBeFalse();
   });
+
+  it('should handle error when loading user accounts fails', () => {
+    // Arrange
+    spyOn(console, 'error');
+    const error = new Error('Failed to load user accounts');
+    authServiceSpy.getUsername.and.returnValue('testuser');
+    accountServiceSpy.getAccountsByUsername.and.returnValue(throwError(() => error));
+    const messageService = fixture.debugElement.injector.get<any>(component["messageService"].constructor);
+    spyOn(messageService, 'add');
+
+    // Act
+    component.loadUserAccounts();
+
+    // Assert
+    expect(console.error).toHaveBeenCalledWith('Error loading user accounts:', error);
+    expect(messageService.add).toHaveBeenCalledWith({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Failed to load user accounts',
+    });
+    expect(component.isLoadingAccounts).toBeFalse();
+  });
 });
