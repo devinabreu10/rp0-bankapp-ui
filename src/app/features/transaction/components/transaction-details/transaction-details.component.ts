@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionService } from '../../services/transaction.service';
-import { Transaction } from '../../models/transaction.model';
+import { UnifiedTransactionDetails } from '../../models/transaction.model';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
@@ -12,7 +12,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
   imports: [CurrencyPipe, DatePipe],
 })
 export class TransactionDetailsComponent implements OnInit {
-  transaction!: Transaction;
+  transaction!: UnifiedTransactionDetails;
   loading = true;
   errorMsg = '';
 

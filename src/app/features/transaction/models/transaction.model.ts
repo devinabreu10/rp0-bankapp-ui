@@ -8,3 +8,14 @@ export interface Transaction {
   createdAt: Date;
   accountNumber: number;
 }
+
+export interface UnifiedTransactionDetails {
+  id: number;
+  type: TransactionType;
+  amount: number;
+  notes: string;
+  createdAt: Date;
+  accountNumber: number;
+  itemType: string;
+  additionalDetails: { [key: string]: any };
+}
