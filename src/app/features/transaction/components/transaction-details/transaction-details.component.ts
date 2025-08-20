@@ -23,9 +23,10 @@ export class TransactionDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const type = this.route.snapshot.paramMap.get('type');
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (id) {
-      this.transactionService.getTransactionById(id).subscribe({
+    if (type && id) {
+      this.transactionService.getTransactionById(type, id).subscribe({
         next: (txn) => {
           console.log(txn);
           this.transaction = txn;

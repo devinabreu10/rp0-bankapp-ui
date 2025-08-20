@@ -12,8 +12,8 @@ export class TransactionService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getTransactionById(id: number): Observable<UnifiedTransactionDetails> {
-    return this.http.get<UnifiedTransactionDetails>(`${this.transactionUrl}/get/${id}`);
+  getTransactionById(type: string, id: number): Observable<UnifiedTransactionDetails> {
+    return this.http.get<UnifiedTransactionDetails>(`${this.transactionUrl}/get/${type}/${id}`);
   }
 
   getTransactionsByAcctNo(acctNo: number): Observable<Transaction[]> {
