@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionService } from '../../services/transaction.service';
-import { Transaction } from '../../models/transaction.model';
+import { UnifiedTransactionDetails } from '../../models/transaction.model';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
@@ -12,7 +12,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
   imports: [CurrencyPipe, DatePipe],
 })
 export class TransactionDetailsComponent implements OnInit {
-  transaction!: Transaction;
+  transaction!: UnifiedTransactionDetails;
   loading = true;
   errorMsg = '';
 
@@ -23,9 +23,10 @@ export class TransactionDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const type = this.route.snapshot.paramMap.get('type');
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (id) {
-      this.transactionService.getTransactionById(id).subscribe({
+    if (type && id) {
+      this.transactionService.getTransactionById(type, id).subscribe({
         next: (txn) => {
           console.log(txn);
           this.transaction = txn;

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionDetailsComponent } from './transaction-details.component';
 import { TransactionService } from '../../services/transaction.service';
 import { of, throwError } from 'rxjs';
-import { Transaction } from '../../models/transaction.model';
+import { UnifiedTransactionDetails } from '../../models/transaction.model';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { TransactionType } from '../../models/transaction-type.enum';
 import { provideHttpClient } from '@angular/common/http';
@@ -45,17 +45,28 @@ describe('TransactionDetailsComponent', () => {
   });
 
   it('should fetch transaction on init if id is present', () => {
-    const txn: Transaction = { transactionId: 1, transactionAmount: 100, transactionType: TransactionType.ACCOUNT_DEPOSIT, transactionNotes: 'Test Deposit Transaction', createdAt: new Date(), accountNumber: 123456789 };
+    const txn: UnifiedTransactionDetails = {
+      id: 1,
+      amount: 100,
+      type: TransactionType.ACCOUNT_DEPOSIT,
+      notes: 'Test Deposit Transaction',
+      createdAt: new Date(),
+      accountNumber: 123456789,
+      itemType: 'deposit',
+      additionalDetails: {},
+    };
     spyOn(transactionService, 'getTransactionById').and.returnValue(of(txn));
     component.ngOnInit();
-    expect(transactionService.getTransactionById).toHaveBeenCalledWith(1);
+    expect(transactionService.getTransactionById).toHaveBeenCalledWith('1', 1);
     expect(component.loading).toBeFalse();
     expect(component.transaction).toBe(txn);
     expect(component.errorMsg).toBe('');
   });
 
   it('should handle error if transaction not found', () => {
-    spyOn(transactionService, 'getTransactionById').and.returnValue(throwError(() => new Error('Not found')));
+    spyOn(transactionService, 'getTransactionById').and.returnValue(
+      throwError(() => new Error('Not found')),
+    );
     component.ngOnInit();
     expect(component.loading).toBeFalse();
     expect(component.errorMsg).toBe('Transaction not found.');

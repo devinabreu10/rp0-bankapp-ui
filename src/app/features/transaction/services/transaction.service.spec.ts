@@ -5,7 +5,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideHttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { TransactionType } from '../models/transaction-type.enum';
-import { Transaction } from '../models/transaction.model';
+import { Transaction, UnifiedTransactionDetails } from '../models/transaction.model';
 
 describe('TransactionService', () => {
   let service: TransactionService;
@@ -28,21 +28,23 @@ describe('TransactionService', () => {
   });
 
   it('should get transaction by id', () => {
-    const mockTransaction: Transaction = {
-      transactionId: 1,
-      transactionType: TransactionType.ACCOUNT_DEPOSIT,
-      transactionAmount: 100.0,
-      transactionNotes: 'Test Deposit Transaction',
+    const mockTransaction: UnifiedTransactionDetails = {
+      id: 1,
+      type: TransactionType.ACCOUNT_DEPOSIT,
+      amount: 100.0,
+      notes: 'Test Deposit Transaction',
       createdAt: new Date(),
       accountNumber: 123456789,
+      itemType: 'deposit',
+      additionalDetails: {},
     };
 
-    service.getTransactionById(mockTransaction.transactionId).subscribe((transaction) => {
+    service.getTransactionById('deposit', mockTransaction.id).subscribe((transaction) => {
       expect(transaction).toEqual(mockTransaction);
     });
 
     const req = httpTestingController.expectOne(
-      `${environment.apiUrl}/transaction/get/${mockTransaction.transactionId}`,
+      `${environment.apiUrl}/transaction/get/${mockTransaction.itemType}/${mockTransaction.id}`,
     );
     expect(req.request.method).toBe('GET');
     req.flush(mockTransaction); // Respond with mock data
@@ -102,10 +104,12 @@ describe('TransactionService', () => {
       },
     ];
 
-    service.getTransactionsAndTransfersByCustomerId(mockCustomerId).subscribe((transactions) => {
-      expect(transactions.length).toBe(2);
-      expect(transactions).toEqual(mockTransactions);
-    });
+    service
+      .getTransactionsAndTransfersByCustomerId(mockCustomerId)
+      .subscribe((transactions) => {
+        expect(transactions.length).toBe(2);
+        expect(transactions).toEqual(mockTransactions);
+      });
 
     const req = httpTestingController.expectOne(
       `${environment.apiUrl}/transaction/list/customer/${mockCustomerId}`,
@@ -143,9 +147,11 @@ describe('TransactionService', () => {
       accountNumber: 123456789,
     };
 
-    service.updateTransaction(mockTransaction.transactionId, mockTransaction).subscribe((transaction) => {
-      expect(transaction).toEqual(mockTransaction);
-    });
+    service
+      .updateTransaction(mockTransaction.transactionId, mockTransaction)
+      .subscribe((transaction) => {
+        expect(transaction).toEqual(mockTransaction);
+      });
 
     const req = httpTestingController.expectOne(
       `${environment.apiUrl}/transaction/update/${mockTransaction.transactionId}`,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Transaction } from '../models/transaction.model';
+import { Transaction, UnifiedTransactionDetails } from '../models/transaction.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class TransactionService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getTransactionById(id: number): Observable<Transaction> {
-    return this.http.get<Transaction>(`${this.transactionUrl}/get/${id}`);
+  getTransactionById(type: string, id: number): Observable<UnifiedTransactionDetails> {
+    return this.http.get<UnifiedTransactionDetails>(`${this.transactionUrl}/get/${type}/${id}`);
   }
 
   getTransactionsByAcctNo(acctNo: number): Observable<Transaction[]> {

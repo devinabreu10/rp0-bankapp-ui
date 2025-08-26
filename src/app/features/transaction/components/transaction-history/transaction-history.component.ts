@@ -84,16 +84,16 @@ export class TransactionHistoryComponent implements OnInit {
 
   applyFilters(): Transaction[] {
     let txns = [...this.transactions()];
-    
+
     // Filter by transaction type
     if (this.filterType()) {
       txns = txns.filter((t) => t.transactionType === this.filterType());
     }
-    
+
     // Filter by date range
     if (this.filterDateRange()) {
       const today = new Date();
-      
+
       switch (this.filterDateRange()) {
         case 'today':
           txns = txns.filter((t) => {
@@ -132,7 +132,7 @@ export class TransactionHistoryComponent implements OnInit {
           break;
       }
     }
-    
+
     // Sorting
     txns.sort((a, b) => {
       let valA = a[this.sortField() as keyof Transaction];
@@ -176,7 +176,11 @@ export class TransactionHistoryComponent implements OnInit {
   }
 
   viewDetails(txn: Transaction): void {
-    this.router.navigate(['transactions', txn.transactionId]);
+    this.router.navigate([
+      'transactions',
+      txn.transactionType.substring(8).toLowerCase(),
+      txn.transactionId,
+    ]);
   }
 
   goToAddTransaction(): void {
