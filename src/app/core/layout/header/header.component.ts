@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeToggleButtonComponent } from '../../../shared/components/theme-toggle-button/theme-toggle-button.component';
 import { MobileMenuComponent } from '../../../shared/components/mobile-menu/mobile-menu.component';
@@ -23,7 +23,7 @@ import { UserAuth } from '../../auth/user-auth.model';
   ],
   templateUrl: './header.component.html',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isAuthenticated$ = this.authService.isAuthenticated;
   currentUser$ = this.authService.currentUser;
   items: MenuItem[] | undefined;
