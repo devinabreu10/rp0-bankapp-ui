@@ -40,12 +40,12 @@ describe('CloseAccountDialog', () => {
   });
 
   it('should emit cancel when onCancel is called', () => {
-    const cancelSpy = spyOn(component.cancel, 'emit');
+    const cancelSpy = spyOn(component.cancelChange, 'emit');
 
     component.onCancel();
 
     expect(cancelSpy).toHaveBeenCalled();
-    expect(component.cancel.emit).toHaveBeenCalled();
+    expect(component.cancelChange.emit).toHaveBeenCalled();
   });
 
 });
