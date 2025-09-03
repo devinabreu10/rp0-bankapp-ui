@@ -47,7 +47,7 @@ import { InputTextModule } from 'primeng/inputtext';
 export class CloseAccountDialogComponent {
   accountName: InputSignal<string> = input<string>('');
   confirm: OutputEmitterRef<void> = output<void>();
-  cancel: OutputEmitterRef<void> = output<void>();
+  cancelChange: OutputEmitterRef<void> = output<void>();
   confirmationInput: string = '';
 
   onConfirm(): void {
@@ -57,6 +57,6 @@ export class CloseAccountDialogComponent {
   }
 
   onCancel(): void {
-    this.cancel.emit();
+    this.cancelChange.emit();
   }
 }

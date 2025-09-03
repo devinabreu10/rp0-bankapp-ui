@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
@@ -10,7 +10,7 @@ import { RippleModule } from 'primeng/ripple';
   imports: [RippleModule],
   templateUrl: './page-not-found.component.html',
 })
-export class PageNotFoundComponent {
+export class PageNotFoundComponent implements OnInit {
   constructor(
     private readonly primengConfig: PrimeNGConfig,
     private readonly router: Router,
