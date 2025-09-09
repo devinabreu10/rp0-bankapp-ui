@@ -1,7 +1,7 @@
 services:
   rp0-bankapp-ui:
     build: .
-    image: rp0-bankapp-ui:0.0.0
+    image: rp0-bankapp-ui:1.0.0
     ports:
       - "80:80"
     expose:
